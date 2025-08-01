@@ -1,0 +1,23 @@
+# Ambientes virtuais
+.venv/
+venv/
+
+# Cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dados temporários
+*.db
+*.sqlite3
+*.log
+*.tmp
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos exportados
+*.csv
+*.json
