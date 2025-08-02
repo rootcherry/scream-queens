@@ -2,6 +2,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
+# wikipedia filmography pages
 scream_queens_urls = {
     "Jamie Lee Curtis": "https://en.wikipedia.org/wiki/List_of_Jamie_Lee_Curtis_performances",
     "Neve Campbell": "https://en.wikipedia.org/wiki/Neve_Campbell",
@@ -11,20 +12,28 @@ scream_queens_urls = {
     "Anya Taylor-Joy": "https://en.wikipedia.org/wiki/Anya_Taylor-Joy",
 }
 
+# select an actress to scrape
 html = scream_queens_urls["Jamie Lee Curtis"]
 
+# http request and parse response
 req = requests.get(html)
 bs = BeautifulSoup(req.text, 'html.parser')
 
 # all tables with the class 'wikitable'
 tables = bs.find_all('table', class_=re.compile(r'\bwikitable\b'))
 
+
 # check if exists at least one table
 if tables:
     first_table = tables[0]
-    rows = first_table.find_all('tr')
-    print(f'Total rows: {len(rows)}')
-    print(rows[0].get_text(separator=" | ", strip=True))
+    caption = first_table.find('caption')
+
+    # check for a caption and the word 'film'
+    if caption and 'film' in caption.text.lower():
+        print("Table is related to film.")
+    else:
+        print("First 'wikitable' is not about film.")
+
 else:
     print("No 'wikitable' found on the page.")
 
