@@ -1,7 +1,8 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 
-scream_queens_url = {
+scream_queens_urls = {
     "Jamie Lee Curtis": "https://en.wikipedia.org/wiki/List_of_Jamie_Lee_Curtis_performances",
     "Neve Campbell": "https://en.wikipedia.org/wiki/Neve_Campbell",
     "Florence Pugh": "https://en.wikipedia.org/wiki/Florence_Pugh",
@@ -10,23 +11,22 @@ scream_queens_url = {
     "Anya Taylor-Joy": "https://en.wikipedia.org/wiki/Anya_Taylor-Joy",
 }
 
-movies = []
+html = scream_queens_urls["Jamie Lee Curtis"]
 
-url = scream_queens_url["Jamie Lee Curtis"]
-req = requests.get(url)
+req = requests.get(html)
 bs = BeautifulSoup(req.text, 'html.parser')
 
-# print(bs.find_all('table', {'class': 'wikitable'}))
-table = bs.find_all('table', {'class': 'wikitable'})[0]
+# all tables with the class 'wikitable'
+tables = bs.find_all('table', class_=re.compile(r'\bwikitable\b'))
 
-for row in table.find_all('tr'):
-   columns = row.find_all('td')
-   if columns:
-    data = [col.get_text(strip=True) for col in columns]
-    print(data)
-    movies.append(data)
-
-
+# check if exists at least one table
+if tables:
+    first_table = tables[0]
+    rows = first_table.find_all('tr')
+    print(f'Total rows: {len(rows)}')
+    print(rows[0].get_text(separator=" | ", strip=True))
+else:
+    print("No 'wikitable' found on the page.")
 
 '''
 Actresses:
