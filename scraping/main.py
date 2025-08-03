@@ -1,5 +1,8 @@
-import requests
+import random
 import re
+import time
+
+import requests
 from bs4 import BeautifulSoup
 
 # wikipedia filmography pages
@@ -12,6 +15,9 @@ scream_queens_urls = {
     "Anya Taylor-Joy": "https://en.wikipedia.org/wiki/Anya_Taylor-Joy",
 }
 
+WAIT_TIME_SHORT = (5, 10)
+WAIT_TIME_LONG = (10, 15)
+
 # select an actress to scrape
 html = scream_queens_urls["Jamie Lee Curtis"]
 
@@ -22,6 +28,13 @@ bs = BeautifulSoup(req.text, 'html.parser')
 # all tables with the class 'wikitable'
 tables = bs.find_all('table', class_=re.compile(r'\bwikitable\b'))
 
+# check if movie is horror related
+def is_horror_related(table):
+    links = table.find_all('a', {'href': re.compile('/wiki/')})
+    print(f'Found {len(links)} links')
+    return links
+
+
 # check if exists at least one table
 if tables:
     first_table = tables[0]
@@ -29,6 +42,8 @@ if tables:
 
     # check for a caption and the word 'film'
     if caption and 'film' in caption.text.lower():
+        is_horror_related(first_table)
+
         # loop each row in table
         for row in first_table.find_all('tr'):
             # th/tds
@@ -43,6 +58,12 @@ if tables:
                     print("Title:", title)
                     print("Role:", role)
                     print("-" * 30)
+
+                    # wait
+                    wait_time = random.uniform(
+                        *WAIT_TIME_SHORT) if len(columns) < 3 else random.uniform(*WAIT_TIME_LONG)
+                    print(f"Waiting {wait_time:.2f} seconds...")
+                    time.sleep(wait_time)
     else:
         print("First 'wikitable' is not about film.")
 
