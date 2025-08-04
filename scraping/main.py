@@ -42,73 +42,66 @@ def is_horror_related(url):
     return any(word in text for word in keywords)
 
 
-# example with Jamie
+# example scream queens
 scream_queen_films = {}
-actress = "Jamie Lee Curtis"
-html = scream_queens_urls[actress]
-soup = getPage(html)
 
-if not soup:
-    print("Page not loaded.")
-    exit()
+for actress, html in scream_queens_urls.items():
+    bs = getPage(html)
 
-# find all wikitables
-tables = soup.find_all('table', {'class': 'wikitable'})
-scream_queen_films[actress] = []
+    if not bs:
+        print("Page not loaded for {actress}.")
+        continue
 
-# check if exists at least one table
-if tables:
+    # find all wikitables
+    tables = bs.find_all('table', {'class': 'wikitable'})
+
+    if not tables:
+        print(f"No filmography table found for {actress}")
+        continue
+
+    print(f"\nFilmography table found for {actress}\n")
+
     first_table = tables[0]
-    caption = first_table.find('caption')
+    # track of the last year
+    current_year = None
 
-    # check for a caption and the word 'film'
-    if caption and 'film' in caption.text.lower():
-        print(f'Filmography table found for {actress}')
+    # loop each row in table
+    for row in first_table.find_all('tr'):
+        # th/tds
+        year = row.find('th')
+        columns = row.find_all('td')
 
-        # track of the last year
-        current_year = None
-        # loop each row in table
-        for row in first_table.find_all('tr'):
-            # th/tds
-            year = row.find('th')
-            columns = row.find_all('td')
+        # update current_year if there's a new <th>
+        if year:
+            current_year = year.text.strip()
 
-            # update current_year if there's a new <th>
-            if year:
-                current_year = year.text.strip()
+        if not columns or len(columns) < 2 or not current_year:
+            continue
 
-            # skip rows with no usable data
-            if not columns or len(columns) < 2 or current_year is None:
-                continue
+        title_cell = columns[0]
+        title = title_cell.text.strip()
+        role = columns[1].text.strip()
 
-            title_cell = columns[0]
-            title = title_cell.text.strip()
-            role = columns[1].text.strip()
+        link = title_cell.find('a', href=True)
+        if link:
+            film_url = WIKI_BASE_URL + link['href']
+            if is_horror_related(film_url):
+                film = {
+                    "title": title,
+                    "year": current_year,
+                    "character": role,
+                    "url": film_url
+                }
+                scream_queen_films.setdefault(actress, []).append(film)
 
-            link = title_cell.find('a', href=True)
-
-            if link:
-                film_url = WIKI_BASE_URL + link['href']
-                if is_horror_related(film_url):
-                    film = {
-                        "title": title,
-                        "year": current_year,
-                        "character": role,
-                        "url": film_url
-                    }
-                    scream_queen_films[actress].append(film)
-
-                # wait time
-                time.sleep(random.uniform(*WAIT_TIME_SHORT))
-    else:
-        print("No film table found.")
-else:
-    print("No 'wikitable' found.")
+            # wait time
+            # time.sleep(random.uniform(*WAIT_TIME_SHORT))
 
 # result
-print(f"\n Horror films found for {actress}:")
-for film in scream_queen_films[actress]:
-    print(f"- {film['year']} | {film['title']} as {film['character']}")
+for actress, films in scream_queen_films.items():
+    print(f"\nHorror films found for {actress}:")
+    for film in films:
+        print(f"- {film['year']} | {film['title']} as {film['character']}")
 
 
 '''
