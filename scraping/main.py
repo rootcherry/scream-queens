@@ -17,23 +17,44 @@ scream_queens_urls = {
 
 WAIT_TIME_SHORT = (5, 10)
 WAIT_TIME_LONG = (10, 15)
+WIKI_BASE_URL = 'https://en.wikipedia.org'
 
-# select an actress to scrape
-html = scream_queens_urls["Jamie Lee Curtis"]
 
-# http request and parse response
-req = requests.get(html)
-bs = BeautifulSoup(req.text, 'html.parser')
+def getPage(url):
+    try:
+        req = requests.get(url)
+        req.raise_for_status()
+        return BeautifulSoup(req.text, 'html.parser')
+    except Exception as e:
+        print(f'Error to access {url}: {e}')
+        return None
 
-# all tables with the class 'wikitable'
-tables = bs.find_all('table', class_=re.compile(r'\bwikitable\b'))
 
-# check if movie is horror related
-def is_horror_related(table):
-    links = table.find_all('a', {'href': re.compile('/wiki/')})
-    print(f'Found {len(links)} links')
-    return links
+def is_horror_related(url):
+    bs = getPage(url)
+    if not bs:
+        return False
 
+    keywords = ['horror', 'terror', 'slasher',
+                'thriller', 'supernatural', 'suspense']
+    text = bs.get_text().lower()
+
+    return any(word in text for word in keywords)
+
+
+# example with Jamie
+scream_queen_films = {}
+actress = "Jamie Lee Curtis"
+html = scream_queens_urls[actress]
+soup = getPage(html)
+
+if not soup:
+    print("Page not loaded.")
+    exit()
+
+# find all wikitables
+tables = soup.find_all('table', {'class': 'wikitable'})
+scream_queen_films[actress] = []
 
 # check if exists at least one table
 if tables:
@@ -42,33 +63,53 @@ if tables:
 
     # check for a caption and the word 'film'
     if caption and 'film' in caption.text.lower():
-        is_horror_related(first_table)
+        print(f'Filmography table found for {actress}')
 
+        # track of the last year
+        current_year = None
         # loop each row in table
         for row in first_table.find_all('tr'):
             # th/tds
             year = row.find('th')
             columns = row.find_all('td')
 
-            if year and columns:
-                print("Year:", year.text.strip())
-                if len(columns) >= 2:
-                    title = columns[0].text.strip()
-                    role = columns[1].text.strip()
-                    print("Title:", title)
-                    print("Role:", role)
-                    print("-" * 30)
+            # update current_year if there's a new <th>
+            if year:
+                current_year = year.text.strip()
 
-                    # wait
-                    wait_time = random.uniform(
-                        *WAIT_TIME_SHORT) if len(columns) < 3 else random.uniform(*WAIT_TIME_LONG)
-                    print(f"Waiting {wait_time:.2f} seconds...")
-                    time.sleep(wait_time)
+            # skip rows with no usable data
+            if not columns or len(columns) < 2 or current_year is None:
+                continue
+
+            title_cell = columns[0]
+            title = title_cell.text.strip()
+            role = columns[1].text.strip()
+
+            link = title_cell.find('a', href=True)
+
+            if link:
+                film_url = WIKI_BASE_URL + link['href']
+                if is_horror_related(film_url):
+                    film = {
+                        "title": title,
+                        "year": current_year,
+                        "character": role,
+                        "url": film_url
+                    }
+                    scream_queen_films[actress].append(film)
+
+                # wait time
+                time.sleep(random.uniform(*WAIT_TIME_SHORT))
     else:
-        print("First 'wikitable' is not about film.")
-
+        print("No film table found.")
 else:
-    print("No 'wikitable' found on the page.")
+    print("No 'wikitable' found.")
+
+# result
+print(f"\n Horror films found for {actress}:")
+for film in scream_queen_films[actress]:
+    print(f"- {film['year']} | {film['title']} as {film['character']}")
+
 
 '''
 Actresses:
@@ -80,19 +121,34 @@ Megumi Okina
 Anya Taylor-Joy
 
 Structure:
-const screamQueens = {
-  "Jamie Lee Curtis": {
-    movies: ["Halloween (1978)", "Halloween Kills"],
-    survivals: 5,
-    totalBoxOffice: 450000000,
-    subgenres: ["Slasher"]
-  },
-  "Neve Campbell": {
-    movies: ["Scream", "Scream VI"],
-    survivals: 6,
-    totalBoxOffice: 300000000,
-    subgenres: ["Slasher", "Meta Horror"]
-  }
-};
+Detalhado
+scream_queen_films = {
+    "Jamie Lee Curtis": [
+        {"title": "Halloween", "year": 1978, "character": "Laurie", "url": "..."},
+        {"title": "Halloween Kills", "year": 2021, "character": "Laurie", "url": "..."}
+    ]
+}
+
+Depois
+screamQueens = {
+    "Jamie Lee Curtis": {
+        "movies": ["Halloween (1978)", "Halloween Kills (2021)"],
+        "survivals": 2,  # Isso você define conforme regras
+        "totalBoxOffice": 450000000,  # Se quiser puxar com API
+        "subgenres": ["Slasher"]
+    }
+}
+
+"title": movie name
+"year": year it was released
+"character": name of the character played
+"url": direct link to the movie's wiki
+...
+"genre"
+"country"
+"director"
+
+Keywords:
+keywords = ['horror', 'terror', 'slasher', 'thriller', 'supernatural', 'suspense']
 
 '''
