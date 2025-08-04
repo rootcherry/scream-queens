@@ -17,6 +17,17 @@ def getPage(url):
         return None
 
 
+def find_filmography_table(bs):
+    tables = bs.find_all('table', {'class': 'wikitable'})
+    for table in tables:
+        caption = table.find('caption')
+        if caption and 'film' in caption.text.lower():
+            return table
+    if tables:
+        return tables[0]
+    return None
+
+
 def is_horror_related(url):
     bs = getPage(url)
     if not bs:
