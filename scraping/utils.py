@@ -1,0 +1,67 @@
+import random
+import re
+import time
+
+import requests
+from bs4 import BeautifulSoup
+from config import WAIT_TIME_SHORT, WIKI_BASE_URL, HORROR_KEYWORDS
+
+
+def getPage(url):
+    try:
+        req = requests.get(url)
+        req.raise_for_status()
+        return BeautifulSoup(req.text, 'html.parser')
+    except Exception as e:
+        print(f'Error to access {url}: {e}')
+        return None
+
+
+def is_horror_related(url):
+    bs = getPage(url)
+    if not bs:
+        return False
+
+    text = bs.get_text().lower()
+    return any(word in text for word in HORROR_KEYWORDS)
+
+
+def extract_films_from_table(table):
+    films = []
+    # track of the last year
+    current_year = None
+
+    # loop each row in table
+    for row in table.find_all('tr'):
+        # th/tds
+        year = row.find('th')
+        columns = row.find_all('td')
+
+        # update current_year if there's a new <th>
+        if year:
+            current_year = year.text.strip()
+
+        if not columns or len(columns) < 2 or not current_year:
+            continue
+
+        title_cell = columns[0]
+        title = title_cell.text.strip()
+        role = columns[1].text.strip()
+
+        link = title_cell.find('a', href=True)
+        url = None
+        if link:
+            url = WIKI_BASE_URL + link['href']
+
+        films.append({
+            'title': title,
+            'year': current_year,
+            'character': role,
+            'url': url
+        })
+
+    return films
+
+
+def wait_time():
+    time.sleep(random.uniform(*WAIT_TIME_SHORT))
