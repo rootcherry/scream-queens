@@ -19,7 +19,6 @@ def scrape_films_for_actress(name, url):
     for film in films:
         if film['url'] and is_horror_related(film['url']):
             horror_films.append(film)
-            wait_time()
 
     return horror_films
 
@@ -27,14 +26,24 @@ def scrape_films_for_actress(name, url):
 def main():
     all_films = {}
 
+    # test all actress
     for actress, url in SCREAM_QUEENS_URLS.items():
         horror_films = scrape_films_for_actress(actress, url)
         all_films[actress] = horror_films
 
+        print(f"Horror films found for {actress}:")
+        if not horror_films:
+            print("- None found")
+        else:
+            for film in horror_films:
+                print(
+                    f"- {film['year']} | {film['title']} as {film['character']}")
+
+        wait_time(long=True)
+
+    print("\nResume:")
     for actress, films in all_films.items():
-        print(f"\nHorror films found for {actress}:")
-        for film in films:
-            print(f"- {film['year']} | {film['title']} as {film['character']}")
+        print(f"{actress}: {len(films)} filmes de horror")
 
 
 if __name__ == "__main__":
@@ -62,8 +71,8 @@ Depois
 screamQueens = {
     "Jamie Lee Curtis": {
         "movies": ["Halloween (1978)", "Halloween Kills (2021)"],
-        "survivals": 2,  # Isso você define conforme regras
-        "totalBoxOffice": 450000000,  # Se quiser puxar com API
+        "survivals": 2,
+        "totalBoxOffice": 450000000,
         "subgenres": ["Slasher"]
     }
 }
