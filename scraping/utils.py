@@ -18,23 +18,35 @@ def getPage(url):
 
 
 def find_filmography_table(bs):
-    tables = bs.find_all('table', {'class': 'wikitable'})
-    for table in tables:
-        caption = table.find('caption')
-        if caption and 'film' in caption.text.lower():
+    headers = bs.find_all('h2', 'h3')
+    for header in headers:
+        if header.text and 'film' in header.text.lower():
+            next_tag = header.find_next_sibling()
+            while next_tag:
+                if next_tag.name == 'table':
+                    return next_tag
+                next_tag = next_tag.find_next_sibling()
+
+    for table in bs.find_all('table'):
+        headers = table.find_all('th')
+        column_names = [h.get_text(strip=True).lower() for h in headers]
+        if any('year' in c for c in column_names) and any('title' in c for c in column_names):
             return table
-    if tables:
-        return tables[0]
+
     return None
 
 
 def is_horror_related(url):
     bs = getPage(url)
+
     if not bs:
         return False
 
-    text = bs.get_text().lower()
-    return any(word in text for word in HORROR_KEYWORDS)
+    lead_paragraphs = bs.find_all('p')[:3]
+    lead_text = " ".join(p.get_text() for p in lead_paragraphs).lower()
+
+    pattern = r'\b(' + '|'.join(HORROR_KEYWORDS) + r')\b'
+    return bool(re.search(pattern, lead_text))
 
 
 def extract_films_from_table(table):
@@ -48,7 +60,7 @@ def extract_films_from_table(table):
         year = row.find('th')
         columns = row.find_all('td')
 
-        # update current_year if there's a new <th>
+        # update curr_year if there's a new <th>
         if year:
             current_year = year.text.strip()
 
