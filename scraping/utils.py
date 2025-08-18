@@ -6,12 +6,19 @@ import requests
 from bs4 import BeautifulSoup
 from config import WAIT_TIME_SHORT, WIKI_BASE_URL, HORROR_KEYWORDS
 
+page_cache = {}
+
 
 def getPage(url):
+    if url in page_cache:
+        return page_cache[url]
+
     try:
         req = requests.get(url)
         req.raise_for_status()
-        return BeautifulSoup(req.text, 'html.parser')
+        bs = BeautifulSoup(req.text, 'html.parser')
+        page_cache[url] = bs
+        return bs
     except Exception as e:
         print(f'Error to access {url}: {e}')
         return None
