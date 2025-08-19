@@ -41,6 +41,7 @@ def getPage(url):
 
 
 def find_filmography_table(bs):
+    # headers first (h2, h3) with "film" keyword
     headers = bs.find_all('h2', 'h3')
     for header in headers:
         if header.text and 'film' in header.text.lower():
@@ -50,6 +51,7 @@ def find_filmography_table(bs):
                     return next_tag
                 next_tag = next_tag.find_next_sibling()
 
+    # check all tables for columns year/title
     for table in bs.find_all('table'):
         headers = table.find_all('th')
         column_names = [h.get_text(strip=True).lower() for h in headers]
@@ -65,9 +67,11 @@ def is_horror_related(url):
     if not bs:
         return False
 
+    #  first 3 paragraphs
     lead_paragraphs = bs.find_all('p')[:3]
     lead_text = " ".join(p.get_text() for p in lead_paragraphs).lower()
 
+    # check for horror keywords
     pattern = r'\b(' + '|'.join(HORROR_KEYWORDS) + r')\b'
     return bool(re.search(pattern, lead_text))
 
