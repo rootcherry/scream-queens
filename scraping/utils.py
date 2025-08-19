@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from config import WAIT_TIME_SHORT, WAIT_TIME_LONG, WIKI_BASE_URL, HORROR_KEYWORDS
 
+# page cache to avoid lots of reqs
 page_cache = {}
 
 # wiki headers
@@ -109,7 +110,5 @@ def extract_films_from_table(table):
 
 
 def wait_time(long=False):
-    if long:
-        time.sleep(random.uniform(*WAIT_TIME_LONG))
-    else:
-        time.sleep(random.uniform(*WAIT_TIME_SHORT))
+    delay = WAIT_TIME_LONG if long else WAIT_TIME_SHORT
+    time.sleep(random.uniform(*delay))

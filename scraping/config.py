@@ -5,9 +5,13 @@ SCREAM_QUEENS_URLS = {
     "Anya Taylor-Joy": "https://en.wikipedia.org/wiki/Anya_Taylor-Joy",
 }
 
+# waiting between reqs (in sec)
 WAIT_TIME_SHORT = (5, 10)
 WAIT_TIME_LONG = (10, 15)
+
+# base wikipedia URL
 WIKI_BASE_URL = 'https://en.wikipedia.org'
 
+# keywords - horror related films
 HORROR_KEYWORDS = ['horror', 'terror', 'slasher',
                    'thriller', 'supernatural', 'suspense']

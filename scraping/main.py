@@ -41,9 +41,9 @@ def main():
 
         wait_time(long=True)
 
-    print("\nResume:")
+    print("\nSummary:")
     for actress, films in all_films.items():
-        print(f"{actress}: {len(films)} filmes de horror")
+        print(f"{actress}: {len(films)} horror films")
 
 
 if __name__ == "__main__":
@@ -89,4 +89,14 @@ screamQueens = {
 Keywords:
 keywords = ['horror', 'terror', 'slasher', 'thriller', 'supernatural', 'suspense']
 
+fields - JSON
+(essentials)
+name
+films (year, title, character)
+stats (horror_count(num horror films), survived_count(how many times survived), career_span(years active in horror))
+(useful)
+films (subgenre, survived)
+(optional)
+box_office
+stats (box_office_total(box office receipts))
 '''
