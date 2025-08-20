@@ -1,43 +1,4 @@
-import random
-import re
-import time
-
-import requests
-from bs4 import BeautifulSoup
-from config import WAIT_TIME_SHORT, WAIT_TIME_LONG, WIKI_BASE_URL, HORROR_KEYWORDS
-
-# page cache to avoid lots of reqs
-page_cache = {}
-
-# wiki headers
-HEADERS_WIKI = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/115.0 Safari/537.36"
-    ),
-    "Accept-Language": "en-US,en;q=0.9",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Connection": "keep-alive",
-}
-
-
-def getPage(url):
-    if url in page_cache:
-        return page_cache[url]
-
-    try:
-        req = requests.get(url, headers=HEADERS_WIKI, timeout=10)
-        req.raise_for_status()
-        bs = BeautifulSoup(req.text, 'html.parser')
-        page_cache[url] = bs
-
-        wait_time()
-
-        return bs
-    except Exception as e:
-        print(f'Error to access {url}: {e}')
-        return None
+from config import WIKI_BASE_URL
 
 
 def find_filmography_table(bs):
@@ -59,21 +20,6 @@ def find_filmography_table(bs):
             return table
 
     return None
-
-
-def is_horror_related(url):
-    bs = getPage(url)
-
-    if not bs:
-        return False
-
-    #  first 3 paragraphs
-    lead_paragraphs = bs.find_all('p')[:3]
-    lead_text = " ".join(p.get_text() for p in lead_paragraphs).lower()
-
-    # check for horror keywords
-    pattern = r'\b(' + '|'.join(HORROR_KEYWORDS) + r')\b'
-    return bool(re.search(pattern, lead_text))
 
 
 def extract_films_from_table(table):
@@ -111,8 +57,3 @@ def extract_films_from_table(table):
         })
 
     return films
-
-
-def wait_time(long=False):
-    delay = WAIT_TIME_LONG if long else WAIT_TIME_SHORT
-    time.sleep(random.uniform(*delay))

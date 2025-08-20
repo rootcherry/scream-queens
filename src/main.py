@@ -1,10 +1,8 @@
-import json
-import os
-
 from config import SCREAM_QUEENS_URLS
-from utils import getPage, find_filmography_table, extract_films_from_table, is_horror_related, wait_time
-
-RAW_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'raw')
+from fetch import getPage
+from parse import find_filmography_table, extract_films_from_table
+from filters import is_horror_related
+from utils import save_raw_json, wait_time
 
 
 def scrape_films_for_actress(name, url):
@@ -63,17 +61,6 @@ def scrape_films_for_actress(name, url):
             "career_span": career_span  # first/last year of horror films
         }
     }
-
-
-def save_raw_json(name, data):
-    os.makedirs(RAW_PATH, exist_ok=True)
-    filename = f"{name.lower().replace(' ', '_')}.json"
-    filepath = os.path.join(RAW_PATH, filename)
-
-    with open(filepath, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
-
-    print(f"Saved raw data: {filepath}")
 
 
 def main():
