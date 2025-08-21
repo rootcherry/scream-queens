@@ -2,7 +2,7 @@ from config import SCREAM_QUEENS_URLS
 from fetch import getPage
 from parse import find_filmography_table, extract_films_from_table
 from filters import is_horror_related
-from utils import save_raw_json, wait_time
+from utils import save_raw_json, save_processed_json, wait_time
 
 
 def scrape_films_for_actress(name, url):
@@ -13,7 +13,7 @@ def scrape_films_for_actress(name, url):
     bs = getPage(url)
     if not bs:
         print(f"Failed to load page for {name}")
-        return []
+        return {}
 
     # try to locate filmography table
     table = find_filmography_table(bs)
@@ -43,12 +43,11 @@ def scrape_films_for_actress(name, url):
     # build list of film dictionaries
     films_data = []
     for film in horror_films:
-        film_entry = {
+        films_data.append({
             "year": int(film["year"]) if film["year"].isdigit() else film["year"],
             "title": film["title"],
             "character": film["character"]
-        }
-        films_data.append(film_entry)
+        })
 
     # return structured data - JSON
     return {
@@ -69,63 +68,18 @@ def main():
     for actress, url in SCREAM_QUEENS_URLS.items():
         actress_data = scrape_films_for_actress(actress, url)
         if actress_data:
+            # save raw JSON p actress
             save_raw_json(actress, actress_data)
             all_actresses_data.append(actress_data)
 
         wait_time(long=True)
 
+    # save processed JSON
+    if all_actresses_data:
+        save_processed_json(all_actresses_data)
+
+    print("Scraping finished. raw n processed data saved.")
+
 
 if __name__ == "__main__":
     main()
-
-'''
-Actresses:
-Jamie Lee Curtis
-Neve Campbell
-Florence Pugh
-Vera Farmiga
-Megumi Okina
-Anya Taylor-Joy
-
-Structure:
-Detalhado
-scream_queen_films = {
-    "Jamie Lee Curtis": [
-        {"title": "Halloween", "year": 1978, "character": "Laurie", "url": "..."},
-        {"title": "Halloween Kills", "year": 2021, "character": "Laurie", "url": "..."}
-    ]
-}
-
-Depois
-screamQueens = {
-    "Jamie Lee Curtis": {
-        "movies": ["Halloween (1978)", "Halloween Kills (2021)"],
-        "survivals": 2,
-        "totalBoxOffice": 450000000,
-        "subgenres": ["Slasher"]
-    }
-}
-
-"title": movie name
-"year": year it was released
-"character": name of the character played
-"url": direct link to the movie's wiki
-...
-"genre"
-"country"
-"director"
-
-Keywords:
-keywords = ['horror', 'terror', 'slasher', 'thriller', 'supernatural', 'suspense']
-
-fields - JSON
-(essentials)
-name
-films (year, title, character)
-stats (horror_count(num horror films), survived_count(how many times survived), career_span(years active in horror))
-(useful)
-films (subgenre, survived)
-(optional)
-box_office
-stats (box_office_total(box office receipts))
-'''

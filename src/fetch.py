@@ -26,12 +26,17 @@ def getPage(url):
     try:
         req = requests.get(url, headers=HEADERS_WIKI, timeout=10)
         req.raise_for_status()
+
+        # parse page
         bs = BeautifulSoup(req.text, 'html.parser')
 
+        # cache page
         page_cache[url] = bs
-        wait_time()
 
+        # scraping delay
+        wait_time()
         return bs
+
     except Exception as e:
-        print(f'Error to access {url}: {e}')
+        print(f'Failed to fetch {url}: {e}')
         return None
