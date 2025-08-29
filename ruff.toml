@@ -1,0 +1,6 @@
+line-length = 88
+indent-width = 2
+target-version = "py312"
+
+# enable some useful rules
+select = ["E", "F", "W", "C"]  # errors, failures, warnings, conventions
