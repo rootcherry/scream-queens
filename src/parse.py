@@ -1,121 +1,106 @@
 import re
-
 from config import WIKI_BASE_URL
 
 
+# remove citations [1] n trim extra spaces
 def clean_text(text):
-    # remove citation brackets n trims whitespace
     if not text:
         return ""
     return re.sub(r"\[\d+\]", "", text).strip()
 
 
+# extract year if present"""
 def extract_year(text):
-    # extracts a 4 digit year if present
-    match = re.search(r"\b(19|20)\d{2}\b", text)
-    return int(match.group()) if match else None
+    match = re.search(r"\b(19|20)\d{2}\b", str(text))
+    return int(match.group()) if match else 0  # return 0 if no year found
 
 
+# remove leading year n symbols from titles
 def extract_title(text):
-    # removes leading year n returns the cleaned film title
     return re.sub(r"^\(?\d{4}\)?\s*[-–—:]?\s*", "", text).strip()
 
 
-def find_filmography_section(bs):
-    # "Films" or "Filmography" sections
-    films_head = bs.find(id=re.compile(r'^(Films?|Feature_films?)$', re.I))
-    if films_head:
-        return films_head.find_parent(['h2', 'h3', 'h4'])
+# locate the Film or Filmography section
+def find_filmography_section(page):
+    # first try by section id
+    section = page.find(id=re.compile(
+        r'^(Films?|Feature_films?|Filmography)$', re.I))
+    if section:
+        return section.find_parent(['h2', 'h3', 'h4'])
 
-    filmog_head = bs.find(id=re.compile(r'^Filmography$', re.I))
-    if filmog_head:
-        return filmog_head.find_parent(['h2', 'h3', 'h4'])
-
-    # find any header containing "film"
-    for header in bs.find_all(['h2', 'h3', 'h4']):
+    # fallback: search headers w the word "film"
+    for header in page.find_all(['h2', 'h3', 'h4']):
         if "film" in header.get_text(" ", strip=True).lower():
             return header
-
     return None
 
 
+# extract films from a filmography table
 def extract_from_table(table):
-    # extracts films from a structured table layout
     films = []
-    current_year = None
+    last_year = None
+    last_role = None
 
     for row in table.find_all("tr"):
-        # detect year in the row
-        year = None
-        for td in row.find_all("td"):
-            t = td.get_text(strip=True)
-            if re.fullmatch(r"\d{4}", t):
-                year = t
-                break
+        cells = row.find_all(["th", "td"])
+        if not cells:
+            continue
+
+        # year
+        year_cell = cells[0].get_text(strip=True)
+        year = extract_year(year_cell)
         if year:
-            current_year = year
+            last_year = year
+            data_index = 1  # title is usually after year
+        else:
+            data_index = 0  # reuse previous year if rowspan
 
-        if not current_year:
-            continue
-
-        # locate film title cell
-        title_cell = row.find("th", attrs={"scope": "row"})
-        if not title_cell:
-            title_cell = row.find("i") or row.find("td")
-            if title_cell and not hasattr(title_cell, "get_text"):
-                title_cell = None
-
+        # title
+        title_cell = cells[data_index] if len(cells) > data_index else None
         if not title_cell:
             continue
-
         title = clean_text(title_cell.get_text(" ", strip=True))
         if not title:
             continue
 
-        # film URL (if available)
+        # url
         link = title_cell.find("a", href=True)
         url = WIKI_BASE_URL + link["href"] if link else None
 
-        # locate character/role column
-        role_text = None
-        role_td = None
-        if title_cell.name == "th":
-            role_td = title_cell.find_next_sibling("td")
-        if not role_td and title_cell.name == "i" and title_cell.parent and title_cell.parent.name in ("th", "td"):
-            role_td = title_cell.parent.find_next_sibling("td")
-        if not role_td:
-            # choose first non-year <td> if nothing else found
-            tds = row.find_all("td")
-            candidates = [td for td in tds if not re.fullmatch(
-                r"\d{4}", td.get_text(strip=True))]
-            if candidates:
-                role_td = candidates[0]
-        if role_td:
-            role_text = clean_text(role_td.get_text(" ", strip=True)) or None
+        # role/character
+        role = None
+        if len(cells) > data_index + 1:
+            role_cell = cells[data_index + 1]
+            role_text = clean_text(role_cell.get_text(" ", strip=True))
+            if role_text:
+                last_role = role_text
+        role = last_role
 
+        # append to list
         films.append({
             "title": title,
-            "year": int(current_year),
-            "character": role_text,
+            "year": last_year,
+            "character": role,
             "url": url
         })
 
     return films
 
 
-def extract_from_lists(start_section):
-    # extracts films from <ul> lists when no table exists
-    section = start_section.find_next("ul")
-    if not section:
+# extract films from <ul> lists under the filmography section
+def extract_from_lists(section):
+    ul = section.find_next("ul")
+    if not ul:
         return []
 
     films = []
-    for li in section.find_all("li", recursive=False):
+    for li in ul.find_all("li", recursive=False):
         text = li.get_text(" ", strip=True)
         year = extract_year(text)
         if not year:
             continue
 
+        # extract title n url if available
         link = li.find("a", href=True)
         title = link.get_text(strip=True) if link else extract_title(text)
         url = WIKI_BASE_URL + link["href"] if link else None
@@ -130,36 +115,48 @@ def extract_from_lists(start_section):
     return films
 
 
-def extract_fallback_tables(bs):
-    # looks for any wikitable with Year + Title columns
+# search for any table that has Year + Title/Film columns
+def extract_fallback_tables(page):
     films = []
-    for table in bs.find_all("table"):
+    for table in page.find_all("table"):
         headers = [h.get_text(strip=True).lower()
                    for h in table.find_all("th")]
-        if any("year" in h for h in headers) and (any("title" in h for h in headers) or any("film" in h for h in headers)):
+        if any("year" in h for h in headers) and (
+            any("title" in h for h in headers) or any(
+                "film" in h for h in headers)
+        ):
             films.extend(extract_from_table(table))
     return films
 
 
-def extract_films(bs):
-    # try filmography section then tables n lists
-    section = find_filmography_section(bs)
-    if section:
-        # try tables first
-        next_table = section.find_next("table")
-        if next_table:
-            films = extract_from_table(next_table)
-            if films:
-                return films
+# extract filmes from wiki filmography(table/list) n fallback
+def extract_films(page):
+    section = find_filmography_section(page)
 
-        # try lists in this section
+    # 1: try to extract from main filmography table
+    if section:
+        table = section.find_next("table")
+        if table:
+            films = extract_from_table(table)
+            if films:
+                return sort_films(films)
+
+        # 2: try extracting from <ul> lists
         films = extract_from_lists(section)
         if films:
-            return films
+            return sort_films(films)
 
-    # parse any table with Year + Title columns
-    films = extract_fallback_tables(bs)
-    if films:
-        return films
+    # fallback: search for any suitable table in the page
+    films = extract_fallback_tables(page)
+    return sort_films(films)
 
-    return []
+
+# return the film year or 0 if missing
+def get_film_year(film):
+    return film["year"] or 0
+
+
+# sort films by year in ascending order
+def sort_films(films):
+    films.sort(key=get_film_year)
+    return films
