@@ -23,8 +23,9 @@ def save_raw_json(name, data):
 
 
 def save_processed_json(data, filename="scream_queens.json"):
-    processed_path = os.path.join(os.path.dirname(
-        __file__), '..', 'data', 'processed')
+    processed_path = os.path.join(
+        os.path.dirname(__file__), '..', 'data', 'processed'
+    )
     os.makedirs(processed_path, exist_ok=True)
     filepath = os.path.join(processed_path, filename)
 
