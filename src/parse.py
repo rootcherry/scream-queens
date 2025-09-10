@@ -204,19 +204,72 @@ def extract_from_lists(section):
 # extract films from a wiki filmography page
 def extract_films(page):
     films = []
+
+    # default table
     table = get_film_table(page)
     if table:
         films = extract_from_table(table)
         if films:
             return sort_films(films)
 
+    # section Filmography
     section = page.find(id=re.compile(r"(Filmography|Film)", re.I))
     if section:
         films = extract_from_lists(section)
         if films:
             return sort_films(films)
 
+    # fallback (megumi/yuko)
+    films_fallback = extract_films_fallback(page)
+    if films_fallback:
+        films = films + films_fallback
+        films = deduplicate_films(films)
+        return sort_films(films)
+
+    # return the final list (even if empty)
     return sort_films(films)
+
+# fallback ul/li
+def extract_films_fallback(page):
+    films = []
+
+    # find all relevant headings
+    headings = page.find_all(re.compile("^h[2-3]$"))
+    for heading in headings:
+        if re.search(r"Filmography|Films|Film", heading.get_text(), re.I):
+            # get the first <ul> after the heading
+            for ul in heading.find_all_next("ul", limit=1):
+                for li in ul.find_all("li", recursive=False):
+                    text = li.get_text(" ", strip=True)
+
+                    # skip unreleased or future films
+                    if is_unreleased_or_future(text):
+                        continue
+
+                    # extract year, title, n link
+                    year = extract_year(text) or None
+                    link = li.find("a", href=True)
+                    title = link.get_text(strip=True) if link else extract_title(text)
+                    url = WIKI_BASE_URL + link["href"] if link else None
+
+                    films.append({
+                        "title": clean_text(title),
+                        "year": year,
+                        "character": None,
+                        "url": url
+                    })
+    return films
+
+# remove dupluclate films (title/year)
+def deduplicate_films(films):
+    seen = set()
+    unique = []
+    for film in films:
+        key = (film['title'], film['year'])
+        if key not in seen:
+            seen.add(key)
+            unique.append(film)
+    return unique
 
 # sort films by year helper
 def get_film_year(film):
