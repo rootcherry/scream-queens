@@ -9,7 +9,7 @@ SCREAM_QUEENS_URLS = {
     # "Sarah Michelle Gellar": "https://en.wikipedia.org/wiki/Sarah_Michelle_Gellar",
     # "Danielle Harris": "https://en.wikipedia.org/wiki/Danielle_Harris",
     # "Toni Collette": "https://en.wikipedia.org/wiki/Toni_Collette",
-    # "Anya Taylor-Joy": "https://en.wikipedia.org/wiki/Anya_Taylor-Joy",
+     "Anya Taylor-Joy": "https://en.wikipedia.org/wiki/Anya_Taylor-Joy",
     # "Florence Pugh": "https://en.wikipedia.org/wiki/Florence_Pugh",
     # "Samara Weaving": "https://en.wikipedia.org/wiki/Samara_Weaving",
     # "Vera Farmiga": "https://en.wikipedia.org/wiki/Vera_Farmiga",
