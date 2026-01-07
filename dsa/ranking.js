@@ -1,6 +1,6 @@
-import loadData from "./utils/dataLoader.js";
+import loadScreamQueens from "./utils/dataLoader.js";
 
-const screamQueens = loadData();
+const screamQueens = loadScreamQueens();
 
 // Build ranking by number of horror films
 const getFilmRanking = (data) => {
