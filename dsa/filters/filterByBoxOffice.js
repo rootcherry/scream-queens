@@ -8,3 +8,5 @@ const filterByBoxOffice = (index, minValue) => {
     })
   );
 };
+
+export default filterByBoxOffice;
