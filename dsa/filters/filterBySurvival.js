@@ -1,4 +1,4 @@
-const filteredBySurvival = (index) => {
+const filterBySurvival = (index) => {
   return new Map(
     [...index].filter(
       ([_, profile]) =>
