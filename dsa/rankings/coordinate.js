@@ -1,3 +1,29 @@
+import filtersRegistry from "../filters/filtersRegistry.js";
+
+const coordinate = (index, filters) => {
+  // start with full index (Map)
+  let currentIndex = index;
+
+  // for each filter config:
+  for (const filter of filters) {
+    const { type, params } = filter;
+
+    // apply corresponding filter to current index
+    const filterFn = filtersRegistry[type];
+
+    if (!filterFn) {
+      throw new Error(`Unknown filter: ${type}`);
+    }
+
+    // update index after applying filter
+    currentIndex = filterFn(currentIndex, params);
+  }
+  // return ranked result
+  return currentIndex;
+};
+
+export default coordinate;
+
 const testIndex = new Map([
   [
     "Megumi Okina",
@@ -12,10 +38,6 @@ const testIndex = new Map([
   ],
 ]);
 
-const coordinate = (index, filters, ranking) => {
-  // start with full index (Map)
-  // for each filter config:
-  //   apply corresponding filter to current index
-  // select ranking function based on ranking config
-  // return ranked result
-};
+const filters = [{ type: "filmCount", params: 3 }];
+
+console.log(coordinate(testIndex, filters));
