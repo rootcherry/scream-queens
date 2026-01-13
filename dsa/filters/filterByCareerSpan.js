@@ -9,3 +9,5 @@ const filterByCareerSpan = (index, minYears) => {
     })
   );
 };
+
+export default filterByCareerSpan;

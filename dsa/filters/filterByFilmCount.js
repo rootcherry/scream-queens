@@ -7,3 +7,5 @@ const filterByFilmCount = (index, minFilms) => {
 
   return new Map(filteredEntries);
 };
+
+export default filterByFilmCount;

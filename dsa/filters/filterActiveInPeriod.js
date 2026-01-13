@@ -14,3 +14,5 @@ const filterActiveInPeriod = (index, startYear, endYear) => {
     })
   );
 };
+
+export default filterActiveInPeriod;
