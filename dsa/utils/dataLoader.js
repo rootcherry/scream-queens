@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const filePath = path.join(
   __dirname,
-  "../../data/processed/scream_queens.json"
+  "../../data/processed/processed_scream_queens_clean.json"
 );
 
 const loadScreamQueensData = () => {
