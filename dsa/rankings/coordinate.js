@@ -20,12 +20,19 @@ const coordinate = (index, filters, ranking) => {
     currentIndex = filterFn(currentIndex, params);
   }
 
+  // no ranking provided: return filtered Map
+  if (!ranking) {
+    return currentIndex;
+  }
+
   // apply ranking
   const rankingFn = rankingsRegistry[ranking.type];
-  const result = rankingFn(currentIndex, ranking.order);
 
-  // return ranked result
-  return result;
+  if (!rankingFn) {
+    throw new Error(`Unknown ranking: ${ranking.type}`);
+  }
+
+  return rankingFn(currentIndex, ranking.order);
 };
 
 export default coordinate;
