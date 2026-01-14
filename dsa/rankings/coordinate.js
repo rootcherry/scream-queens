@@ -1,6 +1,7 @@
 import filtersRegistry from "../filters/filtersRegistry.js";
+import rankingsRegistry from "./rankingsRegistry.js";
 
-const coordinate = (index, filters) => {
+const coordinate = (index, filters, ranking) => {
   // start with full index (Map)
   let currentIndex = index;
 
@@ -18,8 +19,13 @@ const coordinate = (index, filters) => {
     // update index after applying filter
     currentIndex = filterFn(currentIndex, params);
   }
+
+  // apply ranking
+  const rankingFn = rankingsRegistry[ranking.type];
+  const result = rankingFn(currentIndex, ranking.order);
+
   // return ranked result
-  return currentIndex;
+  return result;
 };
 
 export default coordinate;
@@ -38,6 +44,15 @@ const testIndex = new Map([
   ],
 ]);
 
-const filters = [{ type: "filmCount", params: 3 }];
+const filters = [
+  { type: "filmCount", params: 3 },
+  { type: "boxOffice", params: 100 },
+  // !=== number ({ type: "filmCount", params: { min: 3 } })
+];
 
-console.log(coordinate(testIndex, filters));
+const ranking = {
+  type: "boxOffice",
+  order: "desc",
+};
+
+console.log(coordinate(testIndex, filters, ranking));

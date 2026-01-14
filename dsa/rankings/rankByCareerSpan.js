@@ -1,12 +1,14 @@
-import filterByCareerSpan from "../filters/filterByCareerSpan.js";
-
-const rankByCareerSpan = (index, minYears) => {
-  return [...filterByCareerSpan(index, minYears)]
+const rankByCareerSpan = (index, order = "desc") => {
+  return [...index]
     .map(([name, profile]) => ({
       name,
       career_span: profile.stats.career_span,
     }))
-    .sort((a, b) => b.career_span - a.career_span);
+    .sort((a, b) =>
+      order === "desc"
+        ? b.career_span - a.career_span
+        : a.career_span - b.career_span
+    );
 };
 
 export default rankByCareerSpan;
