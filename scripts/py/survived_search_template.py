@@ -9,7 +9,7 @@ with open(PROCESSED_JSON_PATH, 'r') as f:
 
 # iterate over each actress in the list
 for actress in data:
-    print(f'{actress['name']}')
+    print(f"{actress['name']}")
     name = actress["name"]
     films = actress.get("films", [])
 

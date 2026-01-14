@@ -1,9 +1,9 @@
+from pathlib import Path
 import json
-import os
 
-# paths
-PROCESSED_FILE = "../data/processed/processed_scream_queens.json"
-OUTPUT_FILE = "../data/processed/survived_data.json"
+BASE_DIR = Path(__file__).resolve().parents[2]
+PROCESSED_FILE = BASE_DIR / "data" / "processed" / "processed_scream_queens.json"
+OUTPUT_FILE = BASE_DIR / "data" / "processed" / "survived_data.json"
 
 # load processed data
 with open(PROCESSED_FILE, "r", encoding="utf-8") as f:
@@ -33,8 +33,9 @@ for actress in actresses:
     })
 
 # save the result
-os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
-with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+with OUTPUT_FILE.open("w", encoding="utf-8") as f:
     json.dump(survived_data, f, ensure_ascii=False, indent=4)
+
 
 print(f"Saved survived data to {OUTPUT_FILE}")
