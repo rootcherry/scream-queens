@@ -5,9 +5,9 @@ const screamQueens = loadScreamQueens();
 // Build ranking by number of horror films
 const getFilmRanking = (data) => {
   return data
-    .map(({ name, stats }) => ({
+    .map(({ name, films, stats }) => ({
       name,
-      films: stats.horror_count,
+      films: films.length,
       survived: stats.survived_count,
     }))
     .sort((a, b) => b.films - a.films);
