@@ -1,19 +1,19 @@
 # Scream Queens — Módulo Horrorverse
 
-Scream Queens é um módulo do projeto Horrorverse, focado na coleta,
-processamento e análise de dados sobre atrizes do cinema de terror.
+Scream Queens é um módulo do projeto Horrorverse, focado na coleta, processamento e análise de dados sobre atrizes do cinema de terror.
 
-O projeto separa claramente o pipeline de dados (Python) da análise
-e aplicação de lógica (JavaScript).
+O projeto separa claramente o pipeline de dados (Python) da análise e aplicação de lógica (JavaScript), seguindo uma abordagem simples e organizada.
 
 ---
 
 ## Objetivo
 
-- coletar dados reais de filmografias
-- normalizar e validar essas informações
-- gerar um arquivo JSON processado
-- aplicar filtros e rankings usando estruturas de dados
+* Coletar dados reais de filmografias
+* Normalizar e validar essas informações
+* Gerar um arquivo JSON processado
+* Aplicar filtros e rankings utilizando estruturas de dados
+
+O foco do projeto é arquitetura, clareza e evolução incremental.
 
 ---
 
@@ -21,10 +21,9 @@ e aplicação de lógica (JavaScript).
 
 Fluxo de dados:
 
-Web / APIs
-→ Python (scraping e processamento)
-→ JSON processado (contrato de dados)
-→ JavaScript (filtros e rankings)
+Web / APIs → Python (scraping e processamento) → JSON processado → JavaScript (filtros e rankings)
+
+O JSON processado funciona como um contrato de dados entre o Python e o JavaScript.
 
 ---
 
@@ -32,15 +31,17 @@ Web / APIs
 
 Responsável por:
 
-- scraping de filmografias
-- enriquecimento de dados via OMDb API
-- filtragem inicial
-- normalização
-- validação dos dados
+* Scraping de filmografias
+* Enriquecimento via OMDb API
+* Filtragem inicial
+* Normalização de campos
+* Validação da estrutura final
 
 Arquivo final gerado:
 
-data/processed/processed_scream_queens_clean.json
+`data/processed/processed_scream_queens_clean.json`
+
+Esse arquivo não contém lógica de análise, apenas dados organizados.
 
 ---
 
@@ -48,31 +49,32 @@ data/processed/processed_scream_queens_clean.json
 
 Responsável por:
 
-- carregar o JSON processado
-- indexar dados utilizando Map
-- aplicar filtros
-- gerar rankings ordenados
+* Carregar o JSON processado
+* Indexar dados utilizando Map
+* Aplicar filtros puros
+* Gerar rankings ordenados
+
+Não há scraping ou chamadas externas nessa etapa.
 
 ---
 
 ## Estrutura do Projeto
 
+```
 scream-queens/
 ├── data/
-│ ├── raw/
-│ └── processed/
+│   ├── raw/
+│   └── processed/
 ├── src/
 ├── scripts/
-│ └── py/
+│   └── py/
 ├── dsa/
-│ ├── utils/
-│ ├── filters/
-│ ├── rankings/
-│ └── runRanking.js
+│   ├── utils/
+│   ├── filters/
+│   ├── rankings/
+│   └── runRanking.js
 └── README.md
-
-yaml
-Copy code
+```
 
 ---
 
@@ -80,43 +82,53 @@ Copy code
 
 ### Pipeline Python
 
+Ative o ambiente virtual e execute o pipeline:
+
+```
 source .venv/bin/activate
 python src/omdb_ok.py
+```
 
-shell
-Copy code
+O JSON final será salvo em `data/processed`.
 
-### Executar rankings
+### Executar Rankings (Node.js)
 
+Os rankings podem ser executados via terminal:
+
+```
 node dsa/runRanking.js filmCount desc 10
 node dsa/runRanking.js careerSpan desc 10
 node dsa/runRanking.js boxOffice desc 10
+```
 
-yaml
-Copy code
+Formato geral:
+
+```
+node dsa/runRanking.js <ranking> <asc|desc> <limit>
+```
 
 ---
 
 ## Rankings Disponíveis
 
-- filmCount — quantidade de filmes
-- careerSpan — intervalo da carreira
-- boxOffice — métricas de bilheteria
-- survival — sobrevivência dos personagens
+* filmCount — quantidade de filmes
+* careerSpan — intervalo da carreira
+* boxOffice — métricas de bilheteria
+* survival — sobrevivência dos personagens
 
 ---
 
 ## Observações
 
-- O dataset inicial é pequeno de propósito
-- O foco é arquitetura e fluxo de dados
-- Expansões e refinamentos serão feitos posteriormente
+* O dataset inicial é pequeno de propósito
+* O foco é validar arquitetura e fluxo
+* Expansões e refinamentos serão feitos posteriormente
+* O projeto foi desenvolvido com commits pequenos e incrementais
 
 ---
 
 ## Sobre o Horrorverse
 
-Horrorverse é um projeto em evolução voltado para análise de dados
-e sistemas relacionados ao cinema de terror.
+Horrorverse é um projeto em evolução voltado para análise de dados e sistemas relacionados ao cinema de terror.
 
-O módulo Scream Queens representa a primeira entrega completa.
+O módulo Scream Queens representa a primeira entrega completa desse universo.
