@@ -44,3 +44,14 @@ src/cache/
 # IDE/editor config
 .vscode/
 .idea/
+
+# Node
+node_modules/
+
+# Local SQLite artifacts (WAL mode)
+data/db/*.sqlite3-wal
+data/db/*.sqlite3-shm
+data/db/*.sqlite-wal
+data/db/*.sqlite-shm
+data/db/*.db-wal
+data/db/*.db-shm
