@@ -1,13 +1,7 @@
-import rankingsRegistry from "./rankings/rankingsRegistry.js";
-import loadScreamQueens from "./utils/dataLoader.js";
+// 1) Load data from SQLite (Map: name -> { films: [...] })
+const index = loadFromSQLite();
 
-// 1) Load data (array)
-const data = loadScreamQueens();
-
-// 2) Build index (Map: name -> profile)
-const index = new Map(data.map(({ name, ...profile }) => [name, profile]));
-
-// 3) Read CLI args: node dsa/runRanking.js filmCount [desc|asc] [limit]
+// 2) Read CLI args: node dsa/runRanking.js filmCount [desc|asc] [limit]
 const rankingKey = process.argv[2];
 const order = process.argv[3] || "desc";
 const limit = Number(process.argv[4] || 10);
