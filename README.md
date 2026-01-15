@@ -65,43 +65,40 @@ Responsável por:
 
 ## 📂 Estrutura do Projeto
 
+```
 scream-queens/
 ├── data/
-│ ├── raw/
-│ └── processed/
+│   ├── raw/
+│   └── processed/
 ├── src/
 ├── scripts/
-│ └── py/
+│   └── py/
 ├── dsa/
-│ ├── utils/
-│ ├── filters/
-│ ├── rankings/
-│ └── runRanking.js
+│   ├── utils/
+│   ├── filters/
+│   ├── rankings/
+│   └── runRanking.js
 └── README.md
-
-yaml
-Copy code
+```
 
 ---
 
 ## ▶️ Como Executar
 
-Pipeline Python:
+### 1️⃣ Pipeline Python
 
+```
 source .venv/bin/activate
 python src/omdb_ok.py
+```
 
-yaml
-Copy code
+### 2️⃣ Executar Rankings (Node.js)
 
-Executar rankings:
-
+```
 node dsa/runRanking.js filmCount desc 10
 node dsa/runRanking.js careerSpan desc 10
 node dsa/runRanking.js boxOffice desc 10
-
-yaml
-Copy code
+```
 
 ---
 
