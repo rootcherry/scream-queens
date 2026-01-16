@@ -47,6 +47,14 @@ router.get("/:id", (req, res) => {
 // Get all films for a scream queen
 router.get("/:id/films", (req, res) => {
   const id = Number(req.params.id);
+
+  const order = req.query.order === "asc" ? "ASC" : "DESC";
+
+  const limitRaw = req.query.limit;
+  const limit = Number.isFinite(Number(limitRaw))
+    ? Math.max(1, Math.min(100, Number(limitRaw)))
+    : 10;
+
   if (!Number.isInteger(id) || id <= 0) {
     return res.status(400).json({ error: "Invalid id" });
   }
@@ -74,7 +82,8 @@ router.get("/:id/films", (req, res) => {
     FROM appearances a
     JOIN movies m ON a.movie_id = m.id
     WHERE a.scream_queen_id = ?
-    ORDER BY m.year ASC, m.title ASC
+    ORDER BY m.year ${order}, m.title ${order}
+    LIMIT ${limit}
   `
       )
       .all(id);
