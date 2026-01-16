@@ -60,7 +60,7 @@ router.get("/:id/films", (req, res) => {
   }
 
   try {
-    // Primeiro checamos se a queen existe
+    // First check if the scream queen exists
     const queen = db
       .prepare("SELECT id, name FROM scream_queens WHERE id = ?")
       .get(id);
@@ -69,29 +69,43 @@ router.get("/:id/films", (req, res) => {
       return res.status(404).json({ error: "Not found" });
     }
 
-    // Agora buscamos os filmes dela
+    // Total number of films for this queen (without LIMIT)
+    const totalRow = db
+      .prepare(
+        `
+      SELECT COUNT(*) as total
+      FROM appearances a
+      WHERE a.scream_queen_id = ?
+    `
+      )
+      .get(id);
+
+    const total = totalRow?.total ?? 0;
+
+    // Paginated films list (with LIMIT)
     const films = db
       .prepare(
         `
-    SELECT
-      m.id,
-      m.title,
-      m.year,
-      m.imdb_id,
-      m.box_office
-    FROM appearances a
-    JOIN movies m ON a.movie_id = m.id
-    WHERE a.scream_queen_id = ?
-    ORDER BY m.year ${order}, m.title ${order}
-    LIMIT ${limit}
-  `
+      SELECT
+        m.id,
+        m.title,
+        m.year,
+        m.imdb_id,
+        m.box_office
+      FROM appearances a
+      JOIN movies m ON a.movie_id = m.id
+      WHERE a.scream_queen_id = ?
+      ORDER BY m.year ${order}, m.title ${order}
+      LIMIT ${limit}
+    `
       )
       .all(id);
 
     res.json({
       queen,
       films,
-      count: films.length,
+      total,
+      returned: films.length,
     });
   } catch (err) {
     console.error(err);
