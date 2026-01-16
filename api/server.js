@@ -1,16 +1,29 @@
-import rankingsRegistry from "../dsa/rankings/rankingsRegistry.js";
-import loadFromSQLite from "../src/db/sqliteLoader.js";
+import { join } from "path";
 
 import express from "express";
+import Database from "better-sqlite3";
+
+import rankingsRegistry from "../dsa/rankings/rankingsRegistry.js";
+import loadFromSQLite from "../src/db/sqliteLoader.js";
 
 const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
+const dbPath = join(process.cwd(), "data/db/horrorverse.sqlite3");
+const db = new Database(dbPath, { readonly: true });
+
 // Health check
 app.get("/health", (req, res) => {
   res.json({ ok: true });
+});
+
+// List all available rankings
+app.get("/rankings", (req, res) => {
+  res.json({
+    available: Object.keys(rankingsRegistry),
+  });
 });
 
 // Rankings endpoint
@@ -45,11 +58,18 @@ app.get("/rankings/:key", (req, res) => {
   }
 });
 
-// List all available rankings
-app.get("/rankings", (req, res) => {
-  res.json({
-    available: Object.keys(rankingsRegistry),
-  });
+// List all scream queens from DB
+app.get("/scream-queens", (req, res) => {
+  try {
+    const rows = db
+      .prepare("SELECT id, name FROM scream_queens ORDER BY name ASC")
+      .all();
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.listen(PORT, () => {
