@@ -44,4 +44,50 @@ router.get("/:id", (req, res) => {
   }
 });
 
+// Get all films for a scream queen
+router.get("/:id/films", (req, res) => {
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+
+  try {
+    // Primeiro checamos se a queen existe
+    const queen = db
+      .prepare("SELECT id, name FROM scream_queens WHERE id = ?")
+      .get(id);
+
+    if (!queen) {
+      return res.status(404).json({ error: "Not found" });
+    }
+
+    // Agora buscamos os filmes dela
+    const films = db
+      .prepare(
+        `
+    SELECT
+      m.id,
+      m.title,
+      m.year,
+      m.imdb_id,
+      m.box_office
+    FROM appearances a
+    JOIN movies m ON a.movie_id = m.id
+    WHERE a.scream_queen_id = ?
+    ORDER BY m.year ASC, m.title ASC
+  `
+      )
+      .all(id);
+
+    res.json({
+      queen,
+      films,
+      count: films.length,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 export default router;
