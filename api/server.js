@@ -45,6 +45,13 @@ app.get("/rankings/:key", (req, res) => {
   }
 });
 
+// List all available rankings
+app.get("/rankings", (req, res) => {
+  res.json({
+    available: Object.keys(rankingsRegistry),
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);
 });
