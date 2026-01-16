@@ -21,4 +21,27 @@ router.get("/", (req, res) => {
   }
 });
 
+// Get a single scream queen by id
+router.get("/:id", (req, res) => {
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+
+  try {
+    const row = db
+      .prepare("SELECT id, name FROM scream_queens WHERE id = ?")
+      .get(id);
+
+    if (!row) {
+      return res.status(404).json({ error: "Not found" });
+    }
+
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 export default router;
