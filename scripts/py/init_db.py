@@ -42,6 +42,18 @@ def create_tables(conn: sqlite3.Connection) -> None:
         );
     """)
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS jobs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            job_type TEXT NOT NULL,
+            queen_id INTEGER,
+            status TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            finished_at TEXT
+        );
+    """)
+
+
     conn.commit()
 
 
