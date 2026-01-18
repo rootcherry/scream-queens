@@ -2,6 +2,7 @@ import express from "express";
 
 import rankingsRoutes from "./routes/rankings.js";
 import screamQueensRoutes from "./routes/screamQueens.js";
+import jobsRoutes from "./routes/jobs.js";
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,7 @@ app.get("/health", (req, res) => {
 // Mount routes
 app.use("/rankings", rankingsRoutes);
 app.use("/scream-queens", screamQueensRoutes);
+app.use("/jobs", jobsRoutes);
 
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);
