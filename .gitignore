@@ -55,3 +55,6 @@ data/db/*.sqlite-wal
 data/db/*.sqlite-shm
 data/db/*.db-wal
 data/db/*.db-shm
+
+# tmux local artifacts (if any)
+*.tmux
