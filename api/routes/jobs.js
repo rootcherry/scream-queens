@@ -43,6 +43,52 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET /jobs/:id
+// Goal: return ONE job from SQLite using its id
+router.get("/:id", async (req, res) => {
+  // STEP 1: read id from the URL and convert to number
+  const id = Number.parseInt(req.params.id, 10);
+
+  // STEP 2: basic validation to avoid invalid input
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "Invalid job id" });
+  }
+
+  try {
+    // STEP 3: open read-only connection to SQLite
+    const db = openDb();
+
+    // STEP 4: fetch one job from the jobs table
+    const job = db
+      .prepare(
+        `
+        SELECT
+          id,
+          job_type,
+          queen_id,
+          status,
+          created_at,
+          finished_at
+        FROM jobs
+        WHERE id = ?
+        `,
+      )
+      .get(id);
+
+    // STEP 5: handle "not found"
+    if (!job) {
+      return res.status(404).json({ error: "Job not found" });
+    }
+
+    // STEP 6: return the job to the client
+    res.json(job);
+  } catch (err) {
+    // STEP 7: catch unexpected errors
+    console.error(err);
+    res.status(500).json({ error: "Failed to load job" });
+  }
+});
+
 // POST /jobs/recompute
 router.post("/recompute", async (req, res) => {
   const { queenId } = req.body;
