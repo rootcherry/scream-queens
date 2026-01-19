@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+err() { printf "ERROR: %s\n" "$*" >&2; }
+
+command -v git >/dev/null 2>&1 || { err "git not found in PATH"; exit 1; }
+
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [[ -z "${REPO_ROOT}" ]]; then
+  err "Run this inside the Horrorverse repository (cannot determine repo root)."
+  exit 1
+fi
+
+BOOTSTRAP="${REPO_ROOT}/scripts/start_horrorverse.sh"
+if [[ ! -x "${BOOTSTRAP}" ]]; then
+  err "Bootstrap script not executable: ${BOOTSTRAP}"
+  err "Try: chmod +x scripts/start_horrorverse.sh"
+  exit 1
+fi
+
+exec "${BOOTSTRAP}"
