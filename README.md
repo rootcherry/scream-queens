@@ -1,134 +1,253 @@
-# Scream Queens — Módulo Horrorverse
+# 🎃 Horrorverse (Scream Queens) 🧛‍♀️
 
-Scream Queens é um módulo do projeto Horrorverse, focado na coleta, processamento e análise de dados sobre atrizes do cinema de terror.
+A **backend-first data project** that combines data engineering, DSA in JavaScript, REST APIs, and message queues to process and serve information about “Scream Queens” in horror cinema.
 
-O projeto separa claramente o pipeline de dados (Python) da análise e aplicação de lógica (JavaScript), seguindo uma abordagem simples e organizada.
-
----
-
-## Objetivo
-
-* Coletar dados reais de filmografias
-* Normalizar e validar essas informações
-* Gerar um arquivo JSON processado
-* Aplicar filtros e rankings utilizando estruturas de dados
-
-O foco do projeto é arquitetura, clareza e evolução incremental.
+This project was built locally on **Linux**, using **Python, Node.js, SQLite, Express, RabbitMQ, and tmux automation**.
 
 ---
 
-## Arquitetura do Projeto
+## 🎯 What this project does
 
-Fluxo de dados:
+Horrorverse currently provides:
 
-Web / APIs → Python (scraping e processamento) → JSON processado → JavaScript (filtros e rankings)
-
-O JSON processado funciona como um contrato de dados entre o Python e o JavaScript.
-
----
-
-## Pipeline de Dados (Python)
-
-Responsável por:
-
-* Scraping de filmografias
-* Enriquecimento via OMDb API
-* Filtragem inicial
-* Normalização de campos
-* Validação da estrutura final
-
-Arquivo final gerado:
-
-`data/processed/processed_scream_queens_clean.json`
-
-Esse arquivo não contém lógica de análise, apenas dados organizados.
+* A **Python data pipeline** that scrapes and cleans data into structured JSON.
+* A **local SQLite database** as the source of truth.
+* A **Map-based DSA layer in JavaScript** for rankings and filters.
+* A **REST API (Express)** that reads directly from SQLite.
+* An **asynchronous job system** using **RabbitMQ + Python worker**.
+* A **one-command dev environment** using **tmux**.
 
 ---
 
-## Análise e Rankings (JavaScript / DSA)
-
-Responsável por:
-
-* Carregar o JSON processado
-* Indexar dados utilizando Map
-* Aplicar filtros puros
-* Gerar rankings ordenados
-
-Não há scraping ou chamadas externas nessa etapa.
-
----
-
-## Estrutura do Projeto
+## 🧱 High-level architecture
 
 ```
-scream-queens/
+Pipeline (Python)
+        ↓
+Processed JSON
+        ↓
+SQLite (horrorverse.sqlite3)
+        ↓
+DSA (Node + Maps)   →   Express API
+                            ↓
+                      RabbitMQ Queue
+                            ↓
+                        Python Worker
+                            ↓
+                         Jobs Table
+```
+
+---
+
+## ✅ Prerequisites
+
+You need to have installed:
+
+* Node.js 20+
+* Python 3.12+
+* Docker & docker-compose
+* tmux
+* xclip (optional, for clipboard support in tmux)
+
+---
+
+## 🚀 Quick start (recommended)
+
+From the project root:
+
+```bash
+./bin/horrorverse
+```
+
+This will open a tmux session named **horrorverse** with 6 windows:
+
+1. **project** – main working directory
+2. **git** – for commits and status
+3. **api** – runs `npm run dev`
+4. **worker** – runs the Python RabbitMQ worker
+5. **docker** – starts RabbitMQ + shows logs
+6. **client** – for curl/sqlite tests
+
+To exit tmux without stopping services:
+
+```
+Ctrl + b, then d
+```
+
+To return:
+
+```bash
+tmux a -t horrorverse
+```
+
+---
+
+## 🛠️ Manual start (without tmux)
+
+If you **do not have tmux** or prefer a simple terminal setup, you can start everything in separate terminals:
+
+### 1) Start RabbitMQ (Docker)
+
+```bash
+docker-compose up -d
+```
+
+### 2) Start the API
+
+```bash
+npm run dev
+```
+
+(keeps running on [http://localhost:3000](http://localhost:3000))
+
+### 3) Start the Python worker
+
+```bash
+source .venv/bin/activate
+python src/worker/worker.py
+```
+
+You can then use `curl` from any terminal exactly as shown in the examples below.
+
+---
+
+## 🌐 API Endpoints
+
+> The examples below use `| jq` for readability (optional).
+> You can omit `| jq` if you don’t have it installed.
+
+### Health
+
+```bash
+GET /health
+```
+
+### Rankings
+
+```bash
+GET /rankings
+GET /rankings/:key
+```
+
+Example:
+
+```bash
+curl -s http://localhost:3000/rankings/filmCount | jq
+```
+
+### Scream Queens
+
+```bash
+GET /scream-queens
+GET /scream-queens/:id
+GET /scream-queens/:id/films?order=desc&limit=10
+```
+
+Example:
+
+```bash
+curl -s "http://localhost:3000/scream-queens/1/films?order=desc&limit=5" | jq
+```
+
+### Jobs (asynchronous processing)
+
+Enqueue a job:
+
+```bash
+curl -X POST http://localhost:3000/jobs/recompute \
+  -H "Content-Type: application/json" \
+  -d '{"queenId": 1}'
+```
+
+List recent jobs:
+
+```bash
+curl -s http://localhost:3000/jobs | jq
+```
+
+Get one job by id:
+
+```bash
+curl -s http://localhost:3000/jobs/1 | jq
+```
+
+---
+
+## 🐇 RabbitMQ
+
+RabbitMQ runs in Docker and is available at:
+
+```
+http://localhost:15672
+```
+
+Default credentials:
+
+* user: **guest**
+* password: **guest**
+
+Queue used by the project:
+
+```
+horrorverse_jobs
+```
+
+---
+
+## 🗄️ Database
+
+Local SQLite database:
+
+```
+data/db/horrorverse.sqlite3
+```
+
+Key tables:
+
+* `scream_queens`
+* `movies`
+* `appearances`
+* `jobs` (queue persistence)
+
+You can inspect it with:
+
+```bash
+sqlite3 data/db/horrorverse.sqlite3
+```
+
+---
+
+## 📁 Project structure (simplified)
+
+```
+.
+├── api/
+│   └── routes/
+├── src/
+│   ├── db/
+│   ├── queue/
+│   └── worker/
+├── scripts/py/
 ├── data/
 │   ├── raw/
-│   └── processed/
-├── src/
-├── scripts/
-│   └── py/
-├── dsa/
-│   ├── utils/
-│   ├── filters/
-│   ├── rankings/
-│   └── runRanking.js
-└── README.md
+│   ├── processed/
+│   └── db/
+├── docker-compose.yml
+├── bin/horrorverse
+└── scripts/start_horrorverse.sh
 ```
 
 ---
 
-## Como Executar
+## 📌 What’s next (roadmap)
 
-### Pipeline Python
+Possible next steps:
 
-Ative o ambiente virtual e execute o pipeline:
-
-```
-source .venv/bin/activate
-python src/omdb_ok.py
-```
-
-O JSON final será salvo em `data/processed`.
-
-### Executar Rankings (Node.js)
-
-Os rankings podem ser executados via terminal:
-
-```
-node dsa/runRanking.js filmCount desc 10
-node dsa/runRanking.js careerSpan desc 10
-node dsa/runRanking.js boxOffice desc 10
-```
-
-Formato geral:
-
-```
-node dsa/runRanking.js <ranking> <asc|desc> <limit>
-```
+* Add **ESLint + Prettier** (code quality + formatting)
+* Make the worker **actually recompute stats** in SQLite
+* Add **API tests** with Jest + Supertest
+* Improve SQL queries and indexes
 
 ---
 
-## Rankings Disponíveis
-
-* filmCount — quantidade de filmes
-* careerSpan — intervalo da carreira
-* boxOffice — métricas de bilheteria
-* survival — sobrevivência dos personagens
-
----
-
-## Observações
-
-* O dataset inicial é pequeno de propósito
-* O foco é validar arquitetura e fluxo
-* Expansões e refinamentos serão feitos posteriormente
-* O projeto foi desenvolvido com commits pequenos e incrementais
-
----
-
-## Sobre o Horrorverse
-
-Horrorverse é um projeto em evolução voltado para análise de dados e sistemas relacionados ao cinema de terror.
-
-O módulo Scream Queens representa a primeira entrega completa desse universo.
+Made with ☕, 🐍, and 🎃
