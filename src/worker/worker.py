@@ -1,5 +1,6 @@
 import json
 import sqlite3
+import time
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -14,26 +15,76 @@ DB_PATH = Path("data/db/horrorverse.sqlite3")
 
 
 def utc_now_iso() -> str:
+    # Ex: 2026-01-22T14:12:33+00:00
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def insert_job_record(job_type: str, queen_id: int | None, status: str, created_at: str) -> int:
-    conn = sqlite3.connect(DB_PATH)
+def get_conn() -> sqlite3.Connection:
+    conn = sqlite3.connect(str(DB_PATH))
     conn.execute("PRAGMA foreign_keys = ON;")
+    return conn
 
+
+def create_job(job_type: str, queen_id: int | None, created_at: str) -> int:
+    """
+    Create a new job in SQLite with status 'queued'.
+    (Worker V2: we will transition queued -> running -> completed/failed)
+    """
+    conn = get_conn()
     cur = conn.cursor()
     cur.execute(
         """
-        INSERT INTO jobs (job_type, queen_id, status, created_at, finished_at)
-        VALUES (?, ?, ?, ?, ?);
+        INSERT INTO jobs (job_type, queen_id, status, created_at)
+        VALUES (?, ?, ?, ?);
         """,
-        (job_type, queen_id, status, created_at, utc_now_iso()),
+        (job_type, queen_id, "queued", created_at),
     )
     conn.commit()
     job_id = int(cur.lastrowid)
     conn.close()
-
     return job_id
+
+
+def mark_job_running(job_id: int) -> None:
+    conn = get_conn()
+    conn.execute(
+        """
+        UPDATE jobs
+        SET status = ?, started_at = ?
+        WHERE id = ?;
+        """,
+        ("running", utc_now_iso(), job_id),
+    )
+    conn.commit()
+    conn.close()
+
+
+def mark_job_completed(job_id: int) -> None:
+    conn = get_conn()
+    conn.execute(
+        """
+        UPDATE jobs
+        SET status = ?, finished_at = ?
+        WHERE id = ?;
+        """,
+        ("completed", utc_now_iso(), job_id),
+    )
+    conn.commit()
+    conn.close()
+
+
+def mark_job_failed(job_id: int, message: str) -> None:
+    conn = get_conn()
+    conn.execute(
+        """
+        UPDATE jobs
+        SET status = ?, finished_at = ?, error = ?
+        WHERE id = ?;
+        """,
+        ("failed", utc_now_iso(), message[:1000], job_id),
+    )
+    conn.commit()
+    conn.close()
 
 
 def main() -> int:
@@ -45,12 +96,14 @@ def main() -> int:
 
     channel.queue_declare(queue=QUEUE_NAME, durable=True)
 
-    print(f"🐇 Worker connected. Waiting for messages on '{QUEUE_NAME}'...")
+    print(f"Worker connected. Waiting for messages on '{QUEUE_NAME}'...")
+
 
     def on_message(ch, method, properties, body: bytes) -> None:
+        job_id: int | None = None
         try:
             payload = json.loads(body.decode("utf-8"))
-            print("✅ Received job:")
+            print("Received job:")
             print(json.dumps(payload, indent=2))
 
             job_type = str(payload.get("type", "UNKNOWN"))
@@ -59,18 +112,30 @@ def main() -> int:
             raw_queen_id = payload.get("payload", {}).get("queenId")
             queen_id = int(raw_queen_id) if isinstance(raw_queen_id, int) else None
 
-            job_id = insert_job_record(
-                job_type=job_type,
-                queen_id=queen_id,
-                status="completed",
-                created_at=created_at,
-            )
+            # 1) Create job as queued (persist first!)
+            job_id = create_job(job_type=job_type, queen_id=queen_id, created_at=created_at)
+            print(f"Created job in SQLite: id={job_id} status=queued")
 
-            print(f"🗄️  Stored job in SQLite: id={job_id}")
+            # 2) Mark running
+            mark_job_running(job_id)
+            print(f"Job running: id={job_id}")
+
+            # 3) Do real work later. For V2-min, just simulate work.
+            time.sleep(1)
+
+            # 4) Mark completed
+            mark_job_completed(job_id)
+            print(f"Job completed: id={job_id}")
 
         except Exception as exc:
-            print("❌ Worker failed:", exc)
+            print("Worker failed:", exc)
             print("Raw body:", body)
+
+            # If we managed to create the job, mark it failed too.
+            if job_id is not None:
+                mark_job_failed(job_id, str(exc))
+                print(f"Job failed recorded: id={job_id}")
+
         finally:
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
