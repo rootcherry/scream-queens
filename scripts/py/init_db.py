@@ -49,7 +49,9 @@ def create_tables(conn: sqlite3.Connection) -> None:
             queen_id INTEGER,
             status TEXT NOT NULL,
             created_at TEXT NOT NULL,
-            finished_at TEXT
+            started_at TEXT,
+            finished_at TEXT,
+            error TEXT
         );
     """)
 
