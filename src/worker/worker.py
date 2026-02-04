@@ -87,6 +87,69 @@ def mark_job_failed(job_id: int, message: str) -> None:
     conn.close()
 
 
+def recompute_stats_for_queen(queen_id: int) -> None:
+    # Real work: compute derived stats from appearances + movies and persist them.
+
+    conn = get_conn()
+
+    row = conn.execute(
+        """
+        SELECT
+          COUNT(*) AS movies_count,
+          COALESCE(SUM(COALESCE(m.box_office, 0)), 0) AS box_office_total,
+          SUM(CASE WHEN m.box_office IS NOT NULL THEN 1 ELSE 0 END) AS box_office_known_count,
+          MIN(m.year) AS first_movie_year,
+          MAX(m.year) AS last_movie_year
+        FROM appearances a
+        JOIN movies m ON m.id = a.movie_id
+        WHERE a.scream_queen_id = ?;
+        """,
+        (queen_id,),
+    ).fetchone()
+
+    movies_count = int(row[0])
+    box_office_total = int(row[1])
+    box_office_known_count = int(row[2])
+    first_movie_year = row[3]
+    last_movie_year = row[4]
+
+    conn.execute(
+        """
+        INSERT INTO queen_stats (
+          scream_queen_id, movies_count, box_office_total, box_office_known_count,
+          first_movie_year, last_movie_year, recomputed_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(scream_queen_id) DO UPDATE SET
+          movies_count = excluded.movies_count,
+          box_office_total = excluded.box_office_total,
+          box_office_known_count = excluded.box_office_known_count,
+          first_movie_year = excluded.first_movie_year,
+          last_movie_year = excluded.last_movie_year,
+          recomputed_at = excluded.recomputed_at;
+        """,
+        (
+            queen_id,
+            movies_count,
+            box_office_total,
+            box_office_known_count,
+            first_movie_year,
+            last_movie_year,
+            utc_now_iso(),
+        ),
+    )
+
+    conn.commit()
+    conn.close()
+
+    print(
+        "Recomputed stats:",
+        f"queen_id={queen_id}",
+        f"movies_count={movies_count}",
+        f"box_office_total={box_office_total}",
+    )
+
+
 def main() -> int:
     credentials = pika.PlainCredentials(RABBIT_USER, RABBIT_PASS)
     params = pika.ConnectionParameters(host=RABBIT_HOST, credentials=credentials)
@@ -121,7 +184,16 @@ def main() -> int:
             print(f"Job running: id={job_id}")
 
             # 3) Do real work later. For V2-min, just simulate work.
-            time.sleep(1)
+            # time.sleep(1)
+            # 3) Do real work (V2 real)
+            if job_type == "RECOMPUTE_STATS":
+                if queen_id is None:
+                    raise ValueError("queenId is required for RECOMPUTE_STATS")
+                recompute_stats_for_queen(queen_id)
+            else:
+                # For unknown job types, fail fast (keeps status trustworthy).
+                raise ValueError(f"Unsupported job type: {job_type}")
+
 
             # 4) Mark completed
             mark_job_completed(job_id)
