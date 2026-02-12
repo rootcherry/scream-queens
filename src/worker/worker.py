@@ -105,11 +105,11 @@ def recompute_stats_for_queen(queen_id: int) -> None:
         (queen_id,),
     ).fetchone()
 
-    movies_count = int(row[0])
-    box_office_total = int(row[1])
-    box_office_known_count = int(row[2])
-    first_movie_year = row[3]
-    last_movie_year = row[4]
+    movies_count = int(row[0] or 0)
+    box_office_total = int(row[1] or 0)
+    box_office_known_count = int(row[2] or 0)
+    first_movie_year = row[3]  # or None
+    last_movie_year = row[4]  # or None
 
     conn.execute(
         """
