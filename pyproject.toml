@@ -1,11 +1,11 @@
 [tool.black]
 line-length = 88
-target-version = ["py311"]
+target-version = ["py312"]
 skip-string-normalization = true
 
 [tool.ruff]
 line-length = 88
-indent-width = 2
+indent-width = 4
 select = ["E", "F", "W"]
 ignore = ["E501"]
 fix = true

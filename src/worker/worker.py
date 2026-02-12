@@ -1,8 +1,7 @@
 import json
 import sqlite3
-import time
-from pathlib import Path
 from datetime import datetime, timezone
+from pathlib import Path
 
 import pika
 
@@ -89,7 +88,6 @@ def mark_job_failed(job_id: int, message: str) -> None:
 
 def recompute_stats_for_queen(queen_id: int) -> None:
     # Real work: compute derived stats from appearances + movies and persist them.
-
     conn = get_conn()
 
     row = conn.execute(
@@ -161,9 +159,9 @@ def main() -> int:
 
     print(f"Worker connected. Waiting for messages on '{QUEUE_NAME}'...")
 
-
     def on_message(ch, method, properties, body: bytes) -> None:
         job_id: int | None = None
+
         try:
             payload = json.loads(body.decode("utf-8"))
             print("Received job:")
@@ -172,28 +170,33 @@ def main() -> int:
             job_type = str(payload.get("type", "UNKNOWN"))
             created_at = str(payload.get("createdAt", utc_now_iso()))
 
-            raw_queen_id = payload.get("payload", {}).get("queenId")
-            queen_id = int(raw_queen_id) if isinstance(raw_queen_id, int) else None
+            raw_payload = payload.get("payload") or {}
+            raw_queen_id = raw_payload.get("queenId")
+
+            queen_id: int | None = None
+            if raw_queen_id is not None:
+                try:
+                    queen_id = int(raw_queen_id)
+                except (TypeError, ValueError) as exc:
+                    raise ValueError(f"Invalid queenId: {raw_queen_id!r}") from exc
 
             # 1) Create job as queued (persist first!)
-            job_id = create_job(job_type=job_type, queen_id=queen_id, created_at=created_at)
-            print(f"Created job in SQLite: id={job_id} status=queued")
+            job_id = create_job(
+                job_type=job_type, queen_id=queen_id, created_at=created_at
+            )
+            print(f"Job created: id={job_id} status=queued")
 
             # 2) Mark running
             mark_job_running(job_id)
             print(f"Job running: id={job_id}")
 
-            # 3) Do real work later. For V2-min, just simulate work.
-            # time.sleep(1)
-            # 3) Do real work (V2 real)
+            # 3) Do real work
             if job_type == "RECOMPUTE_STATS":
                 if queen_id is None:
                     raise ValueError("queenId is required for RECOMPUTE_STATS")
                 recompute_stats_for_queen(queen_id)
             else:
-                # For unknown job types, fail fast (keeps status trustworthy).
                 raise ValueError(f"Unsupported job type: {job_type}")
-
 
             # 4) Mark completed
             mark_job_completed(job_id)
@@ -203,12 +206,12 @@ def main() -> int:
             print("Worker failed:", exc)
             print("Raw body:", body)
 
-            # If we managed to create the job, mark it failed too.
             if job_id is not None:
                 mark_job_failed(job_id, str(exc))
                 print(f"Job failed recorded: id={job_id}")
 
         finally:
+            # V2-5: on failure we will nack/requeue instead of ack
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
     channel.basic_qos(prefetch_count=1)
