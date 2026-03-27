@@ -4,23 +4,32 @@ import { openDb } from "../../src/db/db.js";
 
 const router = express.Router();
 
+// Helper function to safely clamp numeric values like query limits
 const clampLimit = (value, defaultValue = 20, maxValue = 100) => {
   const n = Number.parseInt(value, 10);
-  if (Number.isNaN(n)) return defaultValue;
-  if (n <= 0) return defaultValue;
+
+  // If value is not a number or invalid, fallback to default
+  if (Number.isNaN(n) || n <= 0) return defaultValue;
+
+  // Ensure value does not exceed maxValue
   return Math.min(n, maxValue);
 };
 
-// GET /jobs?limit=20
+// =========================
+// GET /jobs
+// List all jobs with optional limit
+// =========================
 router.get("/", async (req, res) => {
   const limit = clampLimit(req.query.limit, 20, 100);
 
   try {
     const db = openDb();
 
+    // Get total count of jobs
     const totalRow = db.prepare("SELECT COUNT(*) AS total FROM jobs").get();
     const total = totalRow?.total ?? 0;
 
+    // Fetch most recent jobs, limited by query parameter
     const items = db
       .prepare(
         `
@@ -43,53 +52,86 @@ router.get("/", async (req, res) => {
   }
 });
 
+// =========================
 // GET /jobs/:id
-// Goal: return ONE job from SQLite using its id
+// Return a single job by its ID
+// =========================
 router.get("/:id", async (req, res) => {
-  // STEP 1: read id from the URL and convert to number
   const id = Number.parseInt(req.params.id, 10);
 
-  // STEP 2: basic validation to avoid invalid input
+  // Validate input
   if (!Number.isInteger(id) || id <= 0) {
     return res.status(400).json({ error: "Invalid job id" });
   }
 
   try {
-    // STEP 3: open read-only connection to SQLite
     const db = openDb();
 
-    // STEP 4: fetch one job from the jobs table
+    // Fetch job by ID
     const job = db
       .prepare(
         `
-        SELECT
-          id,
-          job_type,
-          queen_id,
-          status,
-          created_at,
-          finished_at
+        SELECT id, job_type, queen_id, status, created_at, finished_at
         FROM jobs
         WHERE id = ?
         `,
       )
       .get(id);
 
-    // STEP 5: handle "not found"
     if (!job) {
       return res.status(404).json({ error: "Job not found" });
     }
 
-    // STEP 6: return the job to the client
     res.json(job);
   } catch (err) {
-    // STEP 7: catch unexpected errors
     console.error(err);
     res.status(500).json({ error: "Failed to load job" });
   }
 });
 
+// =========================
+// GET /jobs/queens/:queenId/jobs
+// List all jobs for a specific queen
+// =========================
+router.get("/queens/:queenId/jobs", async (req, res) => {
+  const queenId = Number.parseInt(req.params.queenId, 10);
+  const limit = clampLimit(req.query.limit, 10, 100);
+
+  if (!Number.isInteger(queenId) || queenId <= 0) {
+    return res.status(400).json({ error: "Invalid queenId" });
+  }
+
+  try {
+    const db = openDb();
+
+    // Fetch jobs for the queen, ordered by newest first
+    const items = db
+      .prepare(
+        `
+        SELECT id, job_type, queen_id, status, created_at, finished_at
+        FROM jobs
+        WHERE queen_id = ?
+        ORDER BY id DESC
+        LIMIT ?
+        `,
+      )
+      .all(queenId, limit);
+
+    res.json({
+      queenId,
+      returned: items.length,
+      items,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to load queen's jobs" });
+  }
+});
+
+// =========================
 // POST /jobs/recompute
+// Enqueue a recompute stats job for a queen
+// =========================
 router.post("/recompute", async (req, res) => {
   const { queenId } = req.body;
 
@@ -104,6 +146,7 @@ router.post("/recompute", async (req, res) => {
   };
 
   try {
+    // Send job to RabbitMQ / queue
     await publishToQueue("horrorverse_jobs", job);
 
     res.status(202).json({
