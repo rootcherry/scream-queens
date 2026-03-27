@@ -1,27 +1,31 @@
-from pathlib import Path
+# scripts/py/init_db.py
 import sqlite3
+from py.paths import DB_FILE  # import database path
 
-DB_PATH = Path("data/db/horrorverse.sqlite3")
 
-
+# get sqlite connection
 def get_connection() -> sqlite3.Connection:
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_FILE)
     conn.execute("PRAGMA foreign_keys = ON;")
     return conn
 
 
+# create required tables if they do not exist
 def create_tables(conn: sqlite3.Connection) -> None:
     cursor = conn.cursor()
 
-    cursor.execute("""
+    cursor.execute(
+        """
         CREATE TABLE IF NOT EXISTS scream_queens (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL UNIQUE,
             birth_year INTEGER
         );
-    """)
+    """
+    )
 
-    cursor.execute("""
+    cursor.execute(
+        """
         CREATE TABLE IF NOT EXISTS movies (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
@@ -29,9 +33,11 @@ def create_tables(conn: sqlite3.Connection) -> None:
             imdb_id TEXT UNIQUE,
             box_office INTEGER
         );
-    """)
+    """
+    )
 
-    cursor.execute("""
+    cursor.execute(
+        """
         CREATE TABLE IF NOT EXISTS appearances (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             scream_queen_id INTEGER NOT NULL,
@@ -40,9 +46,11 @@ def create_tables(conn: sqlite3.Connection) -> None:
             FOREIGN KEY (movie_id) REFERENCES movies(id),
             UNIQUE (scream_queen_id, movie_id)
         );
-    """)
+    """
+    )
 
-    cursor.execute("""
+    cursor.execute(
+        """
         CREATE TABLE IF NOT EXISTS jobs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             job_type TEXT NOT NULL,
@@ -53,19 +61,18 @@ def create_tables(conn: sqlite3.Connection) -> None:
             finished_at TEXT,
             error TEXT
         );
-    """)
-
+    """
+    )
 
     conn.commit()
 
 
+# main routine to initialize DB
 def main() -> None:
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-
+    DB_FILE.parent.mkdir(parents=True, exist_ok=True)
     conn = get_connection()
     create_tables(conn)
     conn.close()
-
     print("SQLite schema initialized successfully.")
 
 

@@ -1,253 +1,201 @@
-# 🎃 Horrorverse (Scream Queens) 🧛‍♀️
+# Horrorverse
 
-A **backend-first data project** that combines data engineering, DSA in JavaScript, REST APIs, and message queues to process and serve information about “Scream Queens” in horror cinema.
-
-This project was built locally on **Linux**, using **Python, Node.js, SQLite, Express, RabbitMQ, and tmux automation**.
+Horrorverse is a backend-focused data platform for analyzing "Scream Queens" (actresses in horror films). It combines scraping, data processing, a SQLite database, and a Node.js API to expose rankings and insights.
 
 ---
 
-## 🎯 What this project does
+## 🚀 Features
 
-Horrorverse currently provides:
-
-* A **Python data pipeline** that scrapes and cleans data into structured JSON.
-* A **local SQLite database** as the source of truth.
-* A **Map-based DSA layer in JavaScript** for rankings and filters.
-* A **REST API (Express)** that reads directly from SQLite.
-* An **asynchronous job system** using **RabbitMQ + Python worker**.
-* A **one-command dev environment** using **tmux**.
+* Scraping and ingestion of actress data (Python)
+* Data processing pipelines (cleaning, enrichment)
+* SQLite database storage
+* Ranking engine (DSA-focused logic in JavaScript)
+* REST API (Node.js + Express)
+* Queue/worker system for async jobs
 
 ---
 
-## 🧱 High-level architecture
+## 📁 Project Structure
 
 ```
-Pipeline (Python)
-        ↓
-Processed JSON
-        ↓
-SQLite (horrorverse.sqlite3)
-        ↓
-DSA (Node + Maps)   →   Express API
-                            ↓
-                      RabbitMQ Queue
-                            ↓
-                        Python Worker
-                            ↓
-                         Jobs Table
+.
+├── api/                # Express API (routes)
+├── bin/                # CLI entrypoint
+├── data/               # Raw, processed, cache, and DB
+├── db/                 # Migrations
+├── docs/               # Ideas and notes
+├── dsa/                # Ranking + filtering logic
+├── scripts/            # Python + JS scripts
+├── src/                # Core Python logic (scraper, processing, worker)
+├── tests/              # Tests
+├── docker-compose.yml
+├── README.md
 ```
 
 ---
 
-## ✅ Prerequisites
+## ⚙️ Setup
 
-You need to have installed:
+### 1. Install dependencies
 
-* Node.js 20+
-* Python 3.12+
-* Docker & docker-compose
-* tmux
-* xclip (optional, for clipboard support in tmux)
-
----
-
-## 🚀 Quick start (recommended)
-
-From the project root:
-
-```bash
-./bin/horrorverse
-```
-
-This will open a tmux session named **horrorverse** with 6 windows:
-
-1. **project** – main working directory
-2. **git** – for commits and status
-3. **api** – runs `npm run dev`
-4. **worker** – runs the Python RabbitMQ worker
-5. **docker** – starts RabbitMQ + shows logs
-6. **client** – for curl/sqlite tests
-
-To exit tmux without stopping services:
+#### Python
 
 ```
-Ctrl + b, then d
+pip install -r requirements.txt
 ```
 
-To return:
+#### Node.js
 
-```bash
-tmux a -t horrorverse
+```
+npm install
 ```
 
 ---
 
-## 🛠️ Manual start (without tmux)
+## 🧠 Data Pipeline
 
-If you **do not have tmux** or prefer a simple terminal setup, you can start everything in separate terminals:
+1. Scrape raw data → `data/raw/`
+2. Process data → `data/processed/`
+3. Enrich (box office, survival stats, etc.)
+4. Store in SQLite → `data/db/horrorverse.sqlite3`
 
-### 1) Start RabbitMQ (Docker)
-
-```bash
-docker-compose up -d
-```
-
-### 2) Start the API
-
-```bash
-npm run dev
-```
-
-(keeps running on [http://localhost:3000](http://localhost:3000))
-
-### 3) Start the Python worker
-
-```bash
-source .venv/bin/activate
-python src/worker/worker.py
-```
-
-You can then use `curl` from any terminal exactly as shown in the examples below.
-
----
-
-## 🌐 API Endpoints
-
-> The examples below use `| jq` for readability (optional).
-> You can omit `| jq` if you don’t have it installed.
-
-### Health
-
-```bash
-GET /health
-```
-
-### Rankings
-
-```bash
-GET /rankings
-GET /rankings/:key
-```
-
-Example:
-
-```bash
-curl -s http://localhost:3000/rankings/filmCount | jq
-```
-
-### Scream Queens
-
-```bash
-GET /scream-queens
-GET /scream-queens/:id
-GET /scream-queens/:id/films?order=desc&limit=10
-```
-
-Example:
-
-```bash
-curl -s "http://localhost:3000/scream-queens/1/films?order=desc&limit=5" | jq
-```
-
-### Jobs (asynchronous processing)
-
-Enqueue a job:
-
-```bash
-curl -X POST http://localhost:3000/jobs/recompute \
-  -H "Content-Type: application/json" \
-  -d '{"queenId": 1}'
-```
-
-List recent jobs:
-
-```bash
-curl -s http://localhost:3000/jobs | jq
-```
-
-Get one job by id:
-
-```bash
-curl -s http://localhost:3000/jobs/1 | jq
-```
-
----
-
-## 🐇 RabbitMQ
-
-RabbitMQ runs in Docker and is available at:
-
-```
-http://localhost:15672
-```
-
-Default credentials:
-
-* user: **guest**
-* password: **guest**
-
-Queue used by the project:
-
-```
-horrorverse_jobs
-```
+Run scripts from `scripts/py/` as needed.
 
 ---
 
 ## 🗄️ Database
 
-Local SQLite database:
+SQLite database located at:
 
 ```
 data/db/horrorverse.sqlite3
 ```
 
-Key tables:
+Run migrations:
 
-* `scream_queens`
-* `movies`
-* `appearances`
-* `jobs` (queue persistence)
-
-You can inspect it with:
-
-```bash
-sqlite3 data/db/horrorverse.sqlite3
+```
+sqlite3 data/db/horrorverse.sqlite3 < db/migrations/002_add_queen_stats.sql
 ```
 
 ---
 
-## 📁 Project structure (simplified)
+## 🔌 API
+
+Start server:
 
 ```
-.
-├── api/
-│   └── routes/
-├── src/
-│   ├── db/
-│   ├── queue/
-│   └── worker/
-├── scripts/py/
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── db/
-├── docker-compose.yml
-├── bin/horrorverse
-└── scripts/start_horrorverse.sh
+node api/server.js
+```
+
+Server runs at:
+
+```
+http://localhost:3000
 ```
 
 ---
 
-## 📌 What’s next (roadmap)
+## 📊 Endpoints
 
-Possible next steps:
+### Rankings
 
-* Add **ESLint + Prettier** (code quality + formatting)
-* Make the worker **actually recompute stats** in SQLite
-* Add **API tests** with Jest + Supertest
-* Improve SQL queries and indexes
+```
+GET /rankings/:key
+```
+
+Example:
+
+```
+curl http://localhost:3000/rankings/filmCount
+```
+
+Response:
+
+```
+{
+  "key": "filmCount",
+  "order": "desc",
+  "limit": 10,
+  "results": [
+    {
+      "name": "Anya Taylor-Joy",
+      "films": 1
+    }
+  ]
+}
+```
 
 ---
 
-Made with ☕, 🐍, and 🎃
+## 🧮 Ranking System (DSA)
+
+Located in:
+
+```
+dsa/
+```
+
+Includes:
+
+* Filters (film count, survival, box office, etc.)
+* Ranking strategies
+* Registry pattern for extensibility
+
+Run manually:
+
+```
+node scripts/js/testCoordinate.js
+```
+
+---
+
+## ⚡ Worker & Queue
+
+Queue system for async processing:
+
+* Publisher: `src/queue/publish.js`
+* Worker: `src/worker/worker.py`
+
+Used for heavy jobs (scraping, enrichment, updates)
+
+---
+
+## 🐳 Docker (optional)
+
+```
+docker-compose up --build
+```
+
+---
+
+## 🧪 Tests
+
+```
+pytest
+```
+
+---
+
+## 📌 Notes
+
+* Hybrid architecture: Python (data) + Node.js (API)
+* Focus on backend engineering and data pipelines
+* Designed to be extensible (new rankings, filters, data sources)
+
+---
+
+## 🎯 Next Steps
+
+* Add more actresses (scale dataset)
+* Improve rankings (weighting, scoring)
+* Add authentication (optional)
+* Deploy API (Render, Railway, etc.)
+* Build simple frontend (optional)
+
+---
+
+## 👤 Author
+
+Cristiano Noga (Chris)
+
+Backend Developer — Python, APIs, Scraping, Data Systems

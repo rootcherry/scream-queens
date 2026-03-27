@@ -1,19 +1,17 @@
+# scripts/py/survived_search_template.py
 import json
+from py.paths import PROCESSED_FILE, SURVIVED_FILE
 
-# path to the processed JSON w multiple actresses
-PROCESSED_JSON_PATH = '../data/processed/processed_scream_queens.json'
-
-# load processed JSON
-with open(PROCESSED_JSON_PATH, 'r') as f:
+# load processed JSON data
+with PROCESSED_FILE.open("r", encoding="utf-8") as f:
     data = json.load(f)
 
-# iterate over each actress in the list
+# iterate over each actress
 for actress in data:
-    print(f"{actress['name']}")
-    name = actress["name"]
-    films = actress.get("films", [])
+    name = actress.get("name", "Unknown")
+    print(name)
 
-    for film in films:
+    for film in actress.get("films", []):
         title = film.get("title", "Unknown Title")
         year = film.get("year", "Unknown Year")
         character = film.get("character", "Unknown Character")
@@ -22,4 +20,5 @@ for actress in data:
             f'Does the character "{character}" played by "{name}" '
             f'in "{title} ({year})" die in the film?'
         )
-    print('\n\n')
+
+    print("\n\n")

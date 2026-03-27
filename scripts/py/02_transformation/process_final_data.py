@@ -1,42 +1,29 @@
-from pathlib import Path
+# scripts/py/process_final_data.py
 import json
 import re
-
-# project root: scripts/py/process_final_data.py -> parents[2] = repo root
-BASE_DIR = Path(__file__).resolve().parents[2]
-DATA_DIR = BASE_DIR / "data" / "processed"
-INPUT_FILE = DATA_DIR / "processed_scream_queens.json"
-OUTPUT_FILE = DATA_DIR / "processed_scream_queens_clean.json"
+from py.paths import PROCESSED_FILE, PROCESSED_CLEAN_FILE  # import paths
 
 
-# normalize genres into a clean list
+# normalize genre string into a clean list
 def normalize_genres(genre_str):
     if not genre_str or genre_str == "N/A":
         return ["Unknown"]
-
-    # split by comma or pipe
     raw_genres = re.split(r",|\|", genre_str)
-
-    # strip spaces, capitalize first letter
     genres = [g.strip().title() for g in raw_genres if g.strip()]
-
-    # remove duplicates, keeping order
     seen = set()
     genres = [g for g in genres if not (g in seen or seen.add(g))]
-
     return genres if genres else ["Unknown"]
 
 
-# convert box office to int if possible
+# parse box office string to int
 def parse_box_office(value):
     if not value or value == "N/A":
         return None
-
     digits = re.sub(r"[^\d]", "", value)
     return int(digits) if digits else None
 
 
-# ensure survived field is 0 or 1, never None
+# ensure survived field is 0 or 1
 def update_survived(films):
     updated = []
     for film in films:
@@ -46,7 +33,7 @@ def update_survived(films):
     return updated
 
 
-# normalize data for one actress
+# process one actress record
 def process_actress(actress):
     films = []
     horror_count = 0
@@ -56,8 +43,9 @@ def process_actress(actress):
     for film in actress.get("films", []):
         genres = normalize_genres(film.get("genre"))
         box_office_int = parse_box_office(film.get("box_office"))
-        survived_int = film.get("survived")
-        survived_int = int(bool(survived_int)) if survived_int is not None else 0
+        survived_int = (
+            int(bool(film.get("survived"))) if film.get("survived") is not None else 0
+        )
 
         if "Horror" in genres:
             horror_count += 1
@@ -77,13 +65,18 @@ def process_actress(actress):
             }
         )
 
-    # calculate box office stats
     box_office_total = sum(box_office_values) if box_office_values else None
     box_office_avg = (
         int(box_office_total / len(box_office_values)) if box_office_values else None
     )
     box_office_best = max(box_office_values) if box_office_values else None
     box_office_worst = min(box_office_values) if box_office_values else None
+
+    career_span = None
+    if films:
+        years = [f["year"] for f in films if f["year"] is not None]
+        if years:
+            career_span = [min(years), max(years)]
 
     return {
         "name": actress.get("name"),
@@ -92,12 +85,7 @@ def process_actress(actress):
             "horror_count": horror_count,
             "survived_count": survived_count,
             "box_office_total": box_office_total,
-            "career_span": [
-                min(f["year"] for f in films if f["year"]),
-                max(f["year"] for f in films if f["year"]),
-            ]
-            if films
-            else None,
+            "career_span": career_span,
             "omdb_ok": actress.get("stats", {}).get("omdb_ok", False),
             "box_office_avg": box_office_avg,
             "box_office_best": box_office_best,
@@ -106,19 +94,17 @@ def process_actress(actress):
     }
 
 
+# main routine
 def main():
-    # read input file
-    with INPUT_FILE.open("r", encoding="utf-8") as f:
+    with PROCESSED_FILE.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # process each actress
     clean_data = [process_actress(a) for a in data]
 
-    # save cleaned data
-    with OUTPUT_FILE.open("w", encoding="utf-8") as f:
+    with PROCESSED_CLEAN_FILE.open("w", encoding="utf-8") as f:
         json.dump(clean_data, f, ensure_ascii=False, indent=2)
 
-    print(f"Processing complete. Clean data saved to {OUTPUT_FILE}")
+    print(f"Processing complete. Clean data saved to {PROCESSED_CLEAN_FILE}")
 
 
 if __name__ == "__main__":
