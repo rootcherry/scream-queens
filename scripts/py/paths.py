@@ -2,7 +2,7 @@
 from pathlib import Path
 
 # Root of the project (repo root)
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Folder with processed data
 DATA_DIR = BASE_DIR / "data" / "processed"

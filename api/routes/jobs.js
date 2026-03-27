@@ -79,6 +79,54 @@ router.get("/status", async (req, res) => {
   }
 });
 
+// GET /jobs/metrics
+// Returns counts per status + average duration in seconds
+router.get("/metrics", (req, res) => {
+  try {
+    const db = openDb(); // open DB connection
+
+    // Count jobs by status
+    const countsRows = db
+      .prepare(
+        `
+        SELECT status, COUNT(*) AS count
+        FROM jobs
+        GROUP BY status
+      `,
+      )
+      .all();
+
+    const statusCounts = {
+      queued: 0,
+      running: 0,
+      completed: 0,
+      failed: 0,
+    };
+    countsRows.forEach((row) => {
+      statusCounts[row.status] = row.count;
+    });
+
+    // Average duration (seconds) for completed jobs
+    const avgRow = db
+      .prepare(
+        `
+        SELECT AVG(
+          CAST((strftime('%s', finished_at) - strftime('%s', started_at)) AS FLOAT)
+        ) AS avg_duration_sec
+        FROM jobs
+        WHERE finished_at IS NOT NULL
+      `,
+      )
+      .get();
+    const avgDuration = avgRow?.avg_duration_sec || 0;
+
+    res.json({ ...statusCounts, avg_duration_sec: avgDuration });
+  } catch (err) {
+    console.error("Error fetching metrics:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // GET /jobs/:id
 // Return one job by id
 router.get("/:id", async (req, res) => {

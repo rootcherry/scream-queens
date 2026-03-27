@@ -5,32 +5,36 @@ from pathlib import Path
 
 import pika
 
+# retry config
+MAX_JOB_ATTEMPTS = 3
+
+# rabbit config
 RABBIT_HOST = "localhost"
 RABBIT_USER = "guest"
 RABBIT_PASS = "guest"
 QUEUE_NAME = "horrorverse_jobs"
 
+# sqlite db path
 DB_PATH = Path("data/db/horrorverse.sqlite3")
 
 
+# get current UTC time in ISO format
 def utc_now_iso() -> str:
-    # Ex: 2026-01-22T14:12:33+00:00
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
+# open sqlite connection
 def get_conn() -> sqlite3.Connection:
     conn = sqlite3.connect(str(DB_PATH))
     conn.execute("PRAGMA foreign_keys = ON;")
     return conn
 
 
+# insert new job as queued
 def create_job(job_type: str, queen_id: int | None, created_at: str) -> int:
-    """
-    Create a new job in SQLite with status 'queued'.
-    (Worker V2: we will transition queued -> running -> completed/failed)
-    """
     conn = get_conn()
     cur = conn.cursor()
+
     cur.execute(
         """
         INSERT INTO jobs (job_type, queen_id, status, created_at)
@@ -38,14 +42,18 @@ def create_job(job_type: str, queen_id: int | None, created_at: str) -> int:
         """,
         (job_type, queen_id, "queued", created_at),
     )
+
     conn.commit()
     job_id = int(cur.lastrowid)
     conn.close()
+
     return job_id
 
 
+# mark job as running
 def mark_job_running(job_id: int) -> None:
     conn = get_conn()
+
     conn.execute(
         """
         UPDATE jobs
@@ -54,12 +62,15 @@ def mark_job_running(job_id: int) -> None:
         """,
         ("running", utc_now_iso(), job_id),
     )
+
     conn.commit()
     conn.close()
 
 
+# mark job as completed
 def mark_job_completed(job_id: int) -> None:
     conn = get_conn()
+
     conn.execute(
         """
         UPDATE jobs
@@ -68,26 +79,36 @@ def mark_job_completed(job_id: int) -> None:
         """,
         ("completed", utc_now_iso(), job_id),
     )
+
     conn.commit()
     conn.close()
 
 
-def mark_job_failed(job_id: int, message: str) -> None:
+# mark job as failed and increment attempts
+def mark_job_failed(job_id: int, message: str) -> int:
     conn = get_conn()
-    conn.execute(
+    cur = conn.cursor()
+
+    cur.execute(
         """
         UPDATE jobs
-        SET status = ?, finished_at = ?, error = ?
+        SET status = ?, finished_at = ?, error = ?, attempts = attempts + 1
         WHERE id = ?;
         """,
         ("failed", utc_now_iso(), message[:1000], job_id),
     )
+
     conn.commit()
+
+    cur.execute("SELECT attempts FROM jobs WHERE id = ?", (job_id,))
+    attempts = int(cur.fetchone()[0])
+
     conn.close()
+    return attempts
 
 
+# compute stats for a queen and store in queen_stats
 def recompute_stats_for_queen(queen_id: int) -> None:
-    # Real work: compute derived stats from appearances + movies and persist them.
     conn = get_conn()
 
     row = conn.execute(
@@ -108,8 +129,8 @@ def recompute_stats_for_queen(queen_id: int) -> None:
     movies_count = int(row[0] or 0)
     box_office_total = int(row[1] or 0)
     box_office_known_count = int(row[2] or 0)
-    first_movie_year = row[3]  # or None
-    last_movie_year = row[4]  # or None
+    first_movie_year = row[3]
+    last_movie_year = row[4]
 
     conn.execute(
         """
@@ -164,6 +185,7 @@ def main() -> int:
 
         try:
             payload = json.loads(body.decode("utf-8"))
+
             print("Received job:")
             print(json.dumps(payload, indent=2))
 
@@ -175,30 +197,25 @@ def main() -> int:
 
             queen_id: int | None = None
             if raw_queen_id is not None:
-                try:
-                    queen_id = int(raw_queen_id)
-                except (TypeError, ValueError) as exc:
-                    raise ValueError(f"Invalid queenId: {raw_queen_id!r}") from exc
+                queen_id = int(raw_queen_id)
 
-            # 1) Create job as queued (persist first!)
-            job_id = create_job(
-                job_type=job_type, queen_id=queen_id, created_at=created_at
-            )
-            print(f"Job created: id={job_id} status=queued")
+            # create job
+            job_id = create_job(job_type, queen_id, created_at)
+            print(f"Job created: id={job_id}")
 
-            # 2) Mark running
+            # mark running
             mark_job_running(job_id)
             print(f"Job running: id={job_id}")
 
-            # 3) Do real work
+            # execute job
             if job_type == "RECOMPUTE_STATS":
                 if queen_id is None:
-                    raise ValueError("queenId is required for RECOMPUTE_STATS")
+                    raise ValueError("queenId is required")
                 recompute_stats_for_queen(queen_id)
             else:
                 raise ValueError(f"Unsupported job type: {job_type}")
 
-            # 4) Mark completed
+            # mark completed
             mark_job_completed(job_id)
             print(f"Job completed: id={job_id}")
 
@@ -207,11 +224,21 @@ def main() -> int:
             print("Raw body:", body)
 
             if job_id is not None:
-                mark_job_failed(job_id, str(exc))
-                print(f"Job failed recorded: id={job_id}")
+                attempts = mark_job_failed(job_id, str(exc))
+                print(f"Job failed: id={job_id}, attempts={attempts}")
+
+                # retry if under max attempts
+                if attempts < MAX_JOB_ATTEMPTS:
+                    ch.basic_publish(
+                        exchange="",
+                        routing_key=QUEUE_NAME,
+                        body=json.dumps(payload),
+                        properties=pika.BasicProperties(delivery_mode=2),
+                    )
+                    print(f"Job requeued: id={job_id}")
 
         finally:
-            # V2-5: on failure we will nack/requeue instead of ack
+            # always ack message
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
     channel.basic_qos(prefetch_count=1)

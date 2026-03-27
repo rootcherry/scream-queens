@@ -1,0 +1,128 @@
+.
+├── api
+│   ├── routes
+│   │   ├── health.js
+│   │   ├── jobs.js
+│   │   ├── rankings.js
+│   │   └── screamQueens.js
+│   └── server.js
+├── bin
+│   └── horrorverse
+├── data
+│   ├── cache
+│   │   └── omdb_cache.json
+│   ├── db
+│   │   └── horrorverse.sqlite3
+│   ├── manual_results.json
+│   ├── processed
+│   │   ├── backup
+│   │   │   ├── processed_scream_queens_20260326_220930.json
+│   │   │   ├── processed_scream_queens_20260326_232123.json
+│   │   │   ├── processed_scream_queens_20260327_163611.json
+│   │   │   └── processed_scream_queens_boxoffice.bak
+│   │   ├── processed_scream_queens_clean.json
+│   │   ├── processed_scream_queens.json
+│   │   ├── scream_queens.json
+│   │   └── survived_data.json
+│   └── raw
+│       ├── anya_taylor-joy.json
+│       ├── jamie_lee_curtis.json
+│       ├── megumi_okina.json
+│       ├── samara_weaving.json
+│       └── yūko_takeuchi.json
+├── db
+│   └── migrations
+│       ├── 002_add_queen_stats.sql
+│       └── 003_add_attempts_to_jobs.sql
+├── docker-compose.yml
+├── docs
+│   └── ideas.md
+├── dsa
+│   ├── actressIndex.js
+│   ├── filters
+│   │   ├── filterActiveInPeriod.js
+│   │   ├── filterByBoxOffice.js
+│   │   ├── filterByCareerSpan.js
+│   │   ├── filterByFilmCount.js
+│   │   ├── filterBySurvival.js
+│   │   └── filtersRegistry.js
+│   ├── ranking.js
+│   ├── rankings
+│   │   ├── coordinate.js
+│   │   ├── rankByBoxOffice.js
+│   │   ├── rankByCareerSpan.js
+│   │   ├── rankByFilmCount.js
+│   │   ├── rankBySurvival.js
+│   │   └── rankingsRegistry.js
+│   ├── runRanking.js
+│   ├── searchByActress.js
+│   └── utils
+│       ├── dataLoader.js
+│       └── jobLogger.js
+├── estrutura_projeto.txt
+├── package.json
+├── package-lock.json
+├── pyproject.toml
+├── README.md
+├── requirements.txt
+├── scripts
+│   ├── data
+│   │   └── db
+│   │       └── horrorverse.sqlite3
+│   ├── enqueue_all_queens.sh
+│   ├── full_pipeline.sh
+│   ├── horrorverse_pipeline.sh
+│   ├── js
+│   │   ├── testCoordinate.js
+│   │   └── testJobsRoutes.js
+│   ├── py
+│   │   ├── 00_validation
+│   │   │   ├── 00_validate_processed.py
+│   │   │   ├── __init__.py
+│   │   │   └── survived_search_template.py
+│   │   ├── 01_ingestion
+│   │   │   ├── ingest_db.py
+│   │   │   ├── init_db.py
+│   │   │   └── __init__.py
+│   │   ├── 02_transformation
+│   │   │   ├── __init__.py
+│   │   │   ├── process_final_data.py
+│   │   │   ├── rebuild_survived_data.py
+│   │   │   └── remove_survived_field.py
+│   │   ├── 03_updates
+│   │   │   ├── __init__.py
+│   │   │   ├── update_box_office_stats.py
+│   │   │   ├── update_processed_with_survival.py
+│   │   │   ├── update_survival_stats.py
+│   │   │   └── update_survived.py
+│   │   ├── 04_reporting
+│   │   │   ├── generate_manual_results.py
+│   │   │   └── __init__.py
+│   │   ├── __init__.py
+│   │   └── paths.py
+│   ├── recompute_all_queens.sh
+│   ├── reset_and_run_pipeline.sh
+│   ├── reset_db.sh
+│   ├── start_horrorverse.sh
+│   ├── test_jobs.sh
+│   └── watch_jobs.sh
+├── src
+│   ├── config.py
+│   ├── db
+│   │   ├── db.js
+│   │   └── sqliteLoader.js
+│   ├── fetch.py
+│   ├── filters.py
+│   ├── main.py
+│   ├── omdb_ok.py
+│   ├── parse.py
+│   ├── queue
+│   │   ├── publish.js
+│   │   └── sendJob.js
+│   ├── utils.py
+│   └── worker
+│       └── worker.py
+└── tests
+    └── test_scraper.py
+
+32 directories, 94 files

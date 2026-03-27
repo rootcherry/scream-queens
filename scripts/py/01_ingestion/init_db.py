@@ -1,19 +1,16 @@
 # scripts/py/init_db.py
 import sqlite3
-from py.paths import DB_FILE  # import database path
+from py.paths import DB_FILE  # database path
 
 
-# get sqlite connection
 def get_connection() -> sqlite3.Connection:
+    """Return a SQLite connection with foreign keys enabled."""
     conn = sqlite3.connect(DB_FILE)
     conn.execute("PRAGMA foreign_keys = ON;")
     return conn
 
 
-# create required tables if they do not exist
-def create_tables(conn: sqlite3.Connection) -> None:
-    cursor = conn.cursor()
-
+def create_table_scream_queens(cursor: sqlite3.Cursor) -> None:
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS scream_queens (
@@ -24,6 +21,8 @@ def create_tables(conn: sqlite3.Connection) -> None:
     """
     )
 
+
+def create_table_movies(cursor: sqlite3.Cursor) -> None:
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS movies (
@@ -36,6 +35,8 @@ def create_tables(conn: sqlite3.Connection) -> None:
     """
     )
 
+
+def create_table_appearances(cursor: sqlite3.Cursor) -> None:
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS appearances (
@@ -49,6 +50,8 @@ def create_tables(conn: sqlite3.Connection) -> None:
     """
     )
 
+
+def create_table_jobs(cursor: sqlite3.Cursor) -> None:
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS jobs (
@@ -64,11 +67,19 @@ def create_tables(conn: sqlite3.Connection) -> None:
     """
     )
 
+
+def create_tables(conn: sqlite3.Connection) -> None:
+    """Create all tables if they do not exist."""
+    cursor = conn.cursor()
+    create_table_scream_queens(cursor)
+    create_table_movies(cursor)
+    create_table_appearances(cursor)
+    create_table_jobs(cursor)
     conn.commit()
 
 
-# main routine to initialize DB
 def main() -> None:
+    """Initialize the database schema."""
     DB_FILE.parent.mkdir(parents=True, exist_ok=True)
     conn = get_connection()
     create_tables(conn)
