@@ -1,87 +1,68 @@
 from config import SCREAM_QUEENS_URLS
-from fetch import getPage
+from fetch import fetch_page
 from parse import extract_films
-from filters import is_horror_related
+
+from pipeline.enrich import enrich_films
+from pipeline.filter import filter_horror
+from pipeline.transform import normalize_films
+from pipeline.stats import compute_stats
+
 from utils import save_raw_json, save_processed_json, wait_time
 
 
-def scrape_films_for_actress(name, url):
-    # log, debbuging n tracking
-    print(f"Scraping films for {name}...")
+def scrape_actress(name, url):
+    print(f"[INFO] scraping {name}")
 
-    # load actress's page
-    bs = getPage(url)
-    if not bs:
-        print(f"Failed to load page for {name}")
-        return {}
+    page = fetch_page(url)
+    if not page:
+        return build_empty(name)
 
-    # extract tables or lists
-    all_films = extract_films(bs)
+    films = extract_films(page)
+    if not films:
+        return build_empty(name)
 
-    if not all_films:
-        print(f"No films found for {name}")
-        return {}
+    films = filter_horror(films)
+    films = normalize_films(films)
 
-    # filter only horror films
-    horror_films = []
-    for film in all_films:
-        if film["url"] and is_horror_related(film["url"]):
-            horror_films.append(film)
+    films = enrich_films(films)
 
-    # calculate career span
-    years = []
-    for film in horror_films:
-        y = str(film.get("year") or "").strip()
-        if y.isdigit():
-            years.append(int(y))
-    career_span = [min(years), max(years)] if years else [None, None]
+    stats = compute_stats(films)
 
-    # if found valid years, span is [first horror film, last horror film]
-    # else [None, None]
-    career_span = [min(years), max(years)] if years else [None, None]
-
-    # build list of film dictionaries
-    films_data = []
-    for film in horror_films:
-        y = str(film.get("year") or "").strip()
-        films_data.append(
-            {
-                "year": int(y) if y.isdigit() else film.get("year"),
-                "title": film.get("title"),
-                "character": film.get("character"),
-            }
-        )
-
-    # return structured data - JSON
     return {
         "name": name,
-        "films": films_data,
+        "films": films,
+        "stats": stats,
+    }
+
+
+def build_empty(name):
+    return {
+        "name": name,
+        "films": [],
         "stats": {
-            "horror_count": len(horror_films),
+            "horror_count": 0,
             "survived_count": None,
             "box_office_total": None,
-            "career_span": career_span,
+            "career_span": [None, None],
+            "scrape_ok": False,
         },
     }
 
 
 def main():
-    all_actresses_data = []
+    results = []
 
-    for actress, url in SCREAM_QUEENS_URLS.items():
-        actress_data = scrape_films_for_actress(actress, url)
-        if actress_data:
-            # save raw JSON p actress
-            save_raw_json(actress, actress_data)
-            all_actresses_data.append(actress_data)
+    for name, url in SCREAM_QUEENS_URLS.items():
+        data = scrape_actress(name, url)
+
+        save_raw_json(name, data)
+        results.append(data)
 
         wait_time(long=True)
 
-    # save processed JSON
-    if all_actresses_data:
-        save_processed_json(all_actresses_data)
+    save_processed_json(results)
 
-    print("Scraping finished. raw n processed data saved.")
+    print("[DONE] scraping finished")
 
 
 if __name__ == "__main__":

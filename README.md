@@ -24,7 +24,7 @@ Horrorverse is a backend-focused data platform for analyzing "Scream Queens" (ac
 ├── data/               # Raw, processed, cache, and DB
 ├── db/                 # Migrations
 ├── docs/               # Ideas and notes
-├── dsa/                # Ranking + filtering logic
+├── domain/                # Ranking + filtering logic
 ├── scripts/            # Python + JS scripts
 ├── src/                # Core Python logic (scraper, processing, worker)
 ├── tests/              # Tests
@@ -132,7 +132,7 @@ Response:
 Located in:
 
 ```
-dsa/
+domain/
 ```
 
 Includes:
@@ -154,7 +154,7 @@ node scripts/js/testCoordinate.js
 Queue system for async processing:
 
 * Publisher: `src/queue/publish.js`
-* Worker: `src/worker/worker.py`
+* Worker: `apps/worker/worker.py`
 
 Used for heavy jobs (scraping, enrichment, updates)
 

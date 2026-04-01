@@ -2,24 +2,35 @@ import re
 from datetime import datetime
 from config import WIKI_BASE_URL
 
-# remove citations like [1] and trim spaces
+
+# utils
+# remove citations like [1]
 def clean_text(text):
     if not text:
         return ""
     return re.sub(r"\[\d+\]", "", text).strip()
 
-# detect unreleased/future films
-def is_unreleased_or_future(text):
+
+# extract year from text
+def extract_year(text):
+    match = re.search(r"\b(19|20)\d{2}\b", str(text))
+    return int(match.group()) if match else None
+
+
+# remove leading year from title
+def extract_title(text):
+    return re.sub(r"^\(?\d{4}\)?\s*[-–—:]?\s*", "", text).strip()
+
+
+# detect unreleased content
+def is_unreleased(text):
     if not text:
         return False
 
-    lower_text = text.lower()
+    t = text.lower()
 
-    # keywords commonly used for unreleased films
-    unreleased_keywords = [
+    keywords = [
         "tba",
-        "to be announced",
-        "to be determined",
         "upcoming",
         "announced",
         "pre-production",
@@ -27,156 +38,134 @@ def is_unreleased_or_future(text):
         "filming",
         "development",
         "planned",
-        "expected",
-        "future release",
     ]
+
     if "†" in text:
         return True
-    if any(keyword in lower_text for keyword in unreleased_keywords):
+
+    if any(k in t for k in keywords):
         return True
 
-    # check for future years
     year = extract_year(text)
-    current_year = datetime.now().year
-    if year and year > current_year:
+    if year and year > datetime.now().year:
         return True
 
     return False
 
-# extract a valid year from text
-def extract_year(text):
-    match = re.search(r"\b(19|20)\d{2}\b", str(text))
-    return int(match.group()) if match else 0
 
-# clean up the title, rm leading years/symbols
-def extract_title(text):
-    return re.sub(r"^\(?\d{4}\)?\s*[-–—:]?\s*", "", text).strip()
+# filter tv entries
+def is_tv(title, role=None):
+    text = f"{title} {role or ''}".lower()
 
-# TV filter
-def is_tv_entry(title, role=None):
-    tv_patterns = [
-        r"\bTV\b",
-        r"television",
-        r"episode",
-        r"episodes",
-        r"series",
-        r"mini-series",
-        r"season",
-        r"chapter",
-        r"segment",
-        r"tv movie",
-        r"show",
-        r"anthology",
+    patterns = [
+        "tv",
+        "television",
+        "episode",
+        "series",
+        "season",
+        "mini-series",
+        "show",
     ]
-    combined = f"{title} {role or ''}".lower()
-    return any(
-        re.search(pattern, combined, re.IGNORECASE) for pattern in tv_patterns
-    )
 
-# locate the correct "Film" table <thead>
-def get_film_table(page):
-    tables = page.find_all("table", {"class": "wikitable"})
-    for table in tables:
-        # skip tables explicitly labeled as TV or series
-        caption = table.find("caption")
-        if caption and re.search(
-            r"television|tv|series", caption.get_text(), re.I
-        ):
-            continue
+    return any(p in text for p in patterns)
 
-        # extract headers to validate if this is a film table
-        thead = table.find("thead")
-        headers = set()
-        if thead:
-            headers = {
-                th.get_text(strip=True).lower() for th in thead.find_all("th")
-            }
-        elif table.find("tr"):
-            headers = {
-                th.get_text(strip=True).lower()
-                for th in table.find("tr").find_all("th")
-            }
 
-        # skip tables that look like TV content
-        if any(
-            "television" in h or "tv" in h or "series" in h for h in headers
-        ):
-            continue
+# build wiki url
+def build_url(link):
+    if not link:
+        return None
 
-        # identify a valid film table by required headers
-        if "year" in headers and ("title" in headers or "film" in headers):
-            return table
+    href = link.get("href", "")
 
-    return None
+    # if already absolute, return as is
+    if href.startswith("http"):
+        return href
 
-# extract films from a given filmography table
-def extract_from_table(table):
+    return WIKI_BASE_URL + href
+
+
+# normalize film object
+def build_film(title, year, role=None, link=None):
+    return {
+        "title": clean_text(title),
+        "year": year,
+        "character": role,
+        "url": build_url(link),
+    }
+
+
+# strategy: TABLE
+def parse_table(table):
     films = []
     last_year = None
     last_role = None
 
     for row in table.find_all("tr"):
-        cells = row.find_all(["th", "td"])
+        cells = row.find_all(["td", "th"])
         if not cells:
             continue
 
-        # first cell may contain the year
-        year_cell = cells[0].get_text(strip=True)
-        year = extract_year(year_cell)
+        year = extract_year(cells[0].get_text())
         if year:
             last_year = year
-            data_index = 1
+            idx = 1
         else:
-            data_index = 0
+            idx = 0
 
-        # if no enough cells, skip
-        if len(cells) <= data_index:
+        if len(cells) <= idx:
             continue
 
-        # extract film title
-        title_cell = cells[data_index]
-        title = clean_text(title_cell.get_text(" ", strip=True))
-        if not title:
+        title_cell = cells[idx]
+        raw_title = title_cell.get_text(" ", strip=True)
+
+        if not raw_title or is_unreleased(raw_title):
             continue
 
-        # ignore unreleased/future films
-        if is_unreleased_or_future(title_cell.get_text(" ", strip=True)):
-            continue
+        title = clean_text(raw_title)
 
-        # build URL if available
         link = title_cell.find("a", href=True)
-        url = WIKI_BASE_URL + link["href"] if link else None
 
-        # extract role if available
         role = None
-        if len(cells) > data_index + 1:
-            role_cell = cells[data_index + 1]
-            role_text = clean_text(role_cell.get_text(" ", strip=True))
+        if len(cells) > idx + 1:
+            role_text = clean_text(cells[idx + 1].get_text(" ", strip=True))
             if role_text:
                 last_role = role_text
+
         role = last_role
 
-        # ignore TV entries
-        if is_tv_entry(title, role):
+        if is_tv(title, role):
             continue
 
-        films.append(
-            {"title": title, "year": last_year, "character": role, "url": url}
-        )
+        films.append(build_film(title, last_year, role, link))
 
     return films
 
-# extract films from <ul> lists under the filmography section
-def extract_from_lists(section):
+
+def find_table(page):
+    tables = page.find_all("table", {"class": "wikitable"})
+
+    for table in tables:
+        headers = [th.get_text(strip=True).lower() for th in table.find_all("th")]
+
+        if "year" in headers and ("title" in headers or "film" in headers):
+            if any("tv" in h or "series" in h for h in headers):
+                continue
+            return table
+
+    return None
+
+
+# strategy: LIST
+def parse_list(section):
+    films = []
     ul = section.find_next("ul")
     if not ul:
-        return []
-    films = []
+        return films
+
     for li in ul.find_all("li", recursive=False):
         text = li.get_text(" ", strip=True)
 
-        # ignore unreleased/future films
-        if is_unreleased_or_future(text):
+        if is_unreleased(text):
             continue
 
         year = extract_year(text)
@@ -185,96 +174,91 @@ def extract_from_lists(section):
 
         link = li.find("a", href=True)
         title = link.get_text(strip=True) if link else extract_title(text)
-        url = WIKI_BASE_URL + link["href"] if link else None
 
-        # ignore TV entries
-        if is_tv_entry(title):
+        if is_tv(title):
             continue
 
-        films.append(
-            {
-                "title": clean_text(title),
-                "year": year,
-                "character": None,
-                "url": url,
-            }
-        )
+        films.append(build_film(title, year, None, link))
+
     return films
 
-# extract films from a wiki filmography page
-def extract_films(page):
+
+# strategy: FALLBACK
+def parse_fallback(page):
     films = []
 
-    # default table
-    table = get_film_table(page)
-    if table:
-        films = extract_from_table(table)
-        if films:
-            return sort_films(films)
+    headings = page.find_all(re.compile("^h[2-3]$"))
 
-    # section Filmography
-    section = page.find(id=re.compile(r"(Filmography|Film)", re.I))
-    if section:
-        films = extract_from_lists(section)
-        if films:
-            return sort_films(films)
+    for h in headings:
+        if not re.search(r"film|filmography", h.get_text(), re.I):
+            continue
 
-    # fallback (megumi/yuko)
-    films_fallback = extract_films_fallback(page)
-    if films_fallback:
-        films = films + films_fallback
-        films = deduplicate_films(films)
-        return sort_films(films)
+        ul = h.find_next("ul")
+        if not ul:
+            continue
 
-    # return the final list (even if empty)
+        for li in ul.find_all("li", recursive=False):
+            text = li.get_text(" ", strip=True)
+
+            if is_unreleased(text):
+                continue
+
+            year = extract_year(text)
+            link = li.find("a", href=True)
+            title = link.get_text(strip=True) if link else extract_title(text)
+
+            films.append(build_film(title, year, None, link))
+
+    return films
+
+
+# orchestrator
+def extract_films(page):
+    strategies = [
+        extract_from_table_strategy,
+        extract_from_list_strategy,
+        extract_from_fallback_strategy,
+    ]
+
+    films = []
+
+    for strategy in strategies:
+        result = strategy(page)
+        if result:
+            films.extend(result)
+
+    films = deduplicate(films)
     return sort_films(films)
 
-# fallback ul/li
-def extract_films_fallback(page):
-    films = []
 
-    # find all relevant headings
-    headings = page.find_all(re.compile("^h[2-3]$"))
-    for heading in headings:
-        if re.search(r"Filmography|Films|Film", heading.get_text(), re.I):
-            # get the first <ul> after the heading
-            for ul in heading.find_all_next("ul", limit=1):
-                for li in ul.find_all("li", recursive=False):
-                    text = li.get_text(" ", strip=True)
+# strategy wrappers
+def extract_from_table_strategy(page):
+    table = find_table(page)
+    return parse_table(table) if table else []
 
-                    # skip unreleased or future films
-                    if is_unreleased_or_future(text):
-                        continue
 
-                    # extract year, title, n link
-                    year = extract_year(text) or None
-                    link = li.find("a", href=True)
-                    title = link.get_text(strip=True) if link else extract_title(text)
-                    url = WIKI_BASE_URL + link["href"] if link else None
+def extract_from_list_strategy(page):
+    section = page.find(id=re.compile(r"(Filmography|Film)", re.I))
+    return parse_list(section) if section else []
 
-                    films.append({
-                        "title": clean_text(title),
-                        "year": year,
-                        "character": None,
-                        "url": url
-                    })
-    return films
 
-# remove dupluclate films (title/year)
-def deduplicate_films(films):
+def extract_from_fallback_strategy(page):
+    return parse_fallback(page)
+
+
+# post-processing
+def deduplicate(films):
     seen = set()
-    unique = []
-    for film in films:
-        key = (film['title'], film['year'])
+    result = []
+
+    for f in films:
+        key = (f["title"], f["year"])
         if key not in seen:
             seen.add(key)
-            unique.append(film)
-    return unique
+            result.append(f)
 
-# sort films by year helper
-def get_film_year(film):
-    return film["year"] or 0
+    return result
+
 
 def sort_films(films):
-    films.sort(key=get_film_year)
-    return films
+    return sorted(films, key=lambda x: x["year"] or 0)

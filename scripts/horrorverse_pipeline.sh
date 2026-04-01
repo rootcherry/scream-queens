@@ -1,13 +1,22 @@
 #!/bin/bash
-# Handles ingestion, transformation, updates, and reporting
 
-set -e  # exit on errors
+set -e  # exit on any error
 BASE_DIR=$(cd "$(dirname "$0")/.." && pwd)  # project root
-SCRIPTS_DIR="$BASE_DIR/scripts"
 
-# PYTHONPATH must point to scripts/ to find py/ modules
-export PYTHONPATH="$SCRIPTS_DIR"
+# Paths and environment
+PIPELINE_DIR="$BASE_DIR/pipeline"
+VENV_DIR="$BASE_DIR/.venv"  # path to your virtualenv
+export PYTHONPATH="$PIPELINE_DIR"  # point to pipeline modules
 
+# activate virtual environment
+if [ -f "$VENV_DIR/bin/activate" ]; then
+    source "$VENV_DIR/bin/activate"
+    echo "Activated venv: $VENV_DIR"
+else
+    echo "No virtual environment found at $VENV_DIR. Continuing without venv."
+fi
+
+# Dry-run flag
 DRY_RUN=false
 if [[ "$1" == "--dry-run" ]]; then
     DRY_RUN=true
@@ -16,17 +25,13 @@ fi
 
 echo "===== Horrorverse Pipeline Start ====="
 
-# -----------------------------
-# STEP 0: Setup environment
-# -----------------------------
-echo "[STEP 0] Setup environment..."
-echo "PYTHONPATH set to $PYTHONPATH"
+# STEP 0: Environment ready
+echo "[STEP 0] Environment ready"
+echo "PYTHONPATH=$PYTHONPATH"
 
-# -----------------------------
 # STEP 1: Test API endpoints
-# -----------------------------
-echo "[STEP 1] Testing API endpoints..."
-declare -a ENDPOINTS=(
+echo "[STEP 1] Testing API endpoints"
+ENDPOINTS=(
     "/jobs?limit=5"
     "/jobs"
     "/jobs/1"
@@ -44,25 +49,20 @@ for ep in "${ENDPOINTS[@]}"; do
     echo "GET $ep ... HTTP $STATUS"
 done
 
-# -----------------------------
 # STEP 2: Trigger recompute jobs
-# -----------------------------
-echo "[STEP 2] Trigger recompute jobs..."
+echo "[STEP 2] Trigger recompute jobs"
 for qid in {1..10}; do
     if $DRY_RUN; then
         echo "Dry-run: would trigger recompute for queenId=$qid"
     else
-        echo "Triggering recompute for queenId=$qid"
         curl -s -X POST "http://localhost:3000/jobs/queens/$qid/recompute" > /dev/null
+        echo "Triggered recompute for queenId=$qid"
     fi
 done
 
-# -----------------------------
 # STEP 3: Monitor running jobs
-# -----------------------------
-echo "[STEP 3] Monitor running jobs..."
+echo "[STEP 3] Monitor running jobs"
 if ! $DRY_RUN; then
-    # simple check (adjust if your API returns actual job status)
     PENDING=$(curl -s "http://localhost:3000/jobs/status?status=pending" | jq length)
     RUNNING=$(curl -s "http://localhost:3000/jobs/status?status=running" | jq length)
     echo "Pending: $PENDING | Running: $RUNNING"
@@ -70,29 +70,28 @@ else
     echo "Dry-run: would monitor jobs"
 fi
 
-# -----------------------------
-# STEP 4: Validate Python scripts syntax
-# -----------------------------
-echo "[STEP 4] Validate Python scripts syntax..."
-for script in "${PY_SCRIPTS[@]}"; do
-    if $DRY_RUN; then
-        echo "Dry-run: would check syntax for $script"
-    else
-        echo "Checking $script syntax..."
-        python3 -m py_compile "$SCRIPTS_DIR/$script" || { echo "$script failed syntax check"; exit 1; }
-    fi
-done
+# STEP 4: Run Python pipeline modules
+PIPELINE_MODULES=(
+    "validation.00_validate_processed"
+    "ingestion.init_db"
+    "ingestion.ingest_db"
+    "transformation.process_final_data"
+    "transformation.rebuild_survived_data"
+    "transformation.remove_survived_field"
+    "updates.update_box_office_stats"
+    "updates.update_processed_with_survival"
+    "updates.update_survival_stats"
+    "updates.update_survived"
+    "reporting.generate_manual_results"
+)
 
-# -----------------------------
-# STEP 5: Run Python scripts
-# -----------------------------
-echo "[STEP 5] Run Python scripts..."
-for script in "${PY_SCRIPTS[@]}"; do
+echo "[STEP 4] Running pipeline modules"
+for module in "${PIPELINE_MODULES[@]}"; do
     if $DRY_RUN; then
-        echo "Dry-run: would run $script"
+        echo "Dry-run: would run $module"
     else
-        echo "Running $script..."
-        python3 "$SCRIPTS_DIR/$script" || { echo "Error running $script"; exit 1; }
+        echo "Running $module"
+        python3 -m "$module" || { echo "Error in $module"; exit 1; }
     fi
 done
 

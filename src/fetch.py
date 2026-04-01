@@ -3,10 +3,10 @@ from bs4 import BeautifulSoup
 from utils import wait_time
 
 # page cache to avoid lots of reqs
-page_cache = {}
+_page_cache = {}
 
 # wiki headers
-HEADERS_WIKI = {
+HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -18,25 +18,26 @@ HEADERS_WIKI = {
 }
 
 
-def getPage(url):
-    # return cached page if already loaded
-    if url in page_cache:
-        return page_cache[url]
+def fetch_page(url, retries=2):
+    # return cached page
+    if url in _page_cache:
+        return _page_cache[url]
 
-    try:
-        req = requests.get(url, headers=HEADERS_WIKI, timeout=10)
-        req.raise_for_status()
+    for attempt in range(retries + 1):
+        try:
+            res = requests.get(url, headers=HEADERS, timeout=10)
+            res.raise_for_status()
 
-        # parse page
-        bs = BeautifulSoup(req.text, 'html.parser')
+            soup = BeautifulSoup(res.text, "html.parser")
+            _page_cache[url] = soup
 
-        # cache page
-        page_cache[url] = bs
+            wait_time()
+            return soup
 
-        # scraping delay
-        wait_time()
-        return bs
+        except Exception as e:
+            if attempt == retries:
+                print(f"[ERROR] fetch failed: {url} ({e})")
+                return None
 
-    except Exception as e:
-        print(f'Failed to fetch {url}: {e}')
-        return None
+
+getPage = fetch_page
