@@ -1,3 +1,17 @@
+[project]
+name = "scream_queens"
+version = "0.1.0"
+description = "Horrorverse scraping and DB pipeline"
+authors = [{name="Cristiano Noga"}]
+requires-python = ">=3.10"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.black]
 line-length = 88
 target-version = ["py312"]

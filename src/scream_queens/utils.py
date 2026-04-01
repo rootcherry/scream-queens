@@ -1,8 +1,9 @@
-import os
+# src/scream_queens/utils.py
 import json
 import time
 import random
-from config import WAIT_TIME_SHORT, WAIT_TIME_LONG
+from pipeline.core.paths import RAW_DIR, PROCESSED_FILE
+from scream_queens.config import WAIT_TIME_SHORT, WAIT_TIME_LONG
 
 
 def wait_time(long=False):
@@ -11,10 +12,9 @@ def wait_time(long=False):
 
 
 def save_raw_json(name, data):
-    raw_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'raw')
-    os.makedirs(raw_path, exist_ok=True)
+    RAW_DIR.mkdir(parents=True, exist_ok=True)
     filename = f"{name.lower().replace(' ', '_')}.json"
-    filepath = os.path.join(raw_path, filename)
+    filepath = RAW_DIR / filename
 
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
@@ -22,13 +22,8 @@ def save_raw_json(name, data):
     print(f"Saved raw data: {filepath}")
 
 
-def save_processed_json(data, filename="scream_queens.json"):
-    processed_path = os.path.join(
-        os.path.dirname(__file__), '..', 'data', 'processed'
-    )
-    os.makedirs(processed_path, exist_ok=True)
-    filepath = os.path.join(processed_path, filename)
-
+def save_processed_json(data, filepath=PROCESSED_FILE):
+    PROCESSED_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 

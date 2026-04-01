@@ -1,28 +1,29 @@
 #!/bin/bash
 set -e
 
-echo "===== FULL HORRORVERSE PIPELINE ====="
+# Project root
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+echo "[INFO] Project root: $PROJECT_ROOT"
+cd "$PROJECT_ROOT" || exit 1
 
-# RESET
+# Export src to Python path
+export PYTHONPATH="$PROJECT_ROOT/src:$PYTHONPATH"
+
 echo "[RESET] Cleaning previous outputs..."
-rm -f data/processed/scream_queens.json
-rm -f data/processed/processed_scream_queens_clean.json
-rm -f data/cache/omdb_cache.json
+rm -rf "$PROJECT_ROOT/data/processed/*"
+rm -rf "$PROJECT_ROOT/data/raw/*"
+rm -rf "$PROJECT_ROOT/data/cache/*"
 
-# STEP 1: Scraping
-echo "[STEP 1] Scraping Wikipedia..."
-python3 src/main.py
+echo "[STEP 1] Scraping scream queens..."
+python3 -m scream_queens.main
 
-# STEP 2: OMDb enrichment
-echo "[STEP 2] OMDb enrichment..."
-python3 infrastructure/external/omdb_ok.py
+echo "[STEP 2] Enriching with OMDb..."
+python3 -m infrastructure.external.omdb_ok
 
-# STEP 3: Transformation (core)
-echo "[STEP 3] Transformation..."
-python3 pipeline/transformation/process_final_data.py
+echo "[STEP 3] Transforming data..."
+python3 -m pipeline.transformation.process_final_data
 
-# STEP 4: DB Pipeline
-echo "[STEP 4] DB Pipeline..."
+echo "[STEP 4] Running DB pipeline..."
 ./scripts/reset_and_run_pipeline.sh
 
-echo "===== DONE ====="
+echo "[DONE] Full pipeline finished!"

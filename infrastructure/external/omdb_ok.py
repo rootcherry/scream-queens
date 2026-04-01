@@ -1,25 +1,25 @@
+from pathlib import Path
 import json
 import os
 import re
-import random
 import requests
-import time
 from dotenv import load_dotenv
+from pipeline.core.paths import CACHE_DIR
 
 load_dotenv()
 
 # Config
 OMDB_API_KEY = os.getenv("OMDB_API_KEY")
 BASE_URL = "http://www.omdbapi.com/"
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
-CACHE_DIR = os.path.join(PROJECT_ROOT, "data", "cache")
-CACHE_FILE = os.path.join(CACHE_DIR, "omdb_cache.json")
-os.makedirs(CACHE_DIR, exist_ok=True)
+
+# Centralized cache path (Zhao style)
+CACHE_FILE = CACHE_DIR / "omdb_cache.json"
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 # load cache
-if os.path.exists(CACHE_FILE):
+if CACHE_FILE.exists():
     try:
-        with open(CACHE_FILE, "r", encoding="utf-8") as fh:
+        with CACHE_FILE.open("r", encoding="utf-8") as fh:
             omdb_cache = json.load(fh)
     except Exception:
         omdb_cache = {}
@@ -29,7 +29,7 @@ else:
 
 # helper: save cache
 def save_cache():
-    with open(CACHE_FILE, "w", encoding="utf-8") as fh:
+    with CACHE_FILE.open("w", encoding="utf-8") as fh:
         json.dump(omdb_cache, fh, ensure_ascii=False, indent=4)
 
 

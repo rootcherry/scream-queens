@@ -2,6 +2,7 @@
 
 import json
 from pipeline.core.paths import PROCESSED_FILE, PROCESSED_CLEAN_FILE
+from pipeline.setup_dirs import ensure_directories_exist
 
 from pipeline.utils.normalization import normalize_genres, parse_box_office
 from pipeline.utils.survival import build_survival_map, normalize_survived
@@ -9,6 +10,11 @@ from pipeline.stats.compute import compute_stats
 
 
 # PIPELINE ENTRY
+
+# ensure all directories exist
+ensure_directories_exist()
+
+
 def process_final_data():
     data = load_processed_data()
 

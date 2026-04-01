@@ -1,13 +1,13 @@
-from config import SCREAM_QUEENS_URLS
-from fetch import fetch_page
-from parse import extract_films
+from scream_queens.config import SCREAM_QUEENS_URLS
+from scream_queens.fetch import fetch_page
+from scream_queens.parse import extract_films
 
-from pipeline.enrich import enrich_films
-from pipeline.filter import filter_horror
-from pipeline.transform import normalize_films
-from pipeline.stats import compute_stats
+from scream_queens.pipeline.enrich import enrich_films
+from scream_queens.pipeline.filter import filter_horror
+from scream_queens.pipeline.transform import normalize_films
+from scream_queens.pipeline.stats import compute_stats
 
-from utils import save_raw_json, save_processed_json, wait_time
+from scream_queens.utils import save_raw_json, save_processed_json, wait_time
 
 
 def scrape_actress(name, url):

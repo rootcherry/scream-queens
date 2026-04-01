@@ -1,4 +1,6 @@
-from services.omdb import fetch_movie  # or infrastructure.external.omdb_ok.fetch_omdb
+from scream_queens.services.omdb import (
+    fetch_movie,
+)  # or infrastructure.external.omdb_ok.fetch_omdb
 import time
 import random
 

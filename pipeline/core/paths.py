@@ -1,13 +1,15 @@
 # pipeline/core/paths.py
 from pathlib import Path
 
-# Project Root
-# Root folder of the repository
-# Using __file__ ensures paths are relative to this script
+# Project Root -> pyproject.toml
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+if not (BASE_DIR / "pyproject.toml").exists():
+    raise RuntimeError("pyproject.toml not found in project root")
 
 # Data directories
-DATA_DIR = BASE_DIR / "data"
+DATA_DIR = BASE_DIR / "data"        # root/data
+RAW_DIR = DATA_DIR / "raw"
+CACHE_DIR = DATA_DIR / "cache"
 PROCESSED_DIR = DATA_DIR / "processed"
 BACKUP_DIR = PROCESSED_DIR / "backup"
 

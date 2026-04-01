@@ -1,8 +1,8 @@
+# src/scream_queens/services/omdb.py
 import os
 import json
 import requests
-import time
-import random
+from pipeline.core.paths import CACHE_DIR
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -10,12 +10,12 @@ load_dotenv()
 OMDB_API_KEY = os.getenv("OMDB_API_KEY")
 BASE_URL = "http://www.omdbapi.com/"
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
-CACHE_FILE = os.path.join(PROJECT_ROOT, "data", "cache", "omdb_cache.json")
-os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
+# garante cache no root/data/cache
+CACHE_FILE = CACHE_DIR / "omdb_cache.json"
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
-# load cache if exists
-if os.path.exists(CACHE_FILE):
+# carregar cache
+if CACHE_FILE.exists():
     try:
         with open(CACHE_FILE, "r", encoding="utf-8") as fh:
             _cache = json.load(fh)
@@ -35,7 +35,7 @@ def save_cache():
 def fetch_movie(title, year=None):
     key = f"{title.lower()}_{year or ''}"
 
-    # check cache unless forced
+    # usar cache
     if key in _cache and not FORCE_REPROCESS:
         return _cache[key], True
 
@@ -52,7 +52,7 @@ def fetch_movie(title, year=None):
     except Exception as e:
         return {"Response": "False", "Error": str(e)}, False
 
-    # retry without year if not found
+    # retry sem ano se não encontrado
     if data.get("Response") == "False" and year:
         return fetch_movie(title, None)
 

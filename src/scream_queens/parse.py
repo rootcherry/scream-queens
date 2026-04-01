@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from config import WIKI_BASE_URL
+from scream_queens.config import WIKI_BASE_URL
 
 
 # utils

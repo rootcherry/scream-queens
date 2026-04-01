@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from utils import wait_time
+from scream_queens.utils import wait_time
 
 # page cache to avoid lots of reqs
 _page_cache = {}

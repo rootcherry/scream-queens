@@ -1,6 +1,6 @@
 # pipeline/filter.py
 
-from filters import is_horror_related
+from scream_queens.filters import is_horror_related
 
 
 # keep only horror films

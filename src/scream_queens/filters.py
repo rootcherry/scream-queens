@@ -1,6 +1,6 @@
 import re
-from fetch import getPage
-from config import HORROR_KEYWORDS
+from scream_queens.fetch import getPage
+from scream_queens.config import HORROR_KEYWORDS
 
 
 def is_horror_related(url):

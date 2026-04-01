@@ -1,4 +1,4 @@
-from pipeline.enrich import enrich_films
+from scream_queens.pipeline.enrich import enrich_films
 
 # teste mínimo com 1 atriz + filmes fictícios
 films = [
