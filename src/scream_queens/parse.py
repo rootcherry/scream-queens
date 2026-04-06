@@ -4,6 +4,12 @@ from scream_queens.config import WIKI_BASE_URL
 
 
 # utils
+def is_redlink(link):
+    if not link:
+        return False
+    href = link.get("href", "")
+    return "redlink=1" in href
+
 # remove citations like [1]
 def clean_text(text):
     if not text:
@@ -124,6 +130,8 @@ def parse_table(table):
         title = clean_text(raw_title)
 
         link = title_cell.find("a", href=True)
+        if is_redlink(link):
+            link = None
 
         role = None
         if len(cells) > idx + 1:
@@ -173,6 +181,8 @@ def parse_list(section):
             continue
 
         link = li.find("a", href=True)
+        if is_redlink(link):
+            link = None
         title = link.get_text(strip=True) if link else extract_title(text)
 
         if is_tv(title):
@@ -205,6 +215,8 @@ def parse_fallback(page):
 
             year = extract_year(text)
             link = li.find("a", href=True)
+            if is_redlink(link):
+                link = None
             title = link.get_text(strip=True) if link else extract_title(text)
 
             films.append(build_film(title, year, None, link))

@@ -26,6 +26,7 @@ def scrape_actress(name, url):
 
     films = enrich_films(films)
 
+    # calc stats
     stats = compute_stats(films)
 
     return {
@@ -41,7 +42,6 @@ def build_empty(name):
         "films": [],
         "stats": {
             "horror_count": 0,
-            "survived_count": None,
             "box_office_total": None,
             "career_span": [None, None],
             "scrape_ok": False,

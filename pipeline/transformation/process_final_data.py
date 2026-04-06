@@ -23,6 +23,7 @@ def process_final_data():
     data = normalize_data(data)
     data = enrich_survival(data, survival_map)
     data = compute_stats(data)
+    data = apply_ranking(data)
 
     save_clean_data(data)
 
@@ -82,6 +83,19 @@ def enrich_survival(data, survival_map):
             film["survived"] = normalize_survived(survived_raw)
 
     return data
+
+
+def apply_ranking(data):
+    sorted_data = sorted(
+        data,
+        key=lambda x: x.get("stats", {}).get("score", 0),
+        reverse=True,
+    )
+
+    for i, actress in enumerate(sorted_data, start=1):
+        actress["stats"]["rank"] = i
+
+    return sorted_data
 
 
 # MAIN

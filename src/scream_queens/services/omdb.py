@@ -59,3 +59,38 @@ def fetch_movie(title, year=None):
     _cache[key] = data
     save_cache()
     return data, False
+
+
+def parse_box_office(value):
+    if not value or value == "N/A":
+        return None
+
+    digits = "".join(c for c in value if c.isdigit())
+    return int(digits) if digits else None
+
+
+def genre_is_horror(genre):
+    return genre and "horror" in genre.lower()
+
+
+def enrich_film(film):
+    title = film.get("title")
+    year = film.get("year")
+
+    if not title:
+        return film
+
+    data, cached = fetch_movie(title, year)
+
+    if data.get("Response") == "True":
+        genre = data.get("Genre")
+        box = data.get("BoxOffice")
+
+        film["genre"] = genre
+        film["box_office"] = parse_box_office(box)
+
+        film["is_horror"] = genre_is_horror(genre)
+    else:
+        film["is_horror"] = False
+
+    return film

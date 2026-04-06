@@ -1,6 +1,9 @@
+import json
+import math
 import sqlite3
 from datetime import datetime
 from pipeline.core.paths import DB_FILE, PROCESSED_CLEAN_FILE
+
 
 # STATS
 def compute_stats(data):
@@ -12,18 +15,30 @@ def compute_stats(data):
         box_values = []
 
         for film in films:
-            genre = film.get("genre")
-
-            if genre and "horror" in genre.lower():
+            # [OK] use normalized boolean instead of string parsing
+            if "Horror" in film.get("genres", []):
                 horror_count += 1
 
+            # [OK] survival flag
             if film.get("survived") == 1:
                 survived_count += 1
 
-            if film["box_office"] is not None:
-                box_values.append(film["box_office"])
+            # [OK] only accept integers (avoid string issues)
+            box = film.get("box_office")
+            if isinstance(box, int):
+                box_values.append(box)
 
-        years = [f["year"] for f in films if f["year"]]
+        years = [f["year"] for f in films if f.get("year")]
+
+        box_total = sum(box_values) if box_values else 0
+        career_length = (max(years) - min(years)) if years else 0
+
+        score = (
+            (horror_count * 3)
+            + (survived_count * 5)
+            + (math.log10(box_total + 1) if box_total > 0 else 0)
+            + career_length
+        )
 
         actress["stats"] = {
             "horror_count": horror_count,
@@ -35,38 +50,46 @@ def compute_stats(data):
             "box_office_best": max(box_values) if box_values else None,
             "box_office_worst": min(box_values) if box_values else None,
             "career_span": [min(years), max(years)] if years else None,
-            "omdb_ok": actress.get("stats", {}).get("omdb_ok", False),
+            # [OK] true if at least one valid box_office exists
+            "omdb_ok": any(isinstance(f.get("box_office"), int) for f in films),
+            "career_length": (max(years) - min(years)) if years else 0,
+            "score": round(score, 2),
         }
 
     return data
 
+
+# TEST DB INSERT (DEBUG)
 def test_save_one_stat():
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
 
-    # pegar atriz
+    # get one actress
     cursor.execute("SELECT id, name FROM scream_queens LIMIT 1")
     queen_id, name = cursor.fetchone()
 
     print(f"Testing with: {name} (id={queen_id})")
 
-    # carregar data processada (usa teu JSON)
-    import json
-
+    # load processed JSON
     with PROCESSED_CLEAN_FILE.open() as f:
         data = json.load(f)
 
-    # achar atriz no JSON
+    # find actress
     actress = next(a for a in data if a["name"] == name)
 
     films = actress["films"]
-    box_values = [f["box_office"] for f in films if f["box_office"] is not None]
+    stats = actress.get("stats", {})
 
-    box_office_total = sum(box_values) if box_values else 0
-    box_office_known_count = len(box_values)
+    # [OK] reuse computed stats instead of recalculating
+    box_values = [
+        f["box_office"] for f in films if isinstance(f.get("box_office"), int)
+    ]
+
     movies_count = len(films)
-    years = [f["year"] for f in films if f["year"]]
+    box_office_total = stats.get("box_office_total") or 0
+    box_office_known_count = len(box_values)
 
+    years = [f["year"] for f in films if f.get("year")]
     first_year = min(years) if years else None
     last_year = max(years) if years else None
 
@@ -104,7 +127,9 @@ def test_save_one_stat():
     conn.commit()
     conn.close()
 
-    print(f"Saved real movies_count: {movies_count}")
+    print(f"[OK] Saved stats for {name}")
+    print(f"Movies: {movies_count}")
+    print(f"Box office total: {box_office_total}")
 
 
 if __name__ == "__main__":

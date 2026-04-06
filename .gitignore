@@ -34,6 +34,10 @@ data/processed/backup/
 *.csv
 *.json
 
+# EXCEPTION: keep sample data
+!data/sample/
+!data/sample/*.json
+
 # Cache folders
 data/cache/
 src/cache/
@@ -58,3 +62,6 @@ data/db/*.db-shm
 
 # tmux local artifacts (if any)
 *.tmux
+
+# egg-info
+*.egg-info/

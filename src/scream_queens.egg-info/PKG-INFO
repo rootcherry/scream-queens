@@ -1,6 +1,0 @@
-Metadata-Version: 2.4
-Name: scream_queens
-Version: 0.1.0
-Summary: Horrorverse scraping and DB pipeline
-Author: Cristiano Noga
-Requires-Python: >=3.10

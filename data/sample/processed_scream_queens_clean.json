@@ -1,0 +1,4374 @@
+[
+  {
+    "name": "Lin Shaye",
+    "films": [
+      {
+        "year": 1982,
+        "title": "Alone in the Dark",
+        "character": "Receptionist at haven",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1984,
+        "title": "A Nightmare on Elm Street",
+        "character": "Teacher",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 25624448,
+        "survived": 0
+      },
+      {
+        "year": 1986,
+        "title": "Critters",
+        "character": "Sally",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": 13167232,
+        "survived": 0
+      },
+      {
+        "year": 1987,
+        "title": "My Demon Lover",
+        "character": "Anemic counter girl",
+        "genres": [
+          "Comedy",
+          "Fantasy",
+          "Horror"
+        ],
+        "box_office": 3922273,
+        "survived": 0
+      },
+      {
+        "year": 1987,
+        "title": "Extreme Prejudice",
+        "character": "Employment office clerk",
+        "genres": [
+          "Action",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": 11307844,
+        "survived": 0
+      },
+      {
+        "year": 1987,
+        "title": "Slam Dance",
+        "character": "Librarian",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": 406881,
+        "survived": 0
+      },
+      {
+        "year": 1987,
+        "title": "The Hidden",
+        "character": "Carol Miller",
+        "genres": [
+          "Crime",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": 9747988,
+        "survived": 0
+      },
+      {
+        "year": 1988,
+        "title": "Critters 2: The Main Course",
+        "character": "Sal",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": 3813293,
+        "survived": 0
+      },
+      {
+        "year": 1988,
+        "title": "Lucky Stiff",
+        "character": "Bratty kid's mom",
+        "genres": [
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1993,
+        "title": "The Temp",
+        "character": "Rosemary",
+        "genres": [
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": 6419876,
+        "survived": 0
+      },
+      {
+        "year": 1993,
+        "title": "Amityville: A New Generation",
+        "character": "Nurse Turner",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1994,
+        "title": "Wes Craven's New Nightmare",
+        "character": "Nurse",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1995,
+        "title": "The Nature of the Beast",
+        "character": "Carol Powell",
+        "genres": [
+          "Crime",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2003,
+        "title": "Dead End",
+        "character": "Laura Harrington",
+        "genres": [
+          "Adventure",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2004,
+        "title": "Cellular",
+        "character": "Exotic car driver",
+        "genres": [
+          "Action",
+          "Crime",
+          "Thriller"
+        ],
+        "box_office": 32003620,
+        "survived": 0
+      },
+      {
+        "year": 2004,
+        "title": "The Hillside Strangler",
+        "character": "Jenny Buono",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": 4143,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "Hoboken Hollow",
+        "character": "Mrs. Brodrick",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "Hood of Horror",
+        "character": "Clara",
+        "genres": [
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": 25900,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "Snakes on a Plane",
+        "character": "Grace",
+        "genres": [
+          "Action",
+          "Adventure",
+          "Crime"
+        ],
+        "box_office": 34020814,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "Driftwood",
+        "character": "Nancy Forrester",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 1066555,
+        "survived": 0
+      },
+      {
+        "year": 2007,
+        "title": "Kush",
+        "character": "Susan",
+        "genres": [
+          "Action",
+          "Crime",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2008,
+        "title": "Killer Pad",
+        "character": "Marge",
+        "genres": [
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2008,
+        "title": "Asylum",
+        "character": "String's mother",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Dark Moon Rising",
+        "character": "Sunny",
+        "genres": [
+          "Crime",
+          "Horror",
+          "Romance"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "2001 Maniacs: Field of Screams",
+        "character": "Granny Boone",
+        "genres": [
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "Insidious",
+        "character": "Elise Rainier",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 54009150,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "Killer by Nature",
+        "character": "Leona Whitmore",
+        "genres": [
+          "Adventure",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "Chillerama",
+        "character": "Baglady / Nurse Maleva",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "Rosewood Lane",
+        "character": "Mrs. Hawthorne",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2013,
+        "title": "Insidious: Chapter 2",
+        "character": "Elise Rainier",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 83586447,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "The Signal",
+        "character": "Mirabelle",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Sci-Fi"
+        ],
+        "box_office": 600896,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "Ouija",
+        "character": "Paulina Zander",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 50856010,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "Insidious: Chapter 3",
+        "character": "Elise Rainier",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 52218558,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "Tales of Halloween",
+        "character": "Lynn's mother",
+        "genres": [
+          "Adventure",
+          "Comedy",
+          "Fantasy"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Director's Cut",
+        "character": "Captain Wheeler",
+        "genres": [
+          "Comedy",
+          "Crime",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Jack Goes Home",
+        "character": "Teresa",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Abattoir",
+        "character": "Allie",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "The Midnight Man",
+        "character": "Anna Luster",
+        "genres": [
+          "Fantasy",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Ouija: Origin of Evil",
+        "character": "Paulina Zander",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 35144505,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "The Black Room",
+        "character": "Mrs. Black",
+        "genres": [
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Insidious: The Last Key",
+        "character": "Elise Rainier",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 67745330,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Los Angeles Overnight",
+        "character": "Cousins",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Gothic Harvest",
+        "character": "Griselda",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "The Final Wish",
+        "character": "Kate Hammond",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 25183,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Room for Rent",
+        "character": "Joyce",
+        "genres": [
+          "Crime",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Get Gone",
+        "character": "Mama Maxwell",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "The Grudge",
+        "character": "Faith Matheson",
+        "genres": [
+          "Drama"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "Darkness Falls",
+        "character": "Angela Anderson",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "The Call",
+        "character": "Edith Cranston",
+        "genres": [
+          "Crime",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "Insidious: The Red Door",
+        "character": "Elise Rainier",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 82156962,
+        "survived": 0
+      },
+      {
+        "year": 2024,
+        "title": "Scared to Death",
+        "character": "Max",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2026,
+        "title": "Insidious: The Bleeding World",
+        "character": "Elise Rainier",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 37,
+      "survived_count": 0,
+      "box_office_total": 567873908,
+      "box_office_avg": 25812450,
+      "box_office_best": 83586447,
+      "box_office_worst": 4143,
+      "career_span": [
+        1982,
+        2026
+      ],
+      "omdb_ok": true,
+      "career_length": 44,
+      "score": 163.75,
+      "rank": 1
+    }
+  },
+  {
+    "name": "Dee Wallace",
+    "films": [
+      {
+        "year": 1975,
+        "title": "The Stepford Wives",
+        "character": "Nettie",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Sci-Fi"
+        ],
+        "box_office": 8720000,
+        "survived": 0
+      },
+      {
+        "year": 1977,
+        "title": "The Hills Have Eyes",
+        "character": "Lynne Wood",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1981,
+        "title": "The Howling",
+        "character": "Karen White",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 17985893,
+        "survived": 0
+      },
+      {
+        "year": 1983,
+        "title": "Cujo",
+        "character": "Donna Trenton",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 21156152,
+        "survived": 0
+      },
+      {
+        "year": 1986,
+        "title": "Club Life",
+        "character": "Tilly Francesca",
+        "genres": [
+          "Action",
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1986,
+        "title": "Critters",
+        "character": "Helen Brown",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": 13167232,
+        "survived": 0
+      },
+      {
+        "year": 1986,
+        "title": "Shadow Play",
+        "character": "Morgan Hanna",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1991,
+        "title": "Popcorn",
+        "character": "Suzanne Butler",
+        "genres": [
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": 4205000,
+        "survived": 0
+      },
+      {
+        "year": 1991,
+        "title": "Alligator II: The Mutation",
+        "character": "Christine Hodges",
+        "genres": [
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1995,
+        "title": "The Phoenix and the Carpet",
+        "character": "Mother",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1996,
+        "title": "The Frighteners",
+        "character": "Patricia Ann Bradley",
+        "genres": [
+          "Comedy",
+          "Drama",
+          "Fantasy"
+        ],
+        "box_office": 16759216,
+        "survived": 0
+      },
+      {
+        "year": 1997,
+        "title": "Black Circle Boys",
+        "character": "Barbara Sullivan",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1997,
+        "title": "Mutual Needs",
+        "character": "Patricia",
+        "genres": [
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2005,
+        "title": "Boo",
+        "character": "Nurse Russell",
+        "genres": [
+          "Adventure",
+          "Comedy",
+          "Fantasy"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2005,
+        "title": "Headspace",
+        "character": "Dr. Denise Bell",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Sci-Fi"
+        ],
+        "box_office": 1650,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "Abominable",
+        "character": "Ethel Hoss",
+        "genres": [
+          "Horror",
+          "Sci-Fi",
+          "Thriller"
+        ],
+        "box_office": 1810,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "The Plague",
+        "character": "Nora",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2007,
+        "title": "J-ok'el",
+        "character": "Helen Moret",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2007,
+        "title": "Bone Dry",
+        "character": "Joanne",
+        "genres": [
+          "Action",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2007,
+        "title": "Halloween",
+        "character": "Cynthia Strode",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 58272029,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "The House of the Devil",
+        "character": "Landlady",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 101215,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Dark Fields",
+        "character": "Jean Applebe",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "Pound of Flesh",
+        "character": "Dean Jean Clark",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "Exit Humanity",
+        "character": "Eve",
+        "genres": [
+          "Drama",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2012,
+        "title": "The Lords of Salem",
+        "character": "Sonny",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 1165882,
+        "survived": 0
+      },
+      {
+        "year": 2013,
+        "title": "Hansel & Gretel",
+        "character": "Lilith",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2013,
+        "title": "Grand Piano",
+        "character": "Interviewer",
+        "genres": [
+          "Drama",
+          "Music",
+          "Mystery"
+        ],
+        "box_office": 22555,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "Haunting of Cellblock 11",
+        "character": "Ms. Simon",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "Ejecta",
+        "character": "Ashley Winnington-Ball",
+        "genres": [
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Red Christmas",
+        "character": "Diane",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 2255,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Death House",
+        "character": "Dr. Eileen Fletcher",
+        "genres": [
+          "Action",
+          "Crime",
+          "Horror"
+        ],
+        "box_office": 23833,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Ouija House",
+        "character": "Katherine",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Critters Attack!",
+        "character": "Aunt Dee",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "3 from Hell",
+        "character": "Greta",
+        "genres": [
+          "Action",
+          "Horror"
+        ],
+        "box_office": 2172949,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "In Search of Darkness",
+        "character": "Herself",
+        "genres": [
+          "Documentary",
+          "History",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "The Nest",
+        "character": "Marissa",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "13 Fanboy",
+        "character": "Herself",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 11572,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "Jeepers Creepers: Reborn",
+        "character": "Marie",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 2033057,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "The Munsters",
+        "character": "Good Morning Transylvania Announcer",
+        "genres": [
+          "Comedy",
+          "Family",
+          "Fantasy"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "The Forest Hills",
+        "character": "Angela",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2024,
+        "title": "Stream",
+        "character": "Linda Spring",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 31,
+      "survived_count": 0,
+      "box_office_total": 145802300,
+      "box_office_avg": 8576605,
+      "box_office_best": 58272029,
+      "box_office_worst": 1650,
+      "career_span": [
+        1975,
+        2024
+      ],
+      "omdb_ok": true,
+      "career_length": 49,
+      "score": 150.16,
+      "rank": 2
+    }
+  },
+  {
+    "name": "Danielle Harris",
+    "films": [
+      {
+        "year": null,
+        "title": "Official website",
+        "character": "N/A",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1988,
+        "title": "Halloween 4: The Return of Michael Myers",
+        "character": "Jamie Lloyd",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 17768757,
+        "survived": 0
+      },
+      {
+        "year": 1989,
+        "title": "Halloween 5: The Revenge of Michael Myers",
+        "character": "Jamie Lloyd",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 11642254,
+        "survived": 0
+      },
+      {
+        "year": 1998,
+        "title": "Urban Legend",
+        "character": "Tosh Guaneri",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 38072438,
+        "survived": 0
+      },
+      {
+        "year": 2007,
+        "title": "Halloween",
+        "character": "Annie Brackett",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 58272029,
+        "survived": 0
+      },
+      {
+        "year": 2007,
+        "title": "Left for Dead",
+        "character": "Nancy Simmons",
+        "genres": [
+          "Action",
+          "Drama",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2008,
+        "title": "Burying the Ex",
+        "character": "Olivia",
+        "genres": [
+          "Short",
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Halloween II",
+        "character": "Annie Brackett",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 33392973,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Blood Night: The Legend of Mary Hatchet",
+        "character": "Alissa Giordano",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "The Black Waters of Echo's Pond",
+        "character": "Kathy",
+        "genres": [
+          "Fantasy",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 224409,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "Cyrus: Mind of a Serial Killer",
+        "character": "Maria Sanchez",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "Hatchet II",
+        "character": "Marybeth Dunston",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": 52604,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "Stake Land",
+        "character": "Belle",
+        "genres": [
+          "Drama",
+          "Horror"
+        ],
+        "box_office": 33245,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "The Day I Told My Boyfriend",
+        "character": "Stake Land companion short film [ citation needed ]",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "Willie",
+        "character": "Director",
+        "genres": [
+          "Documentary",
+          "Sport"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "The Victim",
+        "character": "Mary",
+        "genres": [
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "ChromeSkull: Laid to Rest 2",
+        "character": "Spann",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2012,
+        "title": "Shiver",
+        "character": "Wendy Alden",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2013,
+        "title": "Hatchet III",
+        "character": "Marybeth Dunston",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "Camp Dread",
+        "character": "Donlyn Eldridge",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "The Town That Dreaded Sundown",
+        "character": "Townsperson #2",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "See No Evil 2",
+        "character": "Amy",
+        "genres": [
+          "Action",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "Night of the Living Dead: Darkest Dawn",
+        "character": "Barbara Todd",
+        "genres": [
+          "Animation",
+          "Action",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Havenhurst",
+        "character": "Danielle Hampton",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Victor Crowley",
+        "character": "Marybeth Dunston",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Camp Cold Brook",
+        "character": "Angela",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "Redwood Massacre: Annihilation",
+        "character": "Laura Dempsey",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "Dark Obsession",
+        "character": "Charlotte",
+        "genres": [
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2024,
+        "title": "Stream",
+        "character": "Elaine Keenan",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 23,
+      "survived_count": 0,
+      "box_office_total": 159458709,
+      "box_office_avg": 19932338,
+      "box_office_best": 58272029,
+      "box_office_worst": 33245,
+      "career_span": [
+        1988,
+        2024
+      ],
+      "omdb_ok": true,
+      "career_length": 36,
+      "score": 113.2,
+      "rank": 3
+    }
+  },
+  {
+    "name": "Barbara Crampton",
+    "films": [
+      {
+        "year": 1984,
+        "title": "Body Double",
+        "character": "Carol",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": 8801940,
+        "survived": 0
+      },
+      {
+        "year": 1985,
+        "title": "Re-Animator",
+        "character": "Megan Halsey",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": 2023414,
+        "survived": 0
+      },
+      {
+        "year": 1986,
+        "title": "Chopping Mall",
+        "character": "Suzie Lynn",
+        "genres": [
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1986,
+        "title": "From Beyond",
+        "character": "Dr. Katherine McMichaels",
+        "genres": [
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": 1261000,
+        "survived": 0
+      },
+      {
+        "year": 1989,
+        "title": "Puppet Master",
+        "character": "Woman At Carnival",
+        "genres": [
+          "Fantasy",
+          "Horror",
+          "Sci-Fi",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1995,
+        "title": "Castle Freak",
+        "character": "Susan Reilly",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2001,
+        "title": "Thy Neighbor's Wife",
+        "character": "Nicole Garrett",
+        "genres": [
+          "Crime",
+          "Drama"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2004,
+        "title": "The Sisterhood",
+        "character": "Ms. Master",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "You're Next",
+        "character": "Aubrey Davison",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 18494006,
+        "survived": 0
+      },
+      {
+        "year": 2012,
+        "title": "The Lords of Salem",
+        "character": "Virginia Cable",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 1165882,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "We Are Still Here",
+        "character": "Anne Sacchetti",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "Road Games",
+        "character": "Mary",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "Tales of Halloween",
+        "character": "Witch",
+        "genres": [
+          "Adventure",
+          "Comedy",
+          "Fantasy"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Beyond the Gates",
+        "character": "Evelyn",
+        "genres": [
+          "Adventure",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Death House",
+        "character": "Dr. Karen Redmane",
+        "genres": [
+          "Action",
+          "Crime",
+          "Horror"
+        ],
+        "box_office": 23833,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Reborn",
+        "character": "Lena O'Neill",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Crime"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Puppet Master: The Littlest Reich",
+        "character": "Carol Doreski",
+        "genres": [
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "In Search of Darkness",
+        "character": "Herself",
+        "genres": [
+          "Documentary",
+          "History",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "Run Hide Fight",
+        "character": "Mrs. Jane Crawford",
+        "genres": [
+          "Action",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "In Search of Darkness: Part II",
+        "character": "Herself",
+        "genres": [
+          "Documentary",
+          "History",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "Sacrifice",
+        "character": "Renate Nygard",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "Castle Freak",
+        "character": "Renate Nygard",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "Jakob's Wife",
+        "character": "Anne Fedder",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 27588,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "Superhost",
+        "character": "Vera",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "Glorious",
+        "character": "Mom",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "Onyx the Fortuitous and the Talisman of Souls [ 28 ]",
+        "character": "Nancy",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "Suitable Flesh [ 29 ]",
+        "character": "Dr. Daniella Upton",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "Blackout [ 30 ]",
+        "character": "Kate",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "The Last Stop in Yuma County [ 31 ]",
+        "character": "Virginia",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2024,
+        "title": "Snow Valley [ 32 ]",
+        "character": "Ellen",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 20,
+      "survived_count": 0,
+      "box_office_total": 31797663,
+      "box_office_avg": 4542523,
+      "box_office_best": 18494006,
+      "box_office_worst": 23833,
+      "career_span": [
+        1984,
+        2024
+      ],
+      "omdb_ok": true,
+      "career_length": 40,
+      "score": 107.5,
+      "rank": 4
+    }
+  },
+  {
+    "name": "Jamie Lee Curtis",
+    "films": [
+      {
+        "year": 1978,
+        "title": "Halloween",
+        "character": "Laurie Strode",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 47160000,
+        "survived": 0
+      },
+      {
+        "year": 1980,
+        "title": "The Fog",
+        "character": "Elizabeth Solley",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 21448782,
+        "survived": 0
+      },
+      {
+        "year": 1980,
+        "title": "Prom Night",
+        "character": "Kim Hammond",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 14796236,
+        "survived": 0
+      },
+      {
+        "year": 1980,
+        "title": "Terror Train",
+        "character": "Alana Maxwell",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1981,
+        "title": "Roadgames",
+        "character": "Pamela \"Hitch\" Rushworth",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1981,
+        "title": "Halloween II",
+        "character": "Laurie Strode",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 25533818,
+        "survived": 0
+      },
+      {
+        "year": 1982,
+        "title": "Coming Soon",
+        "character": "Narrator",
+        "genres": [
+          "Documentary",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1983,
+        "title": "Trading Places",
+        "character": "Ophelia",
+        "genres": [
+          "Comedy"
+        ],
+        "box_office": 90404800,
+        "survived": 0
+      },
+      {
+        "year": 1990,
+        "title": "Blue Steel",
+        "character": "Officer Megan Turner",
+        "genres": [
+          "Action",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": 8217997,
+        "survived": 0
+      },
+      {
+        "year": 1993,
+        "title": "Mother's Boys",
+        "character": "Judith \"Jude\" Madigan",
+        "genres": [
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": 737548,
+        "survived": 0
+      },
+      {
+        "year": 1998,
+        "title": "Homegrown",
+        "character": "Sierra Kahan",
+        "genres": [
+          "Comedy",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": 77910,
+        "survived": 0
+      },
+      {
+        "year": 1998,
+        "title": "Halloween H20: 20 Years Later",
+        "character": "Laurie Strode / Keri Tate",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 55041738,
+        "survived": 0
+      },
+      {
+        "year": 1999,
+        "title": "Virus",
+        "character": "Kelly \"Kit\" Foster",
+        "genres": [
+          "Action",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": 14036005,
+        "survived": 0
+      },
+      {
+        "year": 2001,
+        "title": "The Tailor of Panama",
+        "character": "Louisa Pendel",
+        "genres": [
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": 13729742,
+        "survived": 0
+      },
+      {
+        "year": 2002,
+        "title": "Halloween: Resurrection",
+        "character": "Laurie Strode",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 30354442,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Halloween",
+        "character": "Laurie Strode",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Horror"
+        ],
+        "box_office": 159342015,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "An Acceptable Loss",
+        "character": "Rachel Burke",
+        "genres": [
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": 32427,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "Halloween Kills",
+        "character": "Laurie Strode",
+        "genres": [
+          "Action",
+          "Drama",
+          "Horror"
+        ],
+        "box_office": 92002155,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "Halloween Ends",
+        "character": "Laurie Strode",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Romance"
+        ],
+        "box_office": 64079860,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "Haunted Mansion",
+        "character": "Madame Leota",
+        "genres": [
+          "Comedy",
+          "Drama",
+          "Family"
+        ],
+        "box_office": 67653287,
+        "survived": 0
+      },
+      {
+        "year": 2026,
+        "title": "The Only Living Pickpocket in New York",
+        "character": "Moira",
+        "genres": [
+          "Crime",
+          "Sci-Fi",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2026,
+        "title": "Sender",
+        "character": "Lisa",
+        "genres": [
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 12,
+      "survived_count": 0,
+      "box_office_total": 704648762,
+      "box_office_avg": 41449927,
+      "box_office_best": 159342015,
+      "box_office_worst": 32427,
+      "career_span": [
+        1978,
+        2026
+      ],
+      "omdb_ok": true,
+      "career_length": 48,
+      "score": 92.85,
+      "rank": 5
+    }
+  },
+  {
+    "name": "Katharine Isabelle",
+    "films": [
+      {
+        "year": 1989,
+        "title": "Cold Front",
+        "character": "Katie McKenzie",
+        "genres": [
+          "Crime"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1992,
+        "title": "Knight Moves",
+        "character": "Erica Sanderson",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": 923418,
+        "survived": 0
+      },
+      {
+        "year": 1998,
+        "title": "Disturbing Behavior",
+        "character": "Lindsay Clark",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Sci-Fi"
+        ],
+        "box_office": 17514980,
+        "survived": 0
+      },
+      {
+        "year": 2000,
+        "title": "Ginger Snaps",
+        "character": "Ginger Fitzgerald",
+        "genres": [
+          "Drama",
+          "Fantasy",
+          "Horror"
+        ],
+        "box_office": 2554,
+        "survived": 0
+      },
+      {
+        "year": 2001,
+        "title": "Bones",
+        "character": "Tia Peet",
+        "genres": [
+          "Crime",
+          "Horror"
+        ],
+        "box_office": 7316658,
+        "survived": 0
+      },
+      {
+        "year": 2002,
+        "title": "Insomnia",
+        "character": "Tanya Francke",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 67355513,
+        "survived": 0
+      },
+      {
+        "year": 2003,
+        "title": "Freddy vs. Jason",
+        "character": "Gibb Smith",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 82633448,
+        "survived": 0
+      },
+      {
+        "year": 2004,
+        "title": "Ginger Snaps 2: Unleashed",
+        "character": "Ginger Fitzgerald",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 80372,
+        "survived": 0
+      },
+      {
+        "year": 2004,
+        "title": "Ginger Snaps Back: The Beginning",
+        "character": "Ginger Fitzgerald",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "Everything's Gone Green",
+        "character": "Heather",
+        "genres": [
+          "Comedy",
+          "Crime"
+        ],
+        "box_office": 19373,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "30 Days of Night: Dark Days",
+        "character": "Stacey",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2012,
+        "title": "American Mary",
+        "character": "Mary Mason",
+        "genres": [
+          "Drama",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2013,
+        "title": "13 Eerie",
+        "character": "Megan",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2013,
+        "title": "Torment",
+        "character": "Sarah",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "See No Evil 2",
+        "character": "Tamara",
+        "genres": [
+          "Action",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "88",
+        "character": "Gwen / Flamingo",
+        "genres": [
+          "Action",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "The Girl in the Photographs",
+        "character": "Janet",
+        "genres": [
+          "Crime",
+          "Horror",
+          "Romance"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Bad Times at the El Royale",
+        "character": "Auntie Ruth",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": 17839115,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "Night of the Animated Dead",
+        "character": "Barbara (voice)",
+        "genres": [
+          "Animation",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "It's a Wonderful Knife",
+        "character": "Gale Prescott",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 811818,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 14,
+      "survived_count": 0,
+      "box_office_total": 194497249,
+      "box_office_avg": 19449724,
+      "box_office_best": 82633448,
+      "box_office_worst": 2554,
+      "career_span": [
+        1989,
+        2023
+      ],
+      "omdb_ok": true,
+      "career_length": 34,
+      "score": 84.29,
+      "rank": 6
+    }
+  },
+  {
+    "name": "Heather Langenkamp",
+    "films": [
+      {
+        "year": 1984,
+        "title": "A Nightmare on Elm Street",
+        "character": "Nancy Thompson",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 25624448,
+        "survived": 0
+      },
+      {
+        "year": 1987,
+        "title": "A Nightmare on Elm Street 3: Dream Warriors",
+        "character": "Nancy Thompson",
+        "genres": [
+          "Fantasy",
+          "Horror"
+        ],
+        "box_office": 44793222,
+        "survived": 0
+      },
+      {
+        "year": 1989,
+        "title": "Shocker",
+        "character": "Victim",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 16554699,
+        "survived": 0
+      },
+      {
+        "year": 1994,
+        "title": "Wes Craven's New Nightmare",
+        "character": "Herself",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1995,
+        "title": "The Demolitionist",
+        "character": "Christy Carruthers",
+        "genres": [
+          "Action",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "Never Sleep Again: The Elm Street Legacy",
+        "character": "Narrator / Herself",
+        "genres": [
+          "Documentary",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "I Am Nancy",
+        "character": "Herself",
+        "genres": [
+          "Documentary",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2012,
+        "title": "The Butterfly Room",
+        "character": "Dorothy",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 1081,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Home",
+        "character": "Heather",
+        "genres": [
+          "Drama"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Hellraiser: Judgment",
+        "character": "Landlady",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2024,
+        "title": "Little Bites",
+        "character": "Ellenor",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 9299,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 9,
+      "survived_count": 0,
+      "box_office_total": 86982749,
+      "box_office_avg": 17396549,
+      "box_office_best": 44793222,
+      "box_office_worst": 1081,
+      "career_span": [
+        1984,
+        2024
+      ],
+      "omdb_ok": true,
+      "career_length": 40,
+      "score": 74.94,
+      "rank": 7
+    }
+  },
+  {
+    "name": "Scout Taylor-Compton",
+    "films": [
+      {
+        "year": 2006,
+        "title": "Wicked Little Things",
+        "character": "Sarah Tunny",
+        "genres": [
+          "Drama",
+          "Fantasy",
+          "Horror"
+        ],
+        "box_office": 321875,
+        "survived": 0
+      },
+      {
+        "year": 2007,
+        "title": "Halloween",
+        "character": "Laurie Strode",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 58272029,
+        "survived": 0
+      },
+      {
+        "year": 2008,
+        "title": "April Fool's Day",
+        "character": "Torrance Caldwell",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Obsessed",
+        "character": "Samantha",
+        "genres": [
+          "Drama",
+          "Romance",
+          "Thriller"
+        ],
+        "box_office": 68261644,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Halloween II",
+        "character": "Laurie Strode",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 33392973,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Life Blood",
+        "character": "Carrie Lane",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2010,
+        "title": "Triple Dog",
+        "character": "Liza Narn",
+        "genres": [
+          "Comedy",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "247°F",
+        "character": "Jenna",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "Flight 7500",
+        "character": "Jacinta Bloch",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "Return to Sender",
+        "character": "Crystal",
+        "genres": [
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Get the Girl",
+        "character": "Jade",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Crime"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Ghost House",
+        "character": "Julie",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "The Lurker",
+        "character": "Taylor Wilson",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "Star Light",
+        "character": "Bebe A. Love",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "An Intrusion",
+        "character": "Detective Savannah Simpson",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "The Long Night",
+        "character": "Grace Covington",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "Allegoria",
+        "character": "Ivy",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "Bury the Bride",
+        "character": "June",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2024,
+        "title": "They Turned Us Into Killers",
+        "character": "Star Bedford",
+        "genres": [
+          "Crime",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "Into the Deep",
+        "character": "Cassidy Branham",
+        "genres": [
+          "Action",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 15,
+      "survived_count": 0,
+      "box_office_total": 160248521,
+      "box_office_avg": 40062130,
+      "box_office_best": 68261644,
+      "box_office_worst": 321875,
+      "career_span": [
+        2006,
+        2025
+      ],
+      "omdb_ok": true,
+      "career_length": 19,
+      "score": 72.2,
+      "rank": 8
+    }
+  },
+  {
+    "name": "Sarah Michelle Gellar",
+    "films": [
+      {
+        "year": 1989,
+        "title": "High Stakes",
+        "character": "Karen Rose",
+        "genres": [
+          "Thriller"
+        ],
+        "box_office": 4780,
+        "survived": 0
+      },
+      {
+        "year": 1997,
+        "title": "I Know What You Did Last Summer",
+        "character": "Helen Shivers",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 72586134,
+        "survived": 0
+      },
+      {
+        "year": 1997,
+        "title": "Scream 2",
+        "character": "Cici Cooper",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 101363301,
+        "survived": 0
+      },
+      {
+        "year": 2001,
+        "title": "Harvard Man",
+        "character": "Cindy Bandolini",
+        "genres": [
+          "Comedy",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": 56653,
+        "survived": 0
+      },
+      {
+        "year": 2002,
+        "title": "Scooby-Doo",
+        "character": "Daphne Blake",
+        "genres": [
+          "Adventure",
+          "Comedy",
+          "Family"
+        ],
+        "box_office": 153322074,
+        "survived": 0
+      },
+      {
+        "year": 2004,
+        "title": "Scooby-Doo 2: Monsters Unleashed",
+        "character": "Daphne Blake",
+        "genres": [
+          "Adventure",
+          "Comedy",
+          "Family"
+        ],
+        "box_office": 84239132,
+        "survived": 0
+      },
+      {
+        "year": 2004,
+        "title": "The Grudge",
+        "character": "Karen Davis",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 110359362,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "Southland Tales",
+        "character": "Krysta Now",
+        "genres": [
+          "Comedy",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": 275380,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "The Grudge 2",
+        "character": "Karen Davis",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 39143839,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "The Return",
+        "character": "Joanna Mills",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Possession",
+        "character": "Jessica",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Veronika Decides to Die",
+        "character": "Veronika Deklava",
+        "genres": [
+          "Drama",
+          "Romance"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "I Know What You Did Last Summer",
+        "character": "Helen Shivers",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 32165634,
+        "survived": 0
+      },
+      {
+        "year": 2026,
+        "title": "Ready or Not 2: Here I Come",
+        "character": "Ursula Danforth",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 7,
+      "survived_count": 0,
+      "box_office_total": 593516289,
+      "box_office_avg": 59351628,
+      "box_office_best": 153322074,
+      "box_office_worst": 4780,
+      "career_span": [
+        1989,
+        2026
+      ],
+      "omdb_ok": true,
+      "career_length": 37,
+      "score": 66.77,
+      "rank": 9
+    }
+  },
+  {
+    "name": "Vera Farmiga",
+    "films": [
+      {
+        "year": 1998,
+        "title": "Return to Paradise",
+        "character": "Kerrie",
+        "genres": [
+          "Drama",
+          "Romance",
+          "Thriller"
+        ],
+        "box_office": 8341087,
+        "survived": 0
+      },
+      {
+        "year": 2001,
+        "title": "15 Minutes",
+        "character": "Daphne Handlova",
+        "genres": [
+          "Action",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": 24403552,
+        "survived": 0
+      },
+      {
+        "year": 2004,
+        "title": "The Manchurian Candidate",
+        "character": "Jocelyne Jordan",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Sci-Fi"
+        ],
+        "box_office": 65955630,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "Running Scared",
+        "character": "Teresa Gazelle",
+        "genres": [
+          "Action",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": 6855137,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "The Departed",
+        "character": "Dr. Madolyn Madden",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": 132399394,
+        "survived": 0
+      },
+      {
+        "year": 2007,
+        "title": "Joshua",
+        "character": "Abby Cairn",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 482355,
+        "survived": 0
+      },
+      {
+        "year": 2009,
+        "title": "Orphan",
+        "character": "Kate Coleman",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 41596251,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "Source Code",
+        "character": "Colleen Goodwin",
+        "genres": [
+          "Action",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": 54712227,
+        "survived": 0
+      },
+      {
+        "year": 2012,
+        "title": "Safe House",
+        "character": "Catherine Linklater",
+        "genres": [
+          "Action",
+          "Thriller"
+        ],
+        "box_office": 126373434,
+        "survived": 0
+      },
+      {
+        "year": 2013,
+        "title": "The Conjuring",
+        "character": "Lorraine Warren",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 137446368,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "The Conjuring 2",
+        "character": "Lorraine Warren",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 102516140,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "The Commuter",
+        "character": "Joanna",
+        "genres": [
+          "Action",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 36343858,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Captive State",
+        "character": "Jane Doe",
+        "genres": [
+          "Sci-Fi",
+          "Thriller"
+        ],
+        "box_office": 5958315,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Annabelle Comes Home",
+        "character": "Lorraine Warren",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 74152591,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "The Conjuring: The Devil Made Me Do It",
+        "character": "Lorraine Warren",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 65631050,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "The Nun II",
+        "character": "Lorraine Warren",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 86267073,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "The Conjuring: Last Rites",
+        "character": "Lorraine Warren",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 177756445,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 8,
+      "survived_count": 0,
+      "box_office_total": 1147190907,
+      "box_office_avg": 67481818,
+      "box_office_best": 177756445,
+      "box_office_worst": 482355,
+      "career_span": [
+        1998,
+        2025
+      ],
+      "omdb_ok": true,
+      "career_length": 27,
+      "score": 60.06,
+      "rank": 10
+    }
+  },
+  {
+    "name": "Neve Campbell",
+    "films": [
+      {
+        "year": 1996,
+        "title": "The Craft",
+        "character": "Bonnie Harper",
+        "genres": [
+          "Drama",
+          "Fantasy",
+          "Horror"
+        ],
+        "box_office": 24819936,
+        "survived": 0
+      },
+      {
+        "year": 1996,
+        "title": "Scream",
+        "character": "Sidney Prescott",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 103046663,
+        "survived": 0
+      },
+      {
+        "year": 1997,
+        "title": "Scream 2",
+        "character": "Sidney Prescott",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 101363301,
+        "survived": 0
+      },
+      {
+        "year": 1998,
+        "title": "Wild Things",
+        "character": "Suzie Marie Toller",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": 30147739,
+        "survived": 0
+      },
+      {
+        "year": 2000,
+        "title": "Scream 3",
+        "character": "Sidney Prescott",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 89143175,
+        "survived": 0
+      },
+      {
+        "year": 2003,
+        "title": "Lost Junction",
+        "character": "Missy Lofton",
+        "genres": [
+          "Drama",
+          "Thriller",
+          "Romance"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2003,
+        "title": "Blind Horizon",
+        "character": "Chloe Richards",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "Scream 4",
+        "character": "Sidney Prescott",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 38180928,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Skyscraper",
+        "character": "Sarah Sawyer",
+        "genres": [
+          "Action",
+          "Adventure",
+          "Thriller"
+        ],
+        "box_office": 68420120,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "Scream",
+        "character": "Sidney Prescott",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 81641405,
+        "survived": 0
+      },
+      {
+        "year": 2026,
+        "title": "Scream 7",
+        "character": "Sidney Prescott-Evans",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 7,
+      "survived_count": 0,
+      "box_office_total": 536763267,
+      "box_office_avg": 67095408,
+      "box_office_best": 103046663,
+      "box_office_worst": 24819936,
+      "career_span": [
+        1996,
+        2026
+      ],
+      "omdb_ok": true,
+      "career_length": 30,
+      "score": 59.73,
+      "rank": 11
+    }
+  },
+  {
+    "name": "Jennifer Love Hewitt",
+    "films": [
+      {
+        "year": 1992,
+        "title": "Munchie",
+        "character": "Andrea Kurtz",
+        "genres": [
+          "Comedy",
+          "Family",
+          "Fantasy"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1997,
+        "title": "I Know What You Did Last Summer",
+        "character": "Julie James",
+        "genres": [
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 72586134,
+        "survived": 0
+      },
+      {
+        "year": 1998,
+        "title": "I Still Know What You Did Last Summer",
+        "character": "Julie James",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 40002112,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "I Know What You Did Last Summer",
+        "character": "Julie James",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 32165634,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 3,
+      "survived_count": 0,
+      "box_office_total": 144753880,
+      "box_office_avg": 48251293,
+      "box_office_best": 72586134,
+      "box_office_worst": 32165634,
+      "career_span": [
+        1992,
+        2025
+      ],
+      "omdb_ok": true,
+      "career_length": 33,
+      "score": 50.16,
+      "rank": 12
+    }
+  },
+  {
+    "name": "Maika Monroe",
+    "films": [
+      {
+        "year": null,
+        "title": "Interview with It Follows lead Maika Monroe",
+        "character": "N/A",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "The Guest",
+        "character": "Anna Peterson",
+        "genres": [
+          "Action",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 332890,
+        "survived": 0
+      },
+      {
+        "year": 2014,
+        "title": "It Follows",
+        "character": "Jamie \"Jay\" Height",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 14674076,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "Echoes of War",
+        "character": "Abigail Riley",
+        "genres": [
+          "Drama",
+          "Thriller",
+          "Western"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Mark Felt: The Man Who Brought Down the White House",
+        "character": "Joan Felt",
+        "genres": [
+          "Biography",
+          "Drama",
+          "History"
+        ],
+        "box_office": 768946,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Tau",
+        "character": "Julia",
+        "genres": [
+          "Horror",
+          "Sci-Fi",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Greta",
+        "character": "Erica Penn",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 10532219,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Villains",
+        "character": "Jules",
+        "genres": [
+          "Comedy",
+          "Drama",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "Flashback",
+        "character": "Cindy Williams",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "Watcher",
+        "character": "Julia",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 1961207,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "Significant Other",
+        "character": "Ruth Miller",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "God Is a Bullet",
+        "character": "Case Hardin",
+        "genres": [
+          "Action",
+          "Crime",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2024,
+        "title": "Longlegs",
+        "character": "Agent Lee Harker",
+        "genres": [
+          "Crime",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 74346140,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "In Cold Light",
+        "character": "Ava Bly",
+        "genres": [
+          "Action",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "The Hand That Rocks the Cradle",
+        "character": "Polly Murphy / Rebecca",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2026,
+        "title": "Resident Evil Requiem: Evil Has Always Had a Name",
+        "character": "Mother",
+        "genres": [
+          "Short",
+          "Drama",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 9,
+      "survived_count": 0,
+      "box_office_total": 102615478,
+      "box_office_avg": 17102579,
+      "box_office_best": 74346140,
+      "box_office_worst": 332890,
+      "career_span": [
+        2014,
+        2026
+      ],
+      "omdb_ok": true,
+      "career_length": 12,
+      "score": 47.01,
+      "rank": 13
+    }
+  },
+  {
+    "name": "Toni Collette",
+    "films": [
+      {
+        "year": 1999,
+        "title": "The Sixth Sense",
+        "character": "Lynn Sear",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 293506292,
+        "survived": 0
+      },
+      {
+        "year": 2000,
+        "title": "Shaft",
+        "character": "Diane Palmieri",
+        "genres": [
+          "Action",
+          "Crime",
+          "Thriller"
+        ],
+        "box_office": 70334258,
+        "survived": 0
+      },
+      {
+        "year": 2002,
+        "title": "Changing Lanes",
+        "character": "Michelle",
+        "genres": [
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": 66818548,
+        "survived": 0
+      },
+      {
+        "year": 2002,
+        "title": "The Hours",
+        "character": "Kitty",
+        "genres": [
+          "Drama",
+          "Romance"
+        ],
+        "box_office": 41675994,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "The Night Listener",
+        "character": "Donna D. Logand",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Horror"
+        ],
+        "box_office": 7836393,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "Like Minds",
+        "character": "Sally Rowe",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2006,
+        "title": "The Dead Girl",
+        "character": "Arden",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": 19875,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "Fright Night",
+        "character": "Jane Brewster",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Drama"
+        ],
+        "box_office": 18302607,
+        "survived": 0
+      },
+      {
+        "year": 2012,
+        "title": "Hitchcock",
+        "character": "Peggy Robertson",
+        "genres": [
+          "Biography",
+          "Drama",
+          "Romance"
+        ],
+        "box_office": 6008677,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "Krampus",
+        "character": "Sarah Engel",
+        "genres": [
+          "Comedy",
+          "Fantasy",
+          "Horror"
+        ],
+        "box_office": 42725475,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Imperium",
+        "character": "Angela Zamparo",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Unlocked",
+        "character": "Emily Knowles",
+        "genres": [
+          "Action",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Hereditary",
+        "character": "Annie Graham",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 44069456,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Velvet Buzzsaw",
+        "character": "Gretchen",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "I'm Thinking of Ending Things",
+        "character": "Suzie",
+        "genres": [
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "Stowaway",
+        "character": "Marina Barnett",
+        "genres": [
+          "Adventure",
+          "Sci-Fi",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "Nightmare Alley",
+        "character": "Zeena Krumbein",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": 11338107,
+        "survived": 0
+      },
+      {
+        "year": 2024,
+        "title": "Juror #2",
+        "character": "Faith Killebrew",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Mystery"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 4,
+      "survived_count": 0,
+      "box_office_total": 602635682,
+      "box_office_avg": 54785062,
+      "box_office_best": 293506292,
+      "box_office_worst": 19875,
+      "career_span": [
+        1999,
+        2024
+      ],
+      "omdb_ok": true,
+      "career_length": 25,
+      "score": 45.78,
+      "rank": 14
+    }
+  },
+  {
+    "name": "Anya Taylor-Joy",
+    "films": [
+      {
+        "year": 2014,
+        "title": "Vampire Academy",
+        "character": "Feeder Girl",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Drama"
+        ],
+        "box_office": 7791979,
+        "survived": 0
+      },
+      {
+        "year": 2015,
+        "title": "The Witch",
+        "character": "Thomasin",
+        "genres": [
+          "Drama",
+          "Fantasy",
+          "Horror"
+        ],
+        "box_office": 25138705,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Morgan",
+        "character": "Morgan",
+        "genres": [
+          "Action",
+          "Horror",
+          "Sci-Fi"
+        ],
+        "box_office": 3915251,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Split",
+        "character": "Casey Cooke",
+        "genres": [
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 138291365,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Marrowbone",
+        "character": "Allie",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 1377,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Thoroughbreds",
+        "character": "Lily Reynolds",
+        "genres": [
+          "Comedy",
+          "Crime",
+          "Drama"
+        ],
+        "box_office": 3072605,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Glass",
+        "character": "Casey Cooke",
+        "genres": [
+          "Drama",
+          "Fantasy",
+          "Horror"
+        ],
+        "box_office": 111048468,
+        "survived": 0
+      },
+      {
+        "year": 2021,
+        "title": "Last Night in Soho",
+        "character": "Sandie",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 10127625,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "The Menu",
+        "character": "Margot / Erin",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 38501125,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "Amsterdam",
+        "character": "Libby Voze",
+        "genres": [
+          "Comedy",
+          "Drama",
+          "History"
+        ],
+        "box_office": 14947969,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "The Gorge",
+        "character": "Drasa",
+        "genres": [
+          "Action",
+          "Adventure",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 8,
+      "survived_count": 0,
+      "box_office_total": 352836469,
+      "box_office_avg": 35283646,
+      "box_office_best": 138291365,
+      "box_office_worst": 1377,
+      "career_span": [
+        2014,
+        2025
+      ],
+      "omdb_ok": true,
+      "career_length": 11,
+      "score": 43.55,
+      "rank": 15
+    }
+  },
+  {
+    "name": "Samara Weaving",
+    "films": [
+      {
+        "year": 2016,
+        "title": "Bad Girl",
+        "character": "Chloe Buchanan / Jessica Cooper",
+        "genres": [
+          "Drama",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Monster Trucks",
+        "character": "Brianne",
+        "genres": [
+          "Action",
+          "Adventure",
+          "Comedy"
+        ],
+        "box_office": 33370166,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "Mayhem",
+        "character": "Melanie Cross",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2017,
+        "title": "The Babysitter",
+        "character": "Bee",
+        "genres": [
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Ready or Not",
+        "character": "Grace Le Domas (née MacCaullay)",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": 28714231,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "Last Moment of Clarity",
+        "character": "Georgia Outerbridge / Lauren Clerk",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2020,
+        "title": "The Babysitter: Killer Queen",
+        "character": "Bee",
+        "genres": [
+          "Comedy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "Scream VI",
+        "character": "Laura Crane",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 108391107,
+        "survived": 0
+      },
+      {
+        "year": 2024,
+        "title": "Azrael",
+        "character": "Azrael",
+        "genres": [
+          "Action",
+          "Horror"
+        ],
+        "box_office": 433861,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "Borderline",
+        "character": "Sofia Minor",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": 13847,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "Eenie Meanie",
+        "character": "Edie Meaney / Eenie Meanie",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Drama"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2025,
+        "title": "Carolina Caroline",
+        "character": "Caroline",
+        "genres": [
+          "Crime",
+          "Romance",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2026,
+        "title": "Ready or Not 2: Here I Come",
+        "character": "Grace MacCaullay",
+        "genres": [
+          "Comedy",
+          "Horror",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2026,
+        "title": "Over Your Dead Body",
+        "character": "Lisa",
+        "genres": [
+          "Action",
+          "Comedy",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 8,
+      "survived_count": 0,
+      "box_office_total": 170923212,
+      "box_office_avg": 34184642,
+      "box_office_best": 108391107,
+      "box_office_worst": 13847,
+      "career_span": [
+        2016,
+        2026
+      ],
+      "omdb_ok": true,
+      "career_length": 10,
+      "score": 42.23,
+      "rank": 16
+    }
+  },
+  {
+    "name": "Hitomi Satô",
+    "films": [
+      {
+        "year": 1998,
+        "title": "Ring",
+        "character": "Masami Kurahashi",
+        "genres": [
+          "Action",
+          "Sport"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 1999,
+        "title": "Ring 2",
+        "character": "Masami Kurahashi",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Sci-Fi"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Sadako",
+        "character": "Masami Kurahashi",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 2,
+      "survived_count": 0,
+      "box_office_total": null,
+      "box_office_avg": null,
+      "box_office_best": null,
+      "box_office_worst": null,
+      "career_span": [
+        1998,
+        2019
+      ],
+      "omdb_ok": false,
+      "career_length": 21,
+      "score": 27,
+      "rank": 17
+    }
+  },
+  {
+    "name": "Megumi Okina",
+    "films": [
+      {
+        "year": 2000,
+        "title": "Tales of the Unusual",
+        "character": "N/A",
+        "genres": [
+          "Comedy",
+          "Fantasy",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2001,
+        "title": "Otogirisō",
+        "character": "N/A",
+        "genres": [
+          "Unknown"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2002,
+        "title": "Ju-on: The Grudge",
+        "character": "N/A",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": 325680,
+        "survived": 0
+      },
+      {
+        "year": 2008,
+        "title": "Shutter",
+        "character": "N/A",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 25928550,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 3,
+      "survived_count": 0,
+      "box_office_total": 26254230,
+      "box_office_avg": 13127115,
+      "box_office_best": 25928550,
+      "box_office_worst": 325680,
+      "career_span": [
+        2000,
+        2008
+      ],
+      "omdb_ok": true,
+      "career_length": 8,
+      "score": 24.42,
+      "rank": 18
+    }
+  },
+  {
+    "name": "Yūko Takeuchi",
+    "films": [
+      {
+        "year": 1998,
+        "title": "Ring",
+        "character": "Tomoko Oishi",
+        "genres": [
+          "Action",
+          "Sport"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2011,
+        "title": "A Ghost of a Chance",
+        "character": "Setsuko",
+        "genres": [
+          "Comedy",
+          "Crime"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "Creepy",
+        "character": "Yasuko Takakura",
+        "genres": [
+          "Crime",
+          "Drama",
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2016,
+        "title": "The Inerasable",
+        "character": "I",
+        "genres": [
+          "Horror"
+        ],
+        "box_office": null,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 2,
+      "survived_count": 0,
+      "box_office_total": null,
+      "box_office_avg": null,
+      "box_office_best": null,
+      "box_office_worst": null,
+      "career_span": [
+        1998,
+        2016
+      ],
+      "omdb_ok": false,
+      "career_length": 18,
+      "score": 24,
+      "rank": 19
+    }
+  },
+  {
+    "name": "Florence Pugh",
+    "films": [
+      {
+        "year": 2018,
+        "title": "The Commuter",
+        "character": "Gwen",
+        "genres": [
+          "Action",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 36343858,
+        "survived": 0
+      },
+      {
+        "year": 2018,
+        "title": "Malevolent",
+        "character": "Angela Sayers",
+        "genres": [
+          "Horror",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2019,
+        "title": "Midsommar",
+        "character": "Dani Ardor",
+        "genres": [
+          "Drama",
+          "Horror",
+          "Mystery"
+        ],
+        "box_office": 27426361,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "Don't Worry Darling",
+        "character": "Alice Warren-Chambers",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": 45309403,
+        "survived": 0
+      },
+      {
+        "year": 2022,
+        "title": "The Wonder",
+        "character": "Lib Wright",
+        "genres": [
+          "Drama",
+          "Mystery",
+          "Thriller"
+        ],
+        "box_office": null,
+        "survived": 0
+      },
+      {
+        "year": 2023,
+        "title": "Oppenheimer",
+        "character": "Jean Tatlock",
+        "genres": [
+          "Biography",
+          "Drama",
+          "History"
+        ],
+        "box_office": 330078895,
+        "survived": 0
+      }
+    ],
+    "stats": {
+      "horror_count": 2,
+      "survived_count": 0,
+      "box_office_total": 439158517,
+      "box_office_avg": 109789629,
+      "box_office_best": 330078895,
+      "box_office_worst": 27426361,
+      "career_span": [
+        2018,
+        2023
+      ],
+      "omdb_ok": true,
+      "career_length": 5,
+      "score": 19.64,
+      "rank": 20
+    }
+  }
+]

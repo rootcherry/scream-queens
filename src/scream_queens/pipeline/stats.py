@@ -11,7 +11,6 @@ def compute_stats(films):
 
     return {
         "horror_count": len(films),
-        "survived_count": None,
         "box_office_total": None,
         "career_span": span,
         "scrape_ok": bool(films),
